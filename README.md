@@ -1,0 +1,2 @@
+# wireguard
+Wireguard Persian Dashbord
