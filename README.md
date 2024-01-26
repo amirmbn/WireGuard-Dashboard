@@ -1,2 +1,2 @@
 # wireguard
-Wireguard Persian Dashbord
+Install manually
