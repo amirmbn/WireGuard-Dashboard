@@ -22,4 +22,4 @@ bash <(curl -Ls https://raw.githubusercontent.com/opiran-club/wgtunnel/main/udp2
 
 
  - شماره 1 مربوط به نصب udp2raw است
- - در ادامه شماره 2 و 3 مربوط به تنظیمات سرور ایران و خارج میباشد.
+ - شماره 2 و 3 مربوط به تنظیمات سرور ایران و خارج میباشد.
