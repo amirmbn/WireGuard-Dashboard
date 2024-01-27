@@ -23,14 +23,6 @@ apt install wireguard -y
 wg genkey | sudo tee /etc/wireguard/server_private.key
 ```
 <div align="right">
- 
- - و با دستور زیر میتوانید کلیدی که ساختید را مشاهده کنید
-<div align="left">
- 
-```
-cat /etc/wireguard/server_private.key
-```
-<div align="right">
 
 
 - دریافت اینترفیس default
