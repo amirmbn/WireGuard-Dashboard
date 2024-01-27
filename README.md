@@ -83,13 +83,13 @@ SaveConfig = true
 apt update
 apt install git
 git clone https://github.com/amirmbn/wireguard.git
-cd WGDashboard_Persian
-mv WireguardPersian /root/
+cd wireguard
+mv Wireguard /root/
 cd
-rm -rf WGDashboard_Persian
+rm -rf wireguard
 apt-get -y install python3-pip
 apt install gunicorn -y
-cd WireguardPersian/src
+cd Wireguard/src
 sudo chmod u+x wgd.sh
 pip install -r requirements.txt
 sudo ./wgd.sh install
@@ -104,7 +104,7 @@ sudo chmod -R 755 /etc/wireguard
 <div align="left">
  
 ```
-cd WireguardPersian/src
+cd Wireguard/src
 ./wgd.sh restart
 ```
 </div>
