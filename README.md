@@ -101,5 +101,5 @@ cd Wireguard/src
 ./wgd.sh restart
 ```
 <div align="right">
-- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید.
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/hawshemi/Linux-Optimizer) مراجعه کنید.
 </div>
