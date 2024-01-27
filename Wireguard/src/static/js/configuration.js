@@ -87,7 +87,7 @@
     function configurationPeers(response) {
         let result = "";
         if (response.peer_data.length === 0) {
-            document.querySelector(".peer_list").innerHTML = `<div class="col-12" style="text-align: center; margin-top: 1.5rem"><h3 class="text-muted">（●´∧｀●） هیچ کاربری ندارید </h3></div>`;
+            document.querySelector(".peer_list").innerHTML = `<div class="col-12" style="text-align: center; margin-top: 1.5rem"><h3 class="text-muted">هیچ کاربری وجود ندارد</h3></div>`;
         } else {
             let display_mode = response.peer_display_mode === "list" ? "col-12" : "col-sm-6 col-lg-4";
             response.peer_data.forEach(function (peer) {
