@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# wgd.sh - Copyright(C) 2021 Donald Zou & Azumi [https://github.com/Azumi67]
-## Edited By Azumi
+# wgd.sh - Copyright(C) 2021 Donald Zou & amirmbn [https://github.com/amirmbn]
+## Edited By amirmbn
 
 app_name="dashboard.py"
 app_official_name="WGDashboard"
@@ -24,10 +24,8 @@ help() {
   NC='\033[0m' 
   display_logo2
   printf "${YELLOW}=================================================================================\n"
-  printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & Azumi ${BLUE}https://github.com/Azumi67        ${YELLOW}+\n"
+  printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
   printf "${YELLOW}=================================================================================${NC}\n"
-  printf "${YELLOW}| Usage: ${GREEN}./wgd.sh <option>${NC}                                                      ${YELLOW}|\n"
-  printf "${YELLOW}|                                                                               ${YELLOW}|\n"
   printf "${YELLOW}| Available options:                                                            ${YELLOW}|\n"
   printf "${YELLOW}|    ${GREEN}start${NC}: To start Wireguard Panel.                                           ${YELLOW}|\n"
   printf "${YELLOW}|    ${GREEN}stop${NC}: To stop Wireguard Panel.                                             ${YELLOW}|\n"
@@ -49,7 +47,7 @@ _check_and_set_venv(){
 function display_logo2() {
 echo -e "\033[1;92m$logo2\033[0m"
 }
-# azumi art
+# amirmbn art
 logo2=$(cat << "EOF"
  _   _ _____ _     ____  
 | | | | ____| |   |  _ \ 
@@ -62,18 +60,10 @@ EOF
 function display_logo() {
 echo -e "\033[1;96m$logo\033[0m"
 }
-# azumi art
+# amirmbn art
 logo=$(cat << "EOF"
 
-  \033[96m  ______   \033[1;94m _______  \033[1;92m __    \033[1;93m  _______      \033[1;91m    __      \033[1;96m  _____  ___  
- \033[96m  /    " \  \033[1;94m|   __ "\ \033[1;92m|" \  \033[1;93m  /"      \     \033[1;91m   /""\     \033[1;96m (\"   \|"  \ 
- \033[96m // ____  \ \033[1;94m(. |__) :)\033[1;92m||  |  \033[1;93m|:        |    \033[1;91m  /    \  \033[1;96m   |.\\   \    |
- \033[96m/  /    ) :)\033[1;94m|:  ____/ \033[1;92m|:  |  \033[1;93m|_____/   )    \033[1;91m /' /\  \  \033[1;96m  |: \.   \\  |
-\033[96m(: (____/ // \033[1;94m(|  /     \033[1;92m|.  | \033[1;93m  //       /   \033[1;91m //  __'  \  \033[1;96m |.  \    \ |
- \033[96m\        / \033[1;94m/|__/ \   \033[1;92m/\  |\ \033[1;93m  |:  __   \  \033[1;91m /   /  \\   \ \033[1;96m |    \    \|
- \033[96m \"_____ / \033[1;94m(_______) \033[1;92m(__\_|_)\033[1;93m |__|  \___) \033[1;91m(___/    \___) \033[1;96m\___|\____\)⠀
-\033[93m─────────────────────────────────────────────────────────────────────\033[0m
-\033[92mCodes Edited by: github.com/Azumi67 \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m    
+\033[92mCodes Edited by: github.com/amirmbn \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m    
 EOF
 )
 install_wgd() {
@@ -227,7 +217,7 @@ print_box() {
 }
 
 update_wgd() {
-  new_ver=$(python3 -c "import json; import urllib.request; data = urllib.request.urlopen('https://api.github.com/repos/Azumi67/Wireguard.git').read(); output = json.loads(data);print(output['tag_name'])")
+  new_ver=$(python3 -c "import json; import urllib.request; data = urllib.request.urlopen('https://api.github.com/repos/amirmbn/wireguard.git').read(); output = json.loads(data);print(output['tag_name'])")
   printf "%s\n" "$dashes"
   printf "| Are you sure you want to update to the %s? (Y/N): " "$new_ver"
   read up
@@ -239,7 +229,7 @@ update_wgd() {
     mv wgd.sh wgd.sh.old
     printf "| Downloading %s from GitHub...                            |\n" "$new_ver"
     git stash > /dev/null 2>&1
-    git pull https://github.com/Azumi67/Wireguard.git $new_ver --force >  /dev/null 2>&1
+    git pull https://github.com/amirmbn/wireguard.git $new_ver --force >  /dev/null 2>&1
     printf "| Upgrading pip                                            |\n"
     python3 -m pip install -U pip > /dev/null 2>&1
     printf "| Installing latest Python dependencies                    |\n"
