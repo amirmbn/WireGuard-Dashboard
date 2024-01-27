@@ -82,7 +82,7 @@ SaveConfig = true
 ```
 apt update
 apt install git
-git clone https://github.com/Azumi67/WGDashboard_Persian.git
+git clone https://github.com/amirmbn/wireguard.git
 cd WGDashboard_Persian
 mv WireguardPersian /root/
 cd
