@@ -43,6 +43,7 @@ nano /etc/wireguard/wg0.conf
 <div align="right">
 
 - داخلش متن زیر را کپی کنید
+- پرایوت کی که ساخته بودید را به جای YOUR_GENERATED_PRIVATE_KEY قرار دهید
 <div align="left">
   
 ```
