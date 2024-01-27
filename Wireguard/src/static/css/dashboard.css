@@ -116,13 +116,13 @@ a { text-decoration:none;}
 }
 
 .navbar-logo {
-  float:right;
-   width:1.2rem; 
-   margin-right:0px;
-   margin-left: 5px;
-   margin-top: 6px;
-
+    float: right;
+    width: 20px;
+    margin-right: 0px;
+    margin-left: 8px;
+    margin-top: 2px;
 }
+
 .form-control{
     transition: all 0.2s ease-in-out;
 }
@@ -202,7 +202,6 @@ a { text-decoration:none;}
 
 .info .row .col-sm small{
     display: flex;
-
 }
 
 .info .row .col-sm small strong:last-child(1){
@@ -361,10 +360,6 @@ main{
     text-align: right;
     cursor: pointer;
 }
-.setting_btn_menu i{ 
-   
-}
-
 .setting_btn_menu a:hover{
     background-color: #efefef;
     text-decoration: none;
