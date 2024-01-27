@@ -19,7 +19,6 @@ body {
     font-family: "BYekan", sans-serif;
     text-decoration: rtl;
     text-align: right;
-    
 }
 
 a { text-decoration:none;}
@@ -30,10 +29,6 @@ a { text-decoration:none;}
     vertical-align: text-bottom;
 }
 
-/*
- * Sidebar
- */
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -43,12 +38,6 @@ a { text-decoration:none;}
     padding: 48px 0 0; /* Height of navbar */
     box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
 }
-
-/*@media (max-width: 767.98px) {*/
-/*  .sidebar {*/
-/*    top: 5rem;*/
-/*  }*/
-/*}*/
 
 .sidebar-sticky {
     position: relative;
@@ -95,10 +84,6 @@ a { text-decoration:none;}
     font-size: .95rem;
     text-transform: uppercase;
 }
-
-/*
- * Navbar
- */
 
 .navbar-brand {
     text-align: right;
@@ -149,7 +134,7 @@ a { text-decoration:none;}
 }
 
 .sb-update-url {
-	color: #28a745!important;
+    color: #28a745!important;
 }
 
 .dot{
