@@ -559,6 +559,18 @@ pre.index-alert{
     margin: 22vh 0 4rem;
 }
 
+.signin-btn {
+    width: 100%;
+    margin-top: 3rem;
+    padding: 6px 0 12px;
+    color: #fff;
+    font-size: 20px;
+    font-family: BYekan;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+}
+
 @media (max-width: 500px) {
     .public_key_mobile {
         font-size: 0.7rem; 
