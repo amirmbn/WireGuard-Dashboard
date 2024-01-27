@@ -24,7 +24,7 @@ help() {
   NC='\033[0m' 
   display_logo2
   printf "${YELLOW}=================================================================================\n"
-  printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
+  printf "${YELLOW}+    ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
   printf "${YELLOW}=================================================================================${NC}\n"
   printf "${YELLOW}| Available options:                                                            ${YELLOW}|\n"
   printf "${YELLOW}|    ${GREEN}start${NC}: To start Wireguard Panel.                                           ${YELLOW}|\n"
