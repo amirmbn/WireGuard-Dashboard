@@ -100,4 +100,5 @@ sudo chmod -R 755 /etc/wireguard
 cd Wireguard/src
 ./wgd.sh restart
 ```
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک مراجعه کنید](https://github.com/amirmbn/UDP2RAW)
 </div>
