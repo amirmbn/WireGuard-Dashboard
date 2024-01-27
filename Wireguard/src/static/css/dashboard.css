@@ -571,6 +571,10 @@ pre.index-alert{
     background: #222;
 }
 
+.btn-success, .btn-danger {
+    padding: 3px 10px 10px !important;
+}
+
 @media (max-width: 500px) {
     .public_key_mobile {
         font-size: 0.7rem; 
