@@ -94,7 +94,7 @@ sudo chmod u+x wgd.sh
 pip install -r requirements.txt
 sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
-./wgd.sh start or ./wgd.sh restart
+./wgd.sh start
 ```
 <div align="right">
 
