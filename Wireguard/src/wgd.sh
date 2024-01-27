@@ -63,7 +63,8 @@ echo -e "\033[1;96m$logo\033[0m"
 # amirmbn art
 logo=$(cat << "EOF"
 
-\033[92mCodes Edited by: github.com/amirmbn \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m    
+\033[92mCodes Edited by: github.com/amirmbn \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m
+
 EOF
 )
 install_wgd() {
