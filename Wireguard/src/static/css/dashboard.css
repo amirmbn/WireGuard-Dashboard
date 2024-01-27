@@ -1,5 +1,3 @@
-# Persianized and developed by A3is in Opiran - [https://github.com/opiran-club] 
-
 @font-face {
   font-family: 'BZar';
   src: url('../fonts/BZar.eot?#') format('eot'),  /* IE6–8 */
@@ -34,8 +32,8 @@ a { text-decoration:none;}
     top: 0;
     bottom: 0;
     right: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
+    z-index: 100;
+    padding: 48px 0 0;
     box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -45,7 +43,7 @@ a { text-decoration:none;}
     height: calc(100vh - 48px);
     padding-top: .5rem;
     overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    overflow-y: auto;
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -170,7 +168,6 @@ a { text-decoration:none;}
     box-shadow: 0 0 0 0.2rem #28a74545;
 }
 
-
 .card-running{
     border-color: #28a745;
 }
@@ -244,12 +241,6 @@ a { text-decoration:none;}
     padding: 2rem;
 }
 
-@media (max-width: 992px){
-    .card-col{
-        margin-bottom: 1rem;
-    }
-}
-
 .switch{
     font-size: 2rem;
 }
@@ -263,19 +254,9 @@ a { text-decoration:none;}
     background: white;
 }
 
-/*.peer_data_group{*/
-/*  text-align: right;*/
-/*}*/
-
 .peer_data_group {
     text-align: left;
     margin-top: 5px;
-}
-
-@media (max-width: 768px) {
-    .peer_data_group{
-        text-align: left;
-    }
 }
 
 .index-switch{
@@ -289,16 +270,6 @@ main{
 
 .peer_list{
     margin-bottom: 7rem
-}
-
-@media (max-width: 768px) {
-    .add_btn{
-        bottom: 1.5rem !important;
-    }
-
-    .peer_list{
-        margin-bottom: 7rem !important;
-    }
 }
 
 .btn-manage-group{
@@ -432,24 +403,6 @@ main{
     cursor: pointer;
 }
 
-@media (max-width: 500px) {
-
-    .public_key_mobile {
-        font-size: 0.7rem; 
-    }
-    .btn-manage-group{
-        bottom: 2rem;
-        left: 1rem;
-    }
-    .display_mode_mobile{
-        display: none;
-    }
-    #search_peer_textbox {
-        text-align: center;
-    }
-    
-}
-
 .key:hover{
     color: #007bff;
 }
@@ -468,7 +421,6 @@ main{
 
 .btn{
     border-radius: 8px;
-    /*padding: 0.6rem 0.9em;*/
 }
 
 #username, #password{
@@ -482,11 +434,6 @@ label[for="username"], label[for="password"]{
     transform: translateY(30px) translateX(16px);
     padding: 0;
 }
-
-/*label[for="password"]{*/
-/*    transform: translateY(32px) translateX(16px);*/
-/*}*/
-
 
 .modal-content{
     border-radius: 10px;
@@ -609,4 +556,38 @@ pre.index-alert{
     border-radius: .25rem;
     margin-top: 1rem;
     color: white;
+}
+
+@media (max-width: 500px) {
+    .public_key_mobile {
+        font-size: 0.7rem; 
+    }
+    .btn-manage-group{
+        bottom: 2rem;
+        left: 1rem;
+    }
+    .display_mode_mobile{
+        display: none;
+    }
+    #search_peer_textbox {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .add_btn{
+        bottom: 1.5rem !important;
+    }
+    .peer_list{
+        margin-bottom: 7rem !important;
+    }
+    .peer_data_group{
+        text-align: left;
+    }
+}
+
+@media (max-width: 992px){
+    .card-col{
+        margin-bottom: 1rem;
+    }
 }
