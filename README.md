@@ -100,6 +100,5 @@ sudo chmod -R 755 /etc/wireguard
 cd Wireguard/src
 ./wgd.sh restart
 ```
-<div align="right">
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/hawshemi/Linux-Optimizer) مراجعه کنید.
 </div>
