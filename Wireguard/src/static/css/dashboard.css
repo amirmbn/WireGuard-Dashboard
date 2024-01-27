@@ -419,8 +419,9 @@ main{
     border-radius: 8px;
 }
 
-#username, #password{
-    padding: 0.6rem calc( 0.9rem + 32px );
+#username, #password {
+    margin-top: 10px;
+    padding: 12px 10px;
     height: inherit;
 }
 
