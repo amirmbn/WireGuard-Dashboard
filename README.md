@@ -1,53 +1,51 @@
 # Wireguard
 Install Manually
 
-<div align="right">
-- سرور را اپدیت کنید و وایرگارد را نصب کنید.
-</div>
 
+<div align="right">
+
+
+ - سرور را اپدیت کنید و وایرگارد را نصب کنید.
 <div align="left">
+ 
 ```
 apt update -y
 apt install wireguard -y
 ```
-</div>
-
 <div align="right">
-- با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید .
-</div>
-
+ 
+ - با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید .
+ 
+ 
 <div align="left">
+ 
 ```
 wg genkey | sudo tee /etc/wireguard/server_private.key
 ```
-</div>
-
 <div align="right">
-- دریافت اینترفیس default
-</div>
 
+
+- دریافت اینترفیس default
 <div align="left">
+ 
 ```
 ip route list default
 ```
-</div>
-
 <div align="right">
-- با دستور زیر وارد مسیر کانفیگ وایرگارد بشوید.
-</div>
 
+
+- با دستور زیر وارد مسیر کانفیگ وایرگارد بشوید.
 <div align="left">
+ 
 ```
 nano /etc/wireguard/wg0.conf
 ```
-</div>
-
 <div align="right">
+
 - داخلش متن زیر را کپی کنید
 - پرایوت کی که ساخته بودید را به جای YOUR_GENERATED_PRIVATE_KEY قرار دهید
-</div>
-
 <div align="left">
+  
 ```
 [Interface]
 Address = 176.66.66.1/24
@@ -67,15 +65,13 @@ ListenPort = 20820
 PrivateKey = YOUR_GENERATED_PRIVATE_KEY
 SaveConfig = true
 ```
-</div>
-
 <div align="right">
+
 - پورت وایرگارد در اینجا 20820 است . میتوانید پورت دیگری انتخاب کنید.
 - دقت کنید برای سرور های دیجیتال اوشن،  از پرایوت ایپی دیگری استفاده نمایید.
 - برای ساختن اینترفیس های بیشتر و با پورت های مختلف با همین روش بالا انجام بدید و فقط نام و پورت و ایپی رو عوض کنید
-</div>
-
 <div align="left">
+ 
 ```
 apt update
 apt install git
@@ -93,21 +89,16 @@ sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
 ./wgd.sh start
 ```
-</div>
-
 <div align="right">
+
 - به پنل خودتون با Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمز عبور 1234 میباشد.
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید.
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/hawshemi/Linux-Optimizer) مراجعه کنید.
 - اگر به مشکل internal error در زمان لود پنل خوردید، سرور را یک بار ریبوت کنید و سپس دستور زیر را بزنید
-</div>
-
 <div align="left">
+ 
 ```
 cd Wireguard/src
 ./wgd.sh restart
 ```
-</div>
-
-<div align="right">
-- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/hawshemi/Linux-Optimizer) مراجعه کنید.
 </div>
