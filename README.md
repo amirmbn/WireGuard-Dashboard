@@ -81,13 +81,14 @@ SaveConfig = true
 apt update
 apt install git
 git clone https://github.com/amirmbn/WireGuard-Dashboard.git
-cd wireguard
-mv Wireguard /root/
+cd WireGuard-Dashboard
+mv src /root/
+mv LICENSE /root/
 cd
-rm -rf wireguard
+rm -rf WireGuard-Dashboard
 apt-get -y install python3-pip
 apt install gunicorn -y
-cd Wireguard/src
+cd src
 sudo chmod u+x wgd.sh
 pip install -r requirements.txt
 sudo ./wgd.sh install
