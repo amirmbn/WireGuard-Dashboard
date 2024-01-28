@@ -2,6 +2,11 @@
     {% with title="ورود به پنل"%}
     {% include "header.html"%}
     {% endwith %}
+    <style>
+        .body {
+            backgroung: url("../static/img/blue-background.jpg") !important;
+        }
+    </style>
     <body>
         <div class="container-fluid login-container-fluid">
             <main role="main" class="container login-container">
@@ -23,7 +28,7 @@
                 </div>
             </main>
         </div>
-        <small class="text-muted wg-version">Version: {{ version }}</small>
+        <small class="text-muted dashboard-version">Version: {{ version }}</small>
     </body>
 {% include "footer.html" %}
 <script>
