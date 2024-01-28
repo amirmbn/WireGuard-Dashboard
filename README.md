@@ -1,7 +1,6 @@
 # Wireguard
 
-##Install Manually
-
+## Manual Install & Upgrade
 
 <div align="right">
 
