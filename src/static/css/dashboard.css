@@ -606,8 +606,10 @@ pre.index-alert{
 }
 
 .login-box img {
-    width: 70px;
+    width: 100px;
     margin-bottom: 2rem;
+    border-radius: 100%;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 500px) {
