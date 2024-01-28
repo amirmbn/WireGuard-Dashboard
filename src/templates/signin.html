@@ -2,13 +2,6 @@
     {% with title="ورود به پنل"%}
         {% include "header.html"%}
     {% endwith %}
-    <style>
-        .login-container-fluid{
-            display: flex;
-            height: calc( 100% - 340px );
-            align-items: center;
-        }
-    </style>
     <body>
         <div class="container-fluid login-container-fluid">
             <main role="main" class="container login-container">
@@ -30,7 +23,7 @@
                 </div>
             </main>
         </div>
-        <small class="text-muted" style="position: fixed; bottom: 0; width: 100%; text-align: center; margin-bottom: 2rem">Version: {{ version }}</small>
+        <small class="text-muted wg-version">Version: {{ version }}</small>
     </body>
 {% include "footer.html" %}
 <script>
