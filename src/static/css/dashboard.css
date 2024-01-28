@@ -605,6 +605,11 @@ pre.index-alert{
 	align-items: center;
 }
 
+.login-box img {
+    width: 70px;
+    margin-bottom: 2rem;
+}
+
 @media (max-width: 500px) {
     .public_key_mobile {
         font-size: 0.7rem; 
