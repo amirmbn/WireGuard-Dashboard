@@ -5,13 +5,13 @@
     <body>
         <div class="container-fluid login-container-fluid">
             <main role="main" class="container login-container">
-                <div class="login-box" style="margin: auto !important;">
+                <div class="login-box">
                     <h1 class="signin-text">ورود به پنل</h1>
                     <form class="internal-box" action="/auth" method="post">
                         {% if message != "" %}
                             <div class="alert alert-warning text-center" role="alert">لطفا ابتدا وارد شوید.</div>
                         {% endif %}
-                        <div class="alert alert-danger d-none" role="alert" style="margin-top: 1rem; margin-bottom: 1rem;"></div>
+                        <div class="alert alert-danger d-none" role="alert"></div>
                         <div class="form-group">
                             <input type="text" class="form-control mb-2" id="username" name="username" placeholder="username" dir="ltr">
                         </div>
