@@ -335,7 +335,7 @@ main{
     height: 54px;
     z-index: 99;
     border-radius: 100px !important;
-    padding: auto;
+    padding: 7px 14px 14px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     font-size: 1.5rem;
 }
