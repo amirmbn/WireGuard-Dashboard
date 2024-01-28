@@ -1,5 +1,6 @@
 # Wireguard
-Install Manually
+
+##Install Manually
 
 
 <div align="right">
