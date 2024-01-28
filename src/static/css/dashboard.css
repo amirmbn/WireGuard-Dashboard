@@ -243,9 +243,7 @@ a { text-decoration:none;}
     color: #17a2b8;
 }
 
-.login-container{
-    padding: 2rem;
-}
+.login-container{display: block;margin-top: 22vh;max-width: 100% !important;text-align: center;}
 
 .switch{
     font-size: 2rem;
@@ -430,7 +428,7 @@ main{
 }
 
 #username, #password {
-    margin-top: 10px;
+    margin-top: 2rem;
     padding: 12px 10px;
     height: inherit;
 }
@@ -566,7 +564,19 @@ pre.index-alert{
 }
 
 .signin-text {
-    margin: 22vh 0 4rem;
+    margin-bottom: 4rem;
+}
+
+.login-box {
+    width: 364px;
+    margin: 0 auto;
+    padding: 60px 32px;
+    border-radius: 2rem;
+    background: rgba(185,185,185,0.3);
+}
+
+.login-box .form-control {
+    border: none !important;
 }
 
 .signin-btn {
@@ -577,26 +587,12 @@ pre.index-alert{
     font-size: 20px;
     font-family: IRANSans;
     border: none;
-    border-radius: 10px;
-    background: #222;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.6);
 }
 
 .btn-success, .btn-danger {
     padding: 7px 14px 8px !important;
-}
-
-.w-version {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	text-align: center;
-	margin-bottom: 2rem
-}
-
-.login-container-fluid{
-	display: flex;
-	height: calc( 100% - 340px );
-	align-items: center;
 }
 
 @media (max-width: 500px) {
