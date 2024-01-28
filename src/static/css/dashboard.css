@@ -638,6 +638,12 @@ pre.index-alert{
     .signin-text {
         margin: 40vh 0 3rem;
     }
+    .login-box {
+        width: 100% !important;
+    }
+    .login-container {
+        margin: 80% 0 0 !important;
+    }
 }
 
 @media (max-width: 992px){
