@@ -83,7 +83,6 @@ apt install git
 git clone https://github.com/amirmbn/WireGuard-Dashboard.git
 cd WireGuard-Dashboard
 mv src /root/
-mv LICENSE /root/
 cd
 rm -rf WireGuard-Dashboard
 apt-get -y install python3-pip
