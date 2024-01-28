@@ -585,6 +585,20 @@ pre.index-alert{
     padding: 7px 14px 8px !important;
 }
 
+.w-version {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 2rem
+}
+
+.login-container-fluid{
+	display: flex;
+	height: calc( 100% - 340px );
+	align-items: center;
+}
+
 @media (max-width: 500px) {
     .public_key_mobile {
         font-size: 0.7rem; 
