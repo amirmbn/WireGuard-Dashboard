@@ -11,7 +11,7 @@
         <div class="container-fluid login-container-fluid">
             <main role="main" class="container login-container">
                 <div class="login-box">
-                    <h1 class="signin-text">ورود به پنل</h1>
+                    <img src="../static/img/user.png" class="login-logo">
                     <form class="internal-box" action="/auth" method="post">
                         {% if message != "" %}
                         <div class="alert alert-warning text-center" role="alert">لطفا ابتدا وارد شوید.</div>
@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <input type="password" class="form-control mb-2" id="password" name="password" placeholder="password" dir="ltr">
                         </div>
-                    <button type="submit" class="signin-btn">ورود</button>
+                    <button type="submit" class="login-btn">ورود</button>
                     </form>
                 </div>
             </main>
