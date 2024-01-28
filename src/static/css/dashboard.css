@@ -428,7 +428,7 @@ main{
 }
 
 #username, #password {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
     padding: 12px 10px;
     height: inherit;
 }
