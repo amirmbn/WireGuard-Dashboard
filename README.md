@@ -30,7 +30,7 @@ wg genkey | sudo tee /etc/wireguard/server_private.key
 <div align="right">
 
 
-- دریافت اینترفیس default عبارت بعد از dev مبشه اسم اینترفیس شما (مثل eth0)
+- دریافت اینترفیس default، عبارت بعد از dev مبشه اسم اینترفیس شما (مثل eth0)
 <div align="left">
  
 ```
