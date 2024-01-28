@@ -80,7 +80,7 @@ SaveConfig = true
 ```
 apt update
 apt install git
-git clone https://github.com/amirmbn/wireguard.git
+git clone https://github.com/amirmbn/WireGuard-Dashboard.git
 cd wireguard
 mv Wireguard /root/
 cd
