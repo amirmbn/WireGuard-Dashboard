@@ -53,25 +53,25 @@ nano /etc/wireguard/group.conf
 ```
 [Interface]
 Address = 176.66.66.1/24
-PostUp = iptables -I INPUT -p udp --dport 40600 -j ACCEPT
+PostUp = iptables -I INPUT -p udp --dport 20820 -j ACCEPT
 PostUp = iptables -I FORWARD -i eth0 -o group -j ACCEPT
 PostUp = iptables -I FORWARD -i group -j ACCEPT
 PostUp = iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostUp = ip6tables -I FORWARD -i group -j ACCEPT
 PostUp = ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-PostDown = iptables -D INPUT -p udp --dport 40600 -j ACCEPT
+PostDown = iptables -D INPUT -p udp --dport 20820 -j ACCEPT
 PostDown = iptables -D FORWARD -i eth0 -o group -j ACCEPT
 PostDown = iptables -D FORWARD -i group -j ACCEPT
 PostDown = iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 PostDown = ip6tables -D FORWARD -i group -j ACCEPT
 PostDown = ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-ListenPort = 40600
+ListenPort = 20820
 PrivateKey = YOUR_GENERATED_PRIVATE_KEY
 SaveConfig = true
 ```
 <div align="right">
 
-- پورت وایرگارد در اینجا 40600 است، میتوانید پورت دیگری انتخاب کنید
+- پورت وایرگارد در اینجا 20820 است، میتوانید پورت دیگری انتخاب کنید
 - دقت کنید برای سرور های دیجیتال اوشن،  از پرایوت ایپی دیگری استفاده نمایید
 - پرایوت کی که ساخته بودید را به جای YOUR_GENERATED_PRIVATE_KEY قرار دهید
 - در اینجا نام اینترفیس را به صورت پیش فرض eth0 قرار دادیم، اگر اینترفیس شما متفاوت است دستور بالا را ادیت کنید
