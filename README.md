@@ -104,7 +104,7 @@ sudo chmod -R 755 /etc/wireguard
 <div align="left">
  
 ```
-cd Wireguard/src
+cd src
 ./wgd.sh restart
 ```
 </div>
