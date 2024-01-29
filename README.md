@@ -43,7 +43,7 @@ ip route list default
 <div align="left">
  
 ```
-nano /etc/wireguard/group.conf
+nano /etc/wireguard/wg0.conf
 ```
 <div align="right">
 
@@ -54,16 +54,16 @@ nano /etc/wireguard/group.conf
 [Interface]
 Address = 176.66.66.1/24
 PostUp = iptables -I INPUT -p udp --dport 20820 -j ACCEPT
-PostUp = iptables -I FORWARD -i eth0 -o group -j ACCEPT
-PostUp = iptables -I FORWARD -i group -j ACCEPT
+PostUp = iptables -I FORWARD -i eth0 -o wg0 -j ACCEPT
+PostUp = iptables -I FORWARD -i wg0 -j ACCEPT
 PostUp = iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-PostUp = ip6tables -I FORWARD -i group -j ACCEPT
+PostUp = ip6tables -I FORWARD -i wg0 -j ACCEPT
 PostUp = ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D INPUT -p udp --dport 20820 -j ACCEPT
-PostDown = iptables -D FORWARD -i eth0 -o group -j ACCEPT
-PostDown = iptables -D FORWARD -i group -j ACCEPT
+PostDown = iptables -D FORWARD -i eth0 -o wg0 -j ACCEPT
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
 PostDown = iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-PostDown = ip6tables -D FORWARD -i group -j ACCEPT
+PostDown = ip6tables -D FORWARD -i wg0 -j ACCEPT
 PostDown = ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 ListenPort = 20820
 PrivateKey = YOUR_GENERATED_PRIVATE_KEY
