@@ -52,7 +52,7 @@ nano /etc/wireguard/wg0.conf
   
 ```
 [Interface]
-Address = 176.66.66.1/24
+Address = 176.44.44.1/24
 PostUp = iptables -I INPUT -p udp --dport 40600 -j ACCEPT
 PostUp = iptables -I FORWARD -i eth0 -o wg0 -j ACCEPT
 PostUp = iptables -I FORWARD -i wg0 -j ACCEPT
