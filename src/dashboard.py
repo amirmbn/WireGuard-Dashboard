@@ -1,7 +1,3 @@
-"""
-< Wireguard Panel > - Copyright(C) 2021 Donald Zou & Borrowed Codes from Mr Amir & Codes modified and edited BY [https://github.com/Azumi67]
-Under Apache-2.0 License
-"""
 import psutil
 import os
 import secrets
@@ -1961,7 +1957,7 @@ def check_update():
     """
     config = get_dashboard_conf()
     try:
-        data = urllib.request.urlopen("https://api.github.com/repos/Azumi67/Wireguard/releases").read()
+        data = urllib.request.urlopen("https://api.github.com/repos/amirmbn/WireGuard-Dashboard.git").read()
         output = json.loads(data)
         release = [i for i in output if not i["prerelease"]]
 
