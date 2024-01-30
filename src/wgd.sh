@@ -1,3 +1,8 @@
+#!/bin/bash
+
+# wgd.sh - Copyright(C) 2021 Donald Zou & amirmbn [https://github.com/amirmbn]
+## Edited By amirmbn
+
 app_name="dashboard.py"
 app_official_name="WGDashboard"
 PID_FILE=./gunicorn.pid
@@ -19,8 +24,10 @@ help() {
   NC='\033[0m' 
   display_logo2
   printf "${YELLOW}=================================================================================\n"
-  printf "${YELLOW}+    ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
+  printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
   printf "${YELLOW}=================================================================================${NC}\n"
+  printf "${YELLOW}| Usage: ${GREEN}./wgd.sh <option>${NC}                                                      ${YELLOW}|\n"
+  printf "${YELLOW}|                                                                               ${YELLOW}|\n"
   printf "${YELLOW}| Available options:                                                            ${YELLOW}|\n"
   printf "${YELLOW}|    ${GREEN}start${NC}: To start Wireguard Panel.                                           ${YELLOW}|\n"
   printf "${YELLOW}|    ${GREEN}stop${NC}: To stop Wireguard Panel.                                             ${YELLOW}|\n"
@@ -29,6 +36,9 @@ help() {
   printf "${YELLOW}=================================================================================${NC}\n"
 }
 _check_and_set_venv(){
+    # This function will not be using in v3.0
+    # deb/ubuntu users: might need a 'apt install python3.8-venv'
+    # set up the local environment
     APP_ROOT=`pwd`
     VIRTUAL_ENV="${APP_ROOT%/*}/venv"
     if [ ! -d $VIRTUAL_ENV ]; then
@@ -41,12 +51,9 @@ echo -e "\033[1;92m$logo2\033[0m"
 }
 
 logo2=$(cat << "EOF"
- _   _ _____ _     ____  
-| | | | ____| |   |  _ \ 
-| |_| |  _| | |   | |_) |
-|  _  | |___| |___|  __/ 
-|_| |_|_____|_____|_|    
-   
+
+amirmbn
+
 EOF
 )
 function display_logo() {
@@ -55,7 +62,7 @@ echo -e "\033[1;96m$logo\033[0m"
 
 logo=$(cat << "EOF"
 
-\033[92mCodes Edited by: github.com/amirmbn \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m
+amirmbn  
 
 EOF
 )
@@ -198,7 +205,6 @@ print_box() {
   printf "${color}║  ${text}  ║${RESET}\n"
   printf "${color}╚${dashes}╝${RESET}\n"
 }
-
     dashes=$(printf "%-${logo_width}s" "─" | tr ' ' "─")
 
     printf "%s\n" "$dashes"
@@ -208,7 +214,7 @@ print_box() {
 }
 
 update_wgd() {
-  new_ver=$(python3 -c "import json; import urllib.request; data = urllib.request.urlopen('https://api.github.com/repos/amirmbn/wireguard.git').read(); output = json.loads(data);print(output['tag_name'])")
+  new_ver=$(python3 -c "import json; import urllib.request; data = urllib.request.urlopen('https://api.github.com/repos/amirmbn/WireGuard-Dashboard.git').read(); output = json.loads(data);print(output['tag_name'])")
   printf "%s\n" "$dashes"
   printf "| Are you sure you want to update to the %s? (Y/N): " "$new_ver"
   read up
@@ -220,7 +226,7 @@ update_wgd() {
     mv wgd.sh wgd.sh.old
     printf "| Downloading %s from GitHub...                            |\n" "$new_ver"
     git stash > /dev/null 2>&1
-    git pull https://github.com/amirmbn/wireguard.git $new_ver --force >  /dev/null 2>&1
+    git pull https://github.com/amirmbn/WireGuard-Dashboard.git $new_ver --force >  /dev/null 2>&1
     printf "| Upgrading pip                                            |\n"
     python3 -m pip install -U pip > /dev/null 2>&1
     printf "| Installing latest Python dependencies                    |\n"
@@ -234,7 +240,6 @@ update_wgd() {
     printf "%s\n" "$dashes"
   fi
 }
-
 
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
