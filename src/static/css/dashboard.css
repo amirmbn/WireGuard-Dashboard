@@ -100,8 +100,9 @@ a { text-decoration:none;}
 }
 
 .navbar .navbar-toggler {
-    top: .25rem;
+    top: 0.3rem;
     left: 1rem;
+    padding: 0px 5px;
 }
 
 .navbar-logo {
@@ -425,7 +426,7 @@ main{
     border-radius: 8px;
 }
 
-#username, #password {
+.internal-box #username, .internal-box #password {
     margin-top: 1.4rem;
     padding: 12px 10px;
     height: inherit;
@@ -609,6 +610,12 @@ pre.index-alert{
     margin-bottom: 2rem;
     border-radius: 100%;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+}
+
+button.close {
+    border: none;
+    border-radius: 5px;
+    padding: 4px 10px;
 }
 
 @media (max-width: 500px) {
