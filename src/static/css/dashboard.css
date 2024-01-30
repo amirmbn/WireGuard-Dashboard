@@ -266,12 +266,12 @@ a { text-decoration:none;}
 }
 
 main{
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     float:left;
 }
 
 .peer_list{
-    margin-bottom: 7rem
+    margin: 2rem 0;
 }
 
 .btn-manage-group{
