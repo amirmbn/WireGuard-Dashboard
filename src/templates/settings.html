@@ -25,31 +25,31 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label for="peer_global_DNS">DNS</label>
+                                        <label for="peer_global_DNS" class="ms-1 mb-1">DNS</label>
                                         <input type="text" class="form-control mb-4" id="peer_global_DNS"
                                                name="peer_global_DNS"
                                                value="{{ peer_global_DNS }}" dir="ltr" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="peer_endpoint_allowed_ip">Peer Endpoint Allowed IPs</label>
+                                        <label for="peer_endpoint_allowed_ip" class="ms-1 mb-1">Peer Endpoint Allowed IPs</label>
                                         <input type="text" class="form-control mb-4" id="peer_endpoint_allowed_ip"
                                                name="peer_endpoint_allowed_ip"
                                                value="{{ peer_endpoint_allowed_ip }}" dir="ltr" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="peer_mtu">MTU</label>
+                                        <label for="peer_mtu" class="ms-1 mb-1">MTU</label>
                                         <input type="text" class="form-control mb-4" id="peer_mtu"
                                                name="peer_mtu"
                                                value="{{ peer_mtu }}" dir="ltr" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="peer_keep_alive">Persistent Keepalive</label>
+                                        <label for="peer_keep_alive" class="ms-1 mb-1">Persistent Keepalive</label>
                                         <input type="text" class="form-control mb-4" id="peer_keep_alive"
                                                name="peer_keep_alive"
                                                value="{{ peer_keepalive }}" dir="ltr" required>
                                     </div>
                                     <div class="col-sm-12">
-                                        <label for="peer_remote_endpoint"><strong>Peer Remote Endpoint (در صورت تانل ، آیپی سرور ایران وارد شود.)</strong></label>
+                                        <label for="peer_remote_endpoint" class="ms-1 mb-1"><strong>Peer Remote Endpoint (در صورت تانل ، آیپی سرور ایران وارد شود.)</strong></label>
                                         <input type="text" class="form-control mb-4" id="peer_remote_endpoint"
                                                name="peer_remote_endpoint"
                                                value="{{ peer_remote_endpoint }}" dir="ltr" required>
@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <form action="/update_wg_conf_path" method="post" class="update_wg_conf_path">
                             <div class="form-group">
-                                <label for="wg_conf_path">مسیر :</label>
+                                <label for="wg_conf_path" class="ms-1 mb-1">مسیر :</label>
                                 <input type="text" class="form-control mb-2" id="wg_conf_path" name="wg_conf_path"
                                        value="{{ wg_conf_path }}" dir="ltr" required>
                                 <p class="text-muted">به یاد داشته باشید که <code>/</code> را در انتهای مسیر خود حذف کنید. به عنوان مثال : <code>/etc/wireguard</code>
@@ -82,7 +82,7 @@
                     <div class="card-body">
                         <form action="/update_acct" method="post">
                             <div class="form-group">
-                                <label for="usernames">نام کاربری :</label>
+                                <label for="usernames" class="ms-1 mb-1">نام کاربری :</label>
                                 <input type="text" class="form-control mb-4 mr-2" id="username" name="username"
                                        value="{{ session['username'] }}" dir="ltr" required  pattern="[A-Za-z0-9]{1,20}">
                                 <button type="submit" class="btn btn-danger">بروزرسانی نام کاربری</button>
@@ -96,11 +96,11 @@
                     <div class="card-body">
                         <form action="/update_pwd" method="post">
                             <div class="form-group">
-                                <label for="currentpass">رمز عبور فعلی :</label>
+                                <label for="currentpass" class="ms-1 mb-1">رمز عبور فعلی :</label>
                                 <input type="password" class="form-control mb-2" id="currentpass" name="currentpass" dir="ltr" required>
-                                <label for="newpass">رمز جدید :</label>
+                                <label for="newpass" class="ms-1 mb-1">رمز جدید :</label>
                                 <input type="password" class="form-control mb-2" id="newpass" name="newpass" dir="ltr" required>
-                                <label for="repnewpass">تکرار رمز جدید :</label>
+                                <label for="repnewpass" class="ms-1 mb-1">تکرار رمز جدید :</label>
                                 <input type="password" class="form-control mb-4" id="repnewpass" name="repnewpass" dir="ltr" required>
                                 <button type="submit" class="btn btn-danger">بروزرسانی رمز عبور</button>
                             </div>
@@ -115,12 +115,12 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm">
-                                    <label for="app_ip">آیپی پنل :</label>
+                                    <label for="app_ip" class="ms-1 mb-1">آیپی پنل :</label>
                                     <input type="text" class="form-control mb-2" id="app_ip" name="app_ip" value="{{ app_ip }}" dir="ltr" required>
                                     <p><small class="text-danger mb-4">0.0.0.0 به این معنی است که هر آدرس IP می تواند به سرور دسترسی داشته باشد.</small></p>
                                 </div>
                                 <div class="col-sm">
-                                    <label for="app_port">پورت پنل :</label>
+                                    <label for="app_port" class="ms-1 mb-1">پورت پنل :</label>
                                     <input type="text" class="form-control mb-4" id="app_port" name="app_port"
                                            value="{{ app_port }}" dir="ltr" required>
                                 </div>
