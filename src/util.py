@@ -1,15 +1,8 @@
 import re
-
-"""
-Helper Functions
-"""
-
-
 # Regex Match
 def regex_match(regex, text):
     pattern = re.compile(regex)
     return pattern.search(text) is not None
-
 
 # Check IP format
 def check_IP(ip):
@@ -24,19 +17,15 @@ def check_IP(ip):
             break
     else:
         result = None
-
     return result
-
 
 # Clean IP
 def clean_IP(ip):
     return ip.replace(' ', '')
 
-
 # Clean IP with range
 def clean_IP_with_range(ip):
     return clean_IP(ip).split(',')
-
 
 # Check IP with range
 def check_IP_with_range(ip):
@@ -55,14 +44,12 @@ def check_IP_with_range(ip):
 
     return result
 
-
 # Check allowed ips list
 def check_Allowed_IPs(ip):
     ip = clean_IP_with_range(ip)
     for i in ip:
         if not check_IP_with_range(i): return False
     return True
-
 
 # Check DNS
 def check_DNS(dns):
@@ -73,9 +60,7 @@ def check_DNS(dns):
             return False
     return True
 
-
 # Check remote endpoint
 def check_remote_endpoint(address):
     return (check_IP(address) or regex_match("(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z]{0,61}[a-z]",
                                              address))
-
