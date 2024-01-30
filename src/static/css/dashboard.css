@@ -480,6 +480,7 @@ label[for="username"], label[for="password"]{
 }
 
 .info_loading{
+    display: inline-block;
     animation: loading 2s infinite ease-in-out;
     border-radius: 5px;
     height: 19px;
