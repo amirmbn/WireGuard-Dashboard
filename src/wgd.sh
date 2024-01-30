@@ -49,20 +49,20 @@ _check_and_set_venv(){
 function display_logo2() {
 echo -e "\033[1;92m$logo2\033[0m"
 }
-
+# amirmbn art
 logo2=$(cat << "EOF"
 
 amirmbn
-
+   
 EOF
 )
 function display_logo() {
 echo -e "\033[1;96m$logo\033[0m"
 }
-
+# amirmbn art
 logo=$(cat << "EOF"
 
-amirmbn  
+amirmbn
 
 EOF
 )
@@ -205,6 +205,7 @@ print_box() {
   printf "${color}║  ${text}  ║${RESET}\n"
   printf "${color}╚${dashes}╝${RESET}\n"
 }
+
     dashes=$(printf "%-${logo_width}s" "─" | tr ' ' "─")
 
     printf "%s\n" "$dashes"
