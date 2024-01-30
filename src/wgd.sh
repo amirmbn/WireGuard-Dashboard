@@ -1,8 +1,3 @@
-#!/bin/bash
-
-# wgd.sh - Copyright(C) 2021 Donald Zou & amirmbn [https://github.com/amirmbn]
-## Edited By amirmbn
-
 app_name="dashboard.py"
 app_official_name="WGDashboard"
 PID_FILE=./gunicorn.pid
@@ -34,9 +29,6 @@ help() {
   printf "${YELLOW}=================================================================================${NC}\n"
 }
 _check_and_set_venv(){
-    # This function will not be using in v3.0
-    # deb/ubuntu users: might need a 'apt install python3.8-venv'
-    # set up the local environment
     APP_ROOT=`pwd`
     VIRTUAL_ENV="${APP_ROOT%/*}/venv"
     if [ ! -d $VIRTUAL_ENV ]; then
@@ -47,7 +39,7 @@ _check_and_set_venv(){
 function display_logo2() {
 echo -e "\033[1;92m$logo2\033[0m"
 }
-# amirmbn art
+
 logo2=$(cat << "EOF"
  _   _ _____ _     ____  
 | | | | ____| |   |  _ \ 
@@ -60,7 +52,7 @@ EOF
 function display_logo() {
 echo -e "\033[1;96m$logo\033[0m"
 }
-# amirmbn art
+
 logo=$(cat << "EOF"
 
 \033[92mCodes Edited by: github.com/amirmbn \033[96m| \033[93mOriginal Author: github.com/donaldzou \033[0m
@@ -112,7 +104,6 @@ RESET='\033[0m'
     print_box "Wireguard Panel installed successfully!" "${LIGHT_GREEN}"
     print_box "Enter ./wgd.sh start to start the dashboard!" "${YELLOW}"
 }
-
 
 check_wgd_status(){
   if test -f "$PID_FILE"; then
@@ -207,7 +198,6 @@ print_box() {
   printf "${color}║  ${text}  ║${RESET}\n"
   printf "${color}╚${dashes}╝${RESET}\n"
 }
-
 
     dashes=$(printf "%-${logo_width}s" "─" | tr ' ' "─")
 
