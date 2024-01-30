@@ -1,528 +1,494 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
-{% with title=title%}
+    {% with title=title%}
     {% include "header.html"%}
-{% endwith %}
-<body>
-    <div class="no-response">
-        <div class="container">
-            <h1 class="text-white display-1"><i class="bi bi-emoji-frown-fill"></i></h1>
-            <h4 class="text-white">اووه!<br>اتصال به سرور با خطا مواجه شد ;(</h4>
+    {% endwith %}
+    <body>
+        <div class="no-response">
+            <div class="container">
+                <h1 class="text-white display-1"><i class="bi bi-emoji-frown-fill"></i></h1>
+                <h4 class="text-white">اووه!<br>اتصال به سرور با خطا مواجه شد ;(</h4>
+            </div>
         </div>
-    </div>
-	{% include "navbar.html" %}
-	<div class="container-fluid" id="right_body">
-		{% include "sidebar.html" %}
-		<div id="config_body">
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mt-4">
-                <div class="info mt-4">
-                    <div id="config_info_alert"></div>
-                    <div class="row">
-                        <div class="col">
-                            <small class="text-muted"><strong>کانفیگ</strong></small>
-                            <h1 class="mb-3"><samp id="conf_name">{{ title }}</samp></h1>
-                        </div>
-                        <div class="col">
-                            <small class="text-muted"><strong>خاموش / روشن</strong></small><br>
-                            <div id="conf_status_btn" class="info_loading"></div>
-                            <div class="spinner-border text-primary" role="status" style="display: none; margin-top: 10px">
-                                <span class="sr-only"></span>
+        {% include "navbar.html" %}
+        <div class="container-fluid" id="right_body">
+            {% include "sidebar.html" %}
+            <div id="config_body">
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+                    <div class="info mt-4">
+                        <div id="config_info_alert"></div>
+                        <div class="row">
+                            <div class="col">
+                                <small class="text-muted"><strong>کانفیگ</strong></small>
+                                <h1 class="mb-3"><samp id="conf_name">{{ title }}</samp></h1>
+                            </div>
+                            <div class="col">
+                                <small class="text-muted"><strong>خاموش / روشن</strong></small><br>
+                                <div id="conf_status_btn" class="info_loading"></div>
+                                <div class="spinner-border text-primary" role="status" style="display: none; margin-top: 10px">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <br style="clear: both;">
+                            <div class="container mb-5">
+                                <div class="row" style="text-align: right;">
+                                    <div class="col-sm-6 mt-2">
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>وضعیت :</strong></small>
+                                            <h6 style="text-transform: uppercase; direction: ltr;" id="conf_status" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>کل مقدار دیتای مصرفی :</strong></small>
+                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_usage" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>مقدار دریافت شده :</strong></small>
+                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_received" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>مقدار ارسال شده :</strong></small>
+                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_sent" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>کاربران متصل :</strong></small>
+                                            <h6 style="text-transform: uppercase;" id="conf_connected_peers" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>پورت وایرگارد :</strong></small>
+                                            <h6 style="text-transform: uppercase;" class="info_loading d-inline-block ms-2 my-3 text-dark"><samp id="conf_listen_port"></samp></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>آدرس :</strong></small>
+                                            <h6 style="text-transform: uppercase;" class="info_loading d-inline-block ms-2 my-3 text-dark"><samp id="conf_address"></samp></h6>
+                                        </div>
+                                        <div class="col-lg border-gray border-bottom">
+                                            <small class="text-muted"><strong>کلید عمومی :</strong></small>
+                                            <h6 class="info_loading d-inline-block ms-2 my-3 text-dark"><samp class="key public_key_mobile" id="conf_public_key"></samp></h6>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="button-div">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12" id="right_body">
+                                {% include "sidebar.html" %}
+                                    <label><small class="text-muted d-block ms-1 mb-1">جستجوی کاربر</small></label><br>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control text-right" id="search_peer_textbox" placeholder="جستجو ..." value="">
+                                    </div>
+                                <br style="clear: both;">
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <div class="form-group">
+                                    <label for="sort_by_dropdown"><small class="text-muted d-block ms-1 mb-1">مرتب کردن کاربران بر اساس</small></label>
+                                    <select class="form-control" id="sort_by_dropdown">
+                                        <option value="status">وضعیت</option>
+                                        <option value="name">نام</option>
+                                        <option value="allowed_ip">آی پی داده شده</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <div class="form-group">
+                                    <label><small class="text-muted d-block ms-1 mb-1">بروز رسانی زمانی</small></label><br>
+                                    <div class="btn-group interval-btn-group" role="group" style="width: 100%">
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary btn-group-label refresh" data-toggle="tooltip" data-placement="bottom" title="بروزرسانی کاربران"><i class="bi bi-arrow-repeat"></i></button>
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="5000">5s</button>
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="10000">10s</button>
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="30000">30s</button>
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="60000">1m</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-12 display_mode_mobile">
+                                <div class="form-group">
+                                    <label><small class="text-muted d-block ms-1 mb-1">حالت نمایشی</small></label><br>
+                                    <div class="btn-group display-btn-group" role="group" style="width: 100%">
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary display_mode" data-display-mode="grid"><i class="bi bi-grid-fill" style="font-size: 1rem;"></i></button>
+                                        <button style="width: 20%" type="button" class="btn btn-outline-primary display_mode" data-display-mode="list"><i class="bi bi-list" style="font-size: 1rem;"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-manage-group">
+                                <button type="button" class="btn btn-secondary setting_btn"><i class="bi bi-three-dots"></i></button>
+                                <button type="button" class="btn btn-primary add_btn"><i class="bi bi-plus-circle-fill" style=""></i></button>
+                                <div class="setting_btn_menu">
+                                    <a class="text-danger" id="delete_peers_by_bulk_btn"><i class="bi bi-trash-fill"></i>حذف کاربران</a>
+                                    <a class="text-info" id="download_all_peers" data-url="/download_all/{{conf_data['name']}}"><i class="bi bi-cloud-download-fill"></i>دانلود کاربران</a>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row peer_list"></div>
+                    <small id="peer_loading_time" class="text-muted"></small>
+                </main>
+            </div>
+        </div>
+        <div class="modal fade" id="add_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header text-right">
+                        <h5 class="modal-title text-right" id="staticBackdropLabel">اضافه کردن کاربر جدید</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-right">
+                        <div>
+                            <div class="custom-control custom-switch" style="margin-bottom: 1rem">
+                                <input class="custom-control-input" type="checkbox" id="bulk_add">
+                                <label class="custom-control-label" for="bulk_add"><strong>اضافه کردن کاربر دسته جمعی</strong></label>
+                                <i class="bi bi-question-circle-fill" style="cursor: pointer" data-container="body"
+                                data-toggle="popover" data-placement="right" data-trigger="click"
+                                data-content="با  فعال کردن این گزینه، نام و ایپی کانفیگ به صورت خودکار انجام خواهد شد."></i>
+                            </div>
+                            <div class="form-group" style="margin: 0">
+                                <input type="number" class="form-control text-right" id="new_add_amount" min="1" placeholder="مقدار"
+                                    disabled>
+                                <div id="bulk_amount_validation" class="invalid-feedback"></div>
+                            </div>
 
+                        </div>
                         <hr>
-                        <br style="clear: both;">
-
-
-
-                        <div class="container">
-
-                            <div class="row" style="text-align: right;">
-                                <div class="col-sm-6 mt-2">
-
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>وضعیت :</strong></small>
-                                        <h6 style="text-transform: uppercase; direction: ltr;" id="conf_status" class="info_loading"></h6>
+                        <div id="add_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="add_peer_form">
+                            <div class="form-group non-bulk">
+                                <label for="private_key">کلید خصوصی</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control text-right" id="private_key" aria-describedby="private_key">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger" id="re_generate_key" data-toggle="tooltip"
+                                                data-placement="top" title="ساخت دوباره کلید">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
                                     </div>
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>کل مقدار دیتای مصرفی :</strong></small>
-                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_usage" class="info_loading"></h6>
-                                    </div>
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>مقدار دریافت شده :</strong></small>
-                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_received" class="info_loading"></h6>
-                                    </div>
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>مقدار ارسال شده :</strong></small>
-                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_sent" class="info_loading"></h6>
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-6 mt-2">
-    
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>کاربران متصل :</strong></small>
-                                        <h6 style="text-transform: uppercase;" id="conf_connected_peers" class="info_loading"></h6>
-                                    </div>
-                                    <div class="col-lg">
-                                        <small class="text-muted"><strong>پورت وایرگارد :</strong></small>
-                                        <h6 style="text-transform: uppercase;" class="info_loading"><samp id="conf_listen_port"></samp></h6>
-                                    </div>
-                                     <div class="col-lg">
-                                        <small class="text-muted"><strong>آدرس :</strong></small>
-                                        <h6 style="text-transform: uppercase;" class="info_loading"><samp id="conf_address"></samp></h6>
-                                    </div>
-                                    <div class="col-lg">
-                                        <small class="text-muted">
-                                            <strong>کلید عمومی :</strong>
-                                            <strong style="margin-left: auto!important; opacity: 0; transition: 0.2s ease-in-out" class="text-primary">جهت کپی کردن کلید کنید</strong>
-                                        </small>
-                                        <h6 class="info_loading"><samp class="key public_key_mobile" id="conf_public_key"></samp></h6>
-                                    </div>
-    
                                 </div>
                             </div>
-                        </div>
-
-                        
+                            <div class="form-group non-bulk">
+                                <label for="public_key">کلید عمومی :<a class="text-danger">(الزامی)</a></label>
+                                <input type="text" class="form-control text-right" id="public_key" aria-describedby="public_key" disabled>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 non-bulk">
+                                    <div class="form-group">
+                                        <label for="new_add_name">نام:<a class="text-danger">(الزامی)</a></label>
+                                        <input type="text" class="form-control text-right" id="new_add_name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 non-bulk">
+                                    <div class="form-group">
+                                        <label for="allowed_ips">ایپی کاربر وایرگارد :<a class="text-danger">(الزامی)</a></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control text-right" id="allowed_ips">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary" id="search_available_ip"
+                                                        data-toggle="tooltip" data-placement="top" title="جستجوی ایپی های موجود">
+                                                    <i class="bi bi-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <p class="text-success" id="allowed_ips_indicator"></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="new_add_DNS">DNS :<a class="text-danger">(الزامی)</a></label>
+                                        <input type="text" class="form-control text-right" id="new_add_DNS" value="{{ DNS }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="new_add_endpoint_allowed_ip">Endpoint Allowed IPs :<a class="text-danger">(الزامی)</a></label>
+                                        <input type="text" class="form-control text-right" id="new_add_endpoint_allowed_ip"
+                                            value="{{ endpoint_allowed_ip }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 non-bulk">
+                                    <div class="form-group">
+                                        <label for="new_peer_bandwidth">حجم {گیگابایت}:<a class="text-danger">(الزامی)</a></label>
+                                        <input type="text" class="form-control text-right" id="new_peer_bandwidth">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="new_add_MTU">MTU</label>
+                                        <input type="text" class="form-control text-right" id="new_add_MTU" value="{{ mtu }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="new_add_keep_alive">Keepalive</label>
+                                        <input type="text" class="form-control text-right" id="new_add_keep_alive" value="{{ keep_alive }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="enable_preshare_key" name="enable_preshare_key"
+                                            value="enable_psk">
+                                        <label class="form-check-label" for="enable_preshare_key">Preshared Key</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 non-bulk">
+                                    <div class="form-group">
+                                        <label for="new_peer_end">زمان اشتراک:<a class="text-danger">(الزامی)</a></label>
+                                        <div class="input-group">
+                                            <input type="datetime-local" class="form-control text-right" id="new_peer_end">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                        <button type="button" class="btn btn-primary" id="save_peer" conf_id={{ conf_data['name'] }}>اضافه کردن</button>
                     </div>
                 </div>
-                <hr>
-                <div class="button-div mb-3">
-                    <div class="row">
-                        <div class="col-sm">
-                             <div class="form-group">
-                                <label for="sort_by_dropdown"><small class="text-muted">مرتب کردن کاربران بر اساس</small></label>
-                                <select class="form-control" id="sort_by_dropdown">
-                                    <option value="status">وضعیت</option>
-                                    <option value="name">نام</option>
-                                    <option value="allowed_ip">آی پی داده شده</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group">
-                                <label><small class="text-muted">بروز رسانی زمانی</small></label><br>
-                                <div class="btn-group interval-btn-group" role="group" style="width: 100%">
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary btn-group-label refresh" data-toggle="tooltip" data-placement="bottom" title="بروزرسانی کاربران"><i class="bi bi-arrow-repeat"></i></button>
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="5000">5s</button>
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="10000">10s</button>
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="30000">30s</button>
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary update_interval" data-refresh-interval="60000">1m</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm display_mode_mobile">
-                            <div class="form-group">
-                                <label><small class="text-muted">حالت نمایشی</small></label><br>
-                                <div class="btn-group display-btn-group" role="group" style="width: 100%">
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary display_mode" data-display-mode="grid"><i class="bi bi-grid-fill" style="font-size: 1rem;"></i></button>
-                                    <button style="width: 20%" type="button" class="btn btn-outline-primary display_mode" data-display-mode="list"><i class="bi bi-list" style="font-size: 1rem;"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        
-
-
-                        <div class="btn-manage-group">
-                            
-                            <button type="button" class="btn btn-secondary setting_btn"><i class="bi bi-three-dots"></i></button>
-                            <button type="button" class="btn btn-primary add_btn"><i class="bi bi-plus-circle-fill" style=""></i></button>
-                            <div class="setting_btn_menu">
-                                <a class="text-danger" id="delete_peers_by_bulk_btn"><i class="bi bi-trash-fill"></i>حذف کاربران</a>
-                                <a class="text-info" id="download_all_peers" data-url="/download_all/{{conf_data['name']}}"><i class="bi bi-cloud-download-fill"></i>دانلود کاربران</a>
-                            </div>
-                        </div>
-
-<div class="container-fluid" id="right_body">
-    {% include "sidebar.html" %}
-    <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 mt-4 mb-4">
-        <div class="form-group">
-            <input type="text" class="form-control text-right" id="search_peer_textbox" placeholder="... جستجوی کاربر" value="">
-        </div>
-</div>
-<br style="clear: both;">
-
-
-                        
-
-                    </div>
-
-                    
-                </div>
-                <div class="row peer_list"></div>
-                <small id="peer_loading_time" class="text-muted"></small>
-            </main>
-        </div>
-	</div>
-
-<div class="modal fade" id="add_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header text-right">
-                <h5 class="modal-title text-right" id="staticBackdropLabel">اضافه کردن کاربر جدید</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-right">
-                <div>
-                    <div class="custom-control custom-switch" style="margin-bottom: 1rem">
-                        <input class="custom-control-input" type="checkbox" id="bulk_add">
-                        <label class="custom-control-label" for="bulk_add"><strong>اضافه کردن کاربر دسته جمعی</strong></label>
-                        <i class="bi bi-question-circle-fill" style="cursor: pointer" data-container="body"
-                           data-toggle="popover" data-placement="right" data-trigger="click"
-                           data-content="با  فعال کردن این گزینه، نام و ایپی کانفیگ به صورت خودکار انجام خواهد شد."></i>
-                    </div>
-                    <div class="form-group" style="margin: 0">
-                        <input type="number" class="form-control text-right" id="new_add_amount" min="1" placeholder="مقدار"
-                               disabled>
-                        <div id="bulk_amount_validation" class="invalid-feedback"></div>
-                    </div>
-
-                </div>
-             <hr>
-<div id="add_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<form id="add_peer_form">
-    <div class="form-group non-bulk">
-        <label for="private_key">کلید خصوصی</label>
-        <div class="input-group">
-            <input type="text" class="form-control text-right" id="private_key" aria-describedby="private_key">
-            <div class="input-group-append">
-                <button type="button" class="btn btn-danger" id="re_generate_key" data-toggle="tooltip"
-                        data-placement="top" title="ساخت دوباره کلید">
-                    <i class="bi bi-arrow-repeat"></i>
-                </button>
             </div>
         </div>
-    </div>
-    <div class="form-group non-bulk">
-        <label for="public_key">کلید عمومی :<a class="text-danger">(الزامی)</a></label>
-        <input type="text" class="form-control text-right" id="public_key" aria-describedby="public_key" disabled>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 non-bulk">
-            <div class="form-group">
-                <label for="new_add_name">نام:<a class="text-danger">(الزامی)</a></label>
-                <input type="text" class="form-control text-right" id="new_add_name">
-            </div>
-        </div>
-        <div class="col-sm-6 non-bulk">
-            <div class="form-group">
-                <label for="allowed_ips">ایپی کاربر وایرگارد :<a class="text-danger">(الزامی)</a></label>
-                <div class="input-group">
-                    <input type="text" class="form-control text-right" id="allowed_ips">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-primary" id="search_available_ip"
-                                data-toggle="tooltip" data-placement="top" title="جستجوی ایپی های موجود">
-                            <i class="bi bi-search"></i>
+        <div class="modal fade" id="delete_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">از پاک کردن این کاربر اطمینان دارید ؟</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="remove_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <h6 style="margin: 0">این تصمیم غیر قابل بازگشت است</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                        <button type="button" class="btn btn-danger" id="delete_peer"
+                                conf_id={{ conf_data['name'] }} peer_id="">بله
                         </button>
                     </div>
                 </div>
-                <p class="text-success" id="allowed_ips_indicator"></p>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="new_add_DNS">DNS :<a class="text-danger">(الزامی)</a></label>
-                <input type="text" class="form-control text-right" id="new_add_DNS" value="{{ DNS }}">
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="new_add_endpoint_allowed_ip">Endpoint Allowed IPs :<a class="text-danger">(الزامی)</a></label>
-                <input type="text" class="form-control text-right" id="new_add_endpoint_allowed_ip"
-                       value="{{ endpoint_allowed_ip }}">
-            </div>
-        </div>
-        <div class="col-sm-6 non-bulk">
-            <div class="form-group">
-                <label for="new_peer_bandwidth">حجم {گیگابایت}:<a class="text-danger">(الزامی)</a></label>
-                <input type="text" class="form-control text-right" id="new_peer_bandwidth">
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="new_add_MTU">MTU</label>
-                <input type="text" class="form-control text-right" id="new_add_MTU" value="{{ mtu }}">
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="new_add_keep_alive">Keepalive</label>
-                <input type="text" class="form-control text-right" id="new_add_keep_alive" value="{{ keep_alive }}">
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="enable_preshare_key" name="enable_preshare_key"
-                       value="enable_psk">
-                <label class="form-check-label" for="enable_preshare_key">Preshared Key</label>
-            </div>
-        </div>
-        <div class="col-sm-6 non-bulk">
-            <div class="form-group">
-                <label for="new_peer_end">زمان اشتراک:<a class="text-danger">(الزامی)</a></label>
-                <div class="input-group">
-                    <input type="datetime-local" class="form-control text-right" id="new_peer_end">
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-<div class="modal-footer text-right">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
-    <button type="button" class="btn btn-primary" id="save_peer" conf_id={{ conf_data['name'] }}>اضافه کردن</button>
-</div>
-</div>
-</div>
-</div>
-<div class="modal fade" id="delete_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">از پاک کردن این کاربر اطمینان دارید ؟</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="remove_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <h6 style="margin: 0">این تصمیم غیر قابل بازگشت است</h6>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" class="btn btn-danger" id="delete_peer"
-                        conf_id={{ conf_data['name'] }} peer_id="">بله
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="setting_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" conf_id="{{ conf_data['name'] }}" peer_id="">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content text-right">
-            <div class="modal-header text-right">
-                <h5 class="modal-title peer_name"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="setting_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="mb-3">
-                    <label for="peer_private_key_textbox" class="form-label text-right">کلید خصوصی</label>
-                    <input type="password" class="form-control text-right" id="peer_private_key_textbox" style="padding-right: 40px">
-                    <a class="peer_private_key_textbox_switch"><i class="bi bi-eye-fill"></i></a>
-                </div>
-                <div>
-                    <label for="peer_preshared_key_textbox" class="form-label text-right">PreShared Key</label>
-                    <input type="text" class="form-control text-right" id="peer_preshared_key_textbox">
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_name_textbox" class="form-label text-right">نام</label>
-                            <input type="text" class="form-control text-right" id="peer_name_textbox" placeholder="">
-                        </div>
+        <div class="modal fade" id="setting_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" conf_id="{{ conf_data['name'] }}" peer_id="">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content text-right">
+                    <div class="modal-header text-right">
+                        <h5 class="modal-title peer_name"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_allowed_ip_textbox" class="form-label text-right">ایپی کاربر وایرگارد</label>
-                            <input type="text" class="form-control text-right" id="peer_allowed_ip_textbox">
+                    <div class="modal-body">
+                        <div id="setting_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
                         <div class="mb-3">
-                            <label for="peer_DNS_textbox" class="form-label text-right">DNS</label>
-                            <input type="text" class="form-control text-right" id="peer_DNS_textbox">
+                            <label for="peer_private_key_textbox" class="form-label text-right">کلید خصوصی</label>
+                            <input type="password" class="form-control text-right" id="peer_private_key_textbox" style="padding-right: 40px">
+                            <a class="peer_private_key_textbox_switch"><i class="bi bi-eye-fill"></i></a>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_endpoint_allowed_ips" class="form-label text-right">Endpoint Allowed IPs</label>
-                            <input type="text" class="form-control text-right" id="peer_endpoint_allowed_ips">
+                        <div>
+                            <label for="peer_preshared_key_textbox" class="form-label text-right">PreShared Key</label>
+                            <input type="text" class="form-control text-right" id="peer_preshared_key_textbox">
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_mtu" class="form-label text-right">MTU</label>
-                            <input type="text" class="form-control text-right" id="peer_mtu">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_end_textbox" class="form-label text-right">زمان اشتراک</label>
-                            <div class="input-group">
-                                <input type="datetime-local" class="form-control text-right" id="peer_end_textbox">
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_name_textbox" class="form-label text-right">نام</label>
+                                    <input type="text" class="form-control text-right" id="peer_name_textbox" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_allowed_ip_textbox" class="form-label text-right">ایپی کاربر وایرگارد</label>
+                                    <input type="text" class="form-control text-right" id="peer_allowed_ip_textbox">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_DNS_textbox" class="form-label text-right">DNS</label>
+                                    <input type="text" class="form-control text-right" id="peer_DNS_textbox">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_endpoint_allowed_ips" class="form-label text-right">Endpoint Allowed IPs</label>
+                                    <input type="text" class="form-control text-right" id="peer_endpoint_allowed_ips">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_mtu" class="form-label text-right">MTU</label>
+                                    <input type="text" class="form-control text-right" id="peer_mtu">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_end_textbox" class="form-label text-right">زمان اشتراک</label>
+                                    <div class="input-group">
+                                        <input type="datetime-local" class="form-control text-right" id="peer_end_textbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_bandwidth_textbox" class="form-label text-right">حجم {گیگابایت}</label>
+                                    <input type="text" class="form-control text-right" id="peer_bandwidth_textbox" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label for="peer_keep_alive" class="form-label text-right">Keepalive</label>
+                                    <input type="text" class="form-control text-right" id="peer_keep_alive">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_bandwidth_textbox" class="form-label text-right">حجم {گیگابایت}</label>
-                            <input type="text" class="form-control text-right" id="peer_bandwidth_textbox" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-3">
-                            <label for="peer_keep_alive" class="form-label text-right">Keepalive</label>
-                            <input type="text" class="form-control text-right" id="peer_keep_alive">
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                        <button type="button" class="btn btn-primary" id="save_peer_setting" conf_id="{{ conf_data['name'] }}" peer_id="">ذخیره</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
-                <button type="button" class="btn btn-primary" id="save_peer_setting" conf_id="{{ conf_data['name'] }}" peer_id="">ذخیره</button>
+        </div>
+        <div class="modal fade" id="available_ip_modal" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">انتحاب ایپی های موجود</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="selected_ip" style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
+                        <small class="text-muted"><strong>ایپی انتخابی (کلیک کنید تا حذف شود)</strong></small>
+                        <div id="selected_ip_list"></div>
+                    </div>
+                    <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
+                        <div class="list-group"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                        <button type="button" class="btn btn-primary" id="confirm_ip">تایید</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="modal fade" id="available_ip_modal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">انتحاب ایپی های موجود</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="selected_ip" style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
-                <small class="text-muted"><strong>ایپی انتخابی (کلیک کنید تا حذف شود)</strong></small>
-                <div id="selected_ip_list"></div>
-            </div>
-            <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
-                <div class="list-group"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
-                <button type="button" class="btn btn-primary" id="confirm_ip">تایید</button>
+        <div class="modal fade" id="delete_bulk_modal" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">کاربر را برای حذف انتخاب کنید</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="bulk_remove_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert" style="margin: 1rem">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="selected_peers" style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
+                            <small class="text-muted"><strong>کاربر انتخاب شده (برای حذف کلیک کنید)</strong></small>
+                            <div id="selected_peer_list"></div>
+                    </div>
+                    <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
+                        <div class="list-group"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="text-danger" id="select_all_delete_bulk_peers" style="cursor: pointer; margin-right: auto;"><small><strong>انتخاب همه</strong></small></a>
+                        <button type="button" class="btn btn-danger" id="confirm_delete_bulk_peers" disabled data-conf="{{conf_data['name']}}">حذف</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-    <div class="modal fade" id="delete_bulk_modal" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">کاربر را برای حذف انتخاب کنید</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-                <div id="bulk_remove_peer_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert" style="margin: 1rem">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+        <div class="modal fade" id="qrcode_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">QR Code</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="qrcode_img" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-fixed top-2 left-0 p-3" style="z-index: 5; left: 0; top: 70px;">
+            <div id="alertToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-header">
+                    <strong class="mr-auto"></strong>
+                    <button type="button" class="mr-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="selected_peers" style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
-                        <small class="text-muted"><strong>کاربر انتخاب شده (برای حذف کلیک کنید)</strong></small>
-                        <div id="selected_peer_list"></div>
-                </div>
-                <div class="modal-body" style="max-height: 400px; overflow-y: scroll;">
-                    <div class="list-group"></div>
-                </div>
-                <div class="modal-footer">
-                    <a class="text-danger" id="select_all_delete_bulk_peers" style="cursor: pointer; margin-right: auto;"><small><strong>انتخاب همه</strong></small></a>
-					<button type="button" class="btn btn-danger" id="confirm_delete_bulk_peers" disabled data-conf="{{conf_data['name']}}">حذف</button>
-				</div>
+                <div class="toast-body"></div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="qrcode_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">QR Code</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-                    <img id="qrcode_img" style="width: 100%">
-				</div>
-			</div>
-		</div>
-	</div>
-    <div class="position-fixed top-2 left-0 p-3" style="z-index: 5; left: 0; top: 70px;">
-          <div id="alertToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-            <div class="toast-header">
-                  <strong class="mr-auto"></strong>
-                  <button type="button" class="mr-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-            </div>
-            <div class="toast-body">
-            </div>
-          </div>
-    </div>
-    {% include "tools.html" %}
-</body>
-{% include "footer.html" %}
-<script src="{{ url_for('static',filename='js/wireguard.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/configuration.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static',filename='css/persian-datepicker.css') }}"/>
-<script src="{{ url_for('static',filename='js/persian-date.js') }}"></script>
-<script src="{{ url_for('static',filename='js/persian-datepicker.js') }}"></script>
-<script>
-    /* global peers */
-    let load_timeout;
-    let load_interval = 0;
-    let conf_name = "{{ conf_data['name'] }}"
-    let peers = [];
-    $(".sb-"+conf_name+"-url").addClass("active");
-	$(function(){
-		configurations.loadPeers($('#search_peer_textbox').val());
-	});
-
-
-    $(document).ready(function(){  
-        $('.peer_date_input').persianDatepicker({
-            initialValue: false,
-            format: 'LLLL',
-            altField: '.peer_date',
-            altFormat: 'lll',
-            autoClose: true,
-            "timePicker": {
+        {% include "tools.html" %}
+    </body>
+    {% include "footer.html" %}
+    <script src="{{ url_for('static',filename='js/wireguard.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/configuration.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/persian-datepicker.css') }}"/>
+    <script src="{{ url_for('static',filename='js/persian-date.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/persian-datepicker.js') }}"></script>
+    <script>
+        let load_timeout;
+        let load_interval = 0;
+        let conf_name = "{{ conf_data['name'] }}"
+        let peers = [];
+        $(".sb-"+conf_name+"-url").addClass("active");
+        $(function(){
+            configurations.loadPeers($('#search_peer_textbox').val());
+        });
+        $(document).ready(function(){  
+            $('.peer_date_input').persianDatepicker({
+                initialValue: false,
+                format: 'LLLL',
+                altField: '.peer_date',
+                altFormat: 'lll',
+                autoClose: true,
+                "timePicker": {
                     "enabled": true,
                     "step": 1,
                     "hour": {
-                    "enabled": true,
-                    "step": null
+                        "enabled": true,
+                        "step": null
                     },
                     "minute": {
-                    "enabled": true,
-                    "step": null
+                        "enabled": true,
+                        "step": null
                     },
                     "second": {
-                    "enabled": false,
-                    "step": null
+                        "enabled": false,
+                        "step": null
                     },
                     "meridian": {
-                    "enabled": true
+                        "enabled": true
                     }
-                }//
-        });//
-    });//
-</script>
-</html>	
+                }
+            });
+        });
+    </script>
+</html>
