@@ -52,7 +52,7 @@ echo -e "\033[1;92m$logo2\033[0m"
 # amirmbn art
 logo2=$(cat << "EOF"
 
-amirmbn
+amirmbn.com
    
 EOF
 )
@@ -62,7 +62,7 @@ echo -e "\033[1;96m$logo\033[0m"
 # amirmbn art
 logo=$(cat << "EOF"
 
-amirmbn
+amirmbn.com
 
 EOF
 )
