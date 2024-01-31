@@ -626,6 +626,11 @@ button.close span {
     font-size: 20px;
 }
 
+.card-body h6 {
+    display: inline-block;
+    padding: 5px 10px 0 0;
+}
+
 .wg-switch {
     position: relative;
     display: inline-block;
