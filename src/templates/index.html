@@ -60,21 +60,21 @@
 					<div class="card mt-3 conf_card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-lg-2 card-col">
+								<div class="col-lg-2 card-col p-0 text-center">
 									<small class="text-muted"><strong>نام کانفیگ</strong></small>
 									<a href="/configuration/{{i['conf']}}" class="conf_link">
 										<h6 class="card-title m-0"><samp>{{i['conf']}}</samp></h6>
 									</a>
 								</div>
-								<div class="col-lg-2 card-col">
+								<div class="col-lg-2 card-col p-0 text-center">
 									<small class="text-muted"><strong>وضعیت</strong></small>
 									<h6 style="text-transform: uppercase; margin:0 !important; direction: ltr;">{{i['status']}} <span class="dot dot-{{i['status']}}" style="margin: 0 0 0 8px;"></span></h6>
 								</div>
-								<div class="col-lg-6 card-col">
+								<div class="col-lg-6 card-col p-0 text-center">
 									<small class="text-muted"><strong>کلید عمومی</strong></small>
 									<h6 class="m-0 public_key_mobile"><samp>{{i['public_key']}}</samp></h6>
 								</div>
-								<div class="col-lg-2 index-switch text-lg-center">
+								<div class="col-lg-2 index-switch text-lg-center p-0">
 									{% if i['checked'] == "checked" %}
 										<a href="#" id="{{i['conf']}}" {{i['checked']}} class="switch wg-green"><i class="bi bi-toggle2-on"></i></a>
 									{% else %}
