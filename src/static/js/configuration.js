@@ -1,4 +1,4 @@
-﻿/**
+/**
  * configuration.js - Copyright(C) 2021 Donald Zou
  * Under Apache-2.0 License
  * some minor parts are edited by azumi. please forgive me if it is not good
@@ -58,9 +58,19 @@
     function configurationHeader(response) {
         let $conf_status_btn = document.getElementById("conf_status_btn");
         if (response.checked === "checked") {
-            $conf_status_btn.innerHTML = `<a href="#" id="${response.name}" ${response.checked} class="switch text-primary"><i class="bi bi-toggle2-on"></i> روشن</a>`;
+            $conf_status_btn.innerHTML = `<a href="#" id="${response.name}" ${response.checked} class="switch">
+                <label class="wg-switch">
+                    <input type="checkbox" checked>
+                    <span class="wg-slider wg-round"></span>
+                </label>
+            </a>`;
         } else {
-            $conf_status_btn.innerHTML = `<a href="#" id="${response.name}" ${response.checked} class="switch text-primary"><i class="bi bi-toggle2-off"></i> خاموش</a>`;
+            $conf_status_btn.innerHTML = `<a href="#" id="${response.name}" ${response.checked} class="switch">
+                <label class="wg-switch">
+                    <input type="checkbox">
+                    <span class="wg-slider wg-round"></span>
+                </label>
+            </a>`;
         }
         $conf_status_btn.classList.remove("info_loading");
         document.querySelectorAll("#sort_by_dropdown option").forEach(ele => ele.removeAttribute("selected"));
