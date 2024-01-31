@@ -20,6 +20,10 @@
          url('../fonts/IRANSansWeb(NoEn)_Bold.ttf') format('truetype');
 }
 
+.wg-green, .wg-green:hover {
+    color: #4cd865;
+}
+
 body {
     font-size: 1rem;
     font-family: "IRANSans", sans-serif;
@@ -272,7 +276,7 @@ main{
 }
 
 .peer_list{
-    margin: 2rem 0;
+    margin: 2rem 0 4rem;
 }
 
 .btn-manage-group{
@@ -615,7 +619,71 @@ pre.index-alert{
 button.close {
     border: none;
     border-radius: 5px;
-    padding: 4px 10px;
+    padding: 2px 10px;
+}
+
+button.close span {
+    font-size: 20px;
+}
+
+.wg-switch {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+    margin-top: 10px;
+}
+  
+.wg-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.wg-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.wg-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.wg-switch input:checked + .wg-slider {
+    background-color: #4cd865;
+}
+  
+.wg-switch input:focus + .wg-slider {
+    box-shadow: 0 0 1px #4cd865;
+}
+  
+.wg-switch input:checked + .wg-slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.wg-slider.wg-round {
+    border-radius: 34px;
+}
+
+.wg-slider.wg-round:before {
+    border-radius: 50%;
 }
 
 @media (max-width: 500px) {
