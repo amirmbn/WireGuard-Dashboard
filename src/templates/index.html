@@ -76,13 +76,11 @@
 								</div>
 								<div class="col-md index-switch text-lg-center" style="margin-top: 5px; margin-right: 5px;">
 									{% if i['checked'] == "checked" %}
-										<a href="#" id="{{i['conf']}}" {{i['checked']}} class="switch text-primary tt"><i class="bi bi-toggle2-on"></i></a>
+										<a href="#" id="{{i['conf']}}" {{i['checked']}} class="switch wg-green"><i class="bi bi-toggle2-on"></i></a>
 									{% else %}
 										<a href="#" id="{{i['conf']}}" {{i['checked']}} class="switch text-secondary"><i class="bi bi-toggle2-off"></i></a>
 									{% endif %}
-									<div class="spinner-border text-primary" role="status" style="display: none">
-										<span class="sr-only"></span>
-									</div>
+									<div role="status" style="display: none"></div>
 								</div>
 							</div>
 						</div>
