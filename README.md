@@ -110,9 +110,9 @@ cd src
 
 ## Preview
 
-![Login](./images/login.png)<br>
-![Dashboard](./images/dashboard.png)<br>
-![Configuration](./images/configuration.png)<br>
+![Login](./images/login.png)
+![Dashboard](./images/dashboard.png)
+![Configuration](./images/configuration.png)
 ![Setting](./images/setting.png)
 
 </div>
