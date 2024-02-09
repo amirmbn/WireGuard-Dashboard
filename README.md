@@ -109,7 +109,7 @@ cd src
 ```
 
 ## Preview
-
+<div align="left" border-radius="10px">
 ![Login](./images/login.png)
 ![Dashboard](./images/dashboard.png)
 ![Configuration](./images/configuration.png)
