@@ -107,7 +107,6 @@ sudo chmod -R 755 /etc/wireguard
 cd src
 ./wgd.sh restart
 ```
-</div>
 
 ## Preview
 
@@ -115,3 +114,5 @@ cd src
 ![Dashboard](./images/dashboard.png)
 ![Configuration](./images/configuration.png)
 ![Setting](./images/setting.png)
+
+</div>
