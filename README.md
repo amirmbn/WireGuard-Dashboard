@@ -108,3 +108,10 @@ cd src
 ./wgd.sh restart
 ```
 </div>
+
+## Preview
+
+![Login](./images/login.png)
+![Dashboard](./images/dashboard.png)
+![Configuration](./images/configuration.png)
+![Setting](./images/setting.png)
