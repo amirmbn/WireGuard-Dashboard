@@ -159,7 +159,7 @@
                             </button>
                         </div>
                         <form id="add_peer_form">
-                            <div class="form-group non-bulk">
+                            <div class="form-group non-bulk mb-3">
                                 <label for="private_key">کلید خصوصی</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control text-right" id="private_key" aria-describedby="private_key">
@@ -171,19 +171,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group non-bulk">
+                            <div class="form-group non-bulk mb-3">
                                 <label for="public_key">کلید عمومی<a class="text-danger">*</a> :</label>
                                 <input type="text" class="form-control text-right" id="public_key" aria-describedby="public_key" disabled>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 non-bulk">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_add_name">نام<a class="text-danger">*</a> :</label>
                                         <input type="text" class="form-control text-right" id="new_add_name">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 non-bulk">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="allowed_ips">ایپی کاربر وایرگارد<a class="text-danger">*</a> :</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control text-right" id="allowed_ips">
@@ -194,36 +194,36 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <p class="text-success" id="allowed_ips_indicator"></p>
+                                        <p class="text-success mb-0" id="allowed_ips_indicator"></p>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_add_DNS">DNS<a class="text-danger">*</a> :</label>
                                         <input type="text" class="form-control text-right" id="new_add_DNS" value="{{ DNS }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_add_endpoint_allowed_ip">Endpoint Allowed IPs<a class="text-danger">*</a> :</label>
                                         <input type="text" class="form-control text-right" id="new_add_endpoint_allowed_ip"
                                             value="{{ endpoint_allowed_ip }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 non-bulk">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_peer_bandwidth">حجم<a class="text-danger">*</a> (گیگابایت) :</label>
                                         <input type="text" class="form-control text-right" id="new_peer_bandwidth">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_add_MTU">MTU</label>
                                         <input type="text" class="form-control text-right" id="new_add_MTU" value="{{ mtu }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_add_keep_alive">Keepalive</label>
                                         <input type="text" class="form-control text-right" id="new_add_keep_alive" value="{{ keep_alive }}">
                                     </div>
@@ -236,7 +236,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 non-bulk">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="new_peer_end">زمان اشتراک<a class="text-danger">*</a> :</label>
                                         <div class="input-group">
                                             <input type="datetime-local" class="form-control text-right" id="new_peer_end">
