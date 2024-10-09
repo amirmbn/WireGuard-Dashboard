@@ -120,6 +120,8 @@ rm -rf src
 rm -rf /etc/wireguard
 sudo apt remove wireguard -y
 ```
+<div align="right">
+ 
  - اگر بعد از حذف، قصد نصب مجدد پنل را دارید کد ریز را قبل از نصب وارد کنید
  
  
