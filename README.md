@@ -108,6 +108,21 @@ cd src
 ./wgd.sh restart
 ```
 
+<div align="right">
+
+
+ - حذف کامل وایرگارد و پنل فارسی
+<div align="left">
+ 
+```
+cd
+rm -rf src
+cd /etc
+rm -rf wireguard
+sudo apt remove wireguard -y
+```
+
+
 ## Preview
 
 ![Login](./images/login.png)
