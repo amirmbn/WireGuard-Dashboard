@@ -34,7 +34,7 @@ cd src
 
 <div align="right">
   <details>
-    <summary><strong>## Install Manually</strong></summary>
+    <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
 
 <div align="right">
 
