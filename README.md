@@ -29,6 +29,7 @@ cd src
 ./wgd.sh restart
 ```
 <br>
+
 --------------
 <div align="right">
   <details>
@@ -137,6 +138,7 @@ cd src
 
   </details>
 </div>
+
 --------------
 <br>
 <div align="right">
