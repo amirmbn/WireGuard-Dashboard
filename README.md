@@ -4,9 +4,7 @@
 به همین دلیل من این پلتفرم را برای مشاهده تمام تنظیمات و مدیریت آنها به روشی ساده تر ایجاد کردم
 <br>
 <br>
-<div align="left">
-  <details>
-    <summary><strong>توضیح کوتاه در مورد این پروژه</strong></summary>
+
 	## Install Automatic
 
 <div align="right">
@@ -30,8 +28,7 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 cd src
 ./wgd.sh restart
 ```
-  </details>
-</div>
+
 <br>
 <br>
 
