@@ -16,8 +16,20 @@
 ```
 sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh && sudo chmod +x setup_wireguard.sh && sudo ./setup_wireguard.sh
 ```
+<div align="right">
 
-
+- به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
+- درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) یا مراجعه کنید
+- اگر به مشکل internal error در زمان لود پنل خوردید، سرور را یک بار ریبوت کنید و سپس دستور زیر را بزنید
+<div align="left">
+ 
+```
+cd src
+./wgd.sh restart
+```
+<br>
+<br>
 ## Install Manually
 
 <div align="right">
