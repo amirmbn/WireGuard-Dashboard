@@ -5,6 +5,19 @@
 <br>
 <br>
 
+## Install Automatic
+
+<div align="right">
+
+
+ - کد زیر را در سرور اوبونتو خود Past کنید
+<div align="left">
+ 
+```
+sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh && sudo chmod +x setup_wireguard.sh && sudo ./setup_wireguard.sh
+```
+
+
 ## Install Manually
 
 <div align="right">
