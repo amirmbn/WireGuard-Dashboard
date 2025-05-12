@@ -32,7 +32,9 @@ cd src
 <br>
 <br>
 
-## Install Manually
+<div align="right">
+  <details>
+    <summary><strong>## Install Manually</strong></summary>
 
 <div align="right">
 
@@ -134,6 +136,9 @@ sudo chmod -R 755 /etc/wireguard
 cd src
 ./wgd.sh restart
 ```
+
+  </details>
+</div>
 
 <div align="right">
 
