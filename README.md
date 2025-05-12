@@ -28,8 +28,6 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 cd src
 ./wgd.sh restart
 ```
-
-<br>
 <br>
 
 --------------
