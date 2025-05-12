@@ -36,8 +36,8 @@ cd src
     <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
 
 <div align="right">
-
 <br>
+ 
  - سرور را اپدیت کنید و وایرگارد را نصب کنید
 <div align="left">
  
