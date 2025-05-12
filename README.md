@@ -5,7 +5,7 @@
 <br>
 <br>
 
-	## Install Automatic
+## Install Automatic
 
 <div align="right">
 
