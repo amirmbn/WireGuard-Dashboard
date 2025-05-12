@@ -32,6 +32,7 @@ cd src
 <br>
 <br>
 
+--------------
 <div align="right">
   <details>
     <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
@@ -141,7 +142,6 @@ cd src
 </div>
 
 --------------
-
 <div align="right">
 
 
