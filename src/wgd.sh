@@ -28,13 +28,6 @@ NC='\033[0m'
 dashes='------------------------------------------------------------'
 equals='============================================================'
 
-logo2=$(cat << "EOF"
-
-amirmbn.com3
-   
-EOF
-)
-
 logo=$(cat << "EOF"
 
 amirmbn.com44
@@ -44,10 +37,6 @@ EOF
 
 function display_logo() {
   echo -e "\033[1;96m$logo\033[0m"
-}
-
-function display_logo2() {
-  echo -e "\033[1;92m$logo2\033[0m"
 }
 
 print_box() {
@@ -62,7 +51,7 @@ print_box() {
 }
 
 help() {
-  display_logo2
+  display_logo
   printf "${YELLOW}=================================================================================\n"
   printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
   printf "${YELLOW}=================================================================================${NC}\n"
