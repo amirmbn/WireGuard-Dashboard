@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # wgd.sh - Copyright(C) 2021 Donald Zou & amirmbn [https://github.com/amirmbn]
-## Edited By amirmbn
+# پنل مدیریت WireGuard
 
+# ================ متغیرهای سراسری ================
 app_name="dashboard.py"
 app_official_name="WGDashboard"
 PID_FILE=./gunicorn.pid
 environment=$(if [[ $ENVIRONMENT ]]; then echo $ENVIRONMENT; else echo 'develop'; fi)
+
+# تنظیم مسیرهای پیکربندی
 if [[ $CONFIGURATION_PATH ]]; then
   cb_work_dir=$CONFIGURATION_PATH/letsencrypt/work-dir
   cb_config_dir=$CONFIGURATION_PATH/letsencrypt/config-dir
@@ -15,13 +18,63 @@ else
   cb_config_dir=/var/lib/letsencrypt
 fi
 
+# ================ تعریف رنگ‌ها ================
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[93m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+LIGHT_GREEN='\033[1;32m'
+BOLD='\033[1m'
+NC='\033[0m' # بدون رنگ
+
+# ================ تعریف نمادها ================
 dashes='------------------------------------------------------------'
 equals='============================================================'
+
+# ================ تعریف لوگوها ================
+# لوگوی amirmbn
+logo2=$(cat << "EOF"
+
+amirmbn.com
+   
+EOF
+)
+
+# لوگوی amirmbn دیگر
+logo=$(cat << "EOF"
+
+amirmbn.com
+
+EOF
+)
+
+# ================ توابع نمایشی ================
+# نمایش لوگو
+function display_logo() {
+  echo -e "\033[1;96m$logo\033[0m"
+}
+
+# نمایش لوگوی دوم
+function display_logo2() {
+  echo -e "\033[1;92m$logo2\033[0m"
+}
+
+# تابع نمایش کادر متنی پیشرفته
+print_box() {
+  local text="$1"
+  local color="$2"
+  local width=$((${#text} + 4))
+  local dashes=$(printf "%-${width}s" "-" | tr ' ' "-")
+  
+  printf "${color}╔${dashes}╗${NC}\n"
+  printf "${color}║  ${text}  ║${NC}\n"
+  printf "${color}╚${dashes}╝${NC}\n"
+}
+
+# ================ توابع اصلی ================
+# نمایش راهنما
 help() {
-  GREEN='\033[92m'
-  YELLOW='\033[93m'
-  BLUE='\033[96m'
-  NC='\033[0m' 
   display_logo2
   printf "${YELLOW}=================================================================================\n"
   printf "${YELLOW}+     ${BLUE}<Wireguard Panel> by Donald Zou & amirmbn ${BLUE}https://github.com/amirmbn        ${YELLOW}+\n"
@@ -35,6 +88,8 @@ help() {
   printf "${YELLOW}|    ${GREEN}install${NC}: To install Wireguard Panel                                        ${YELLOW}|\n"
   printf "${YELLOW}=================================================================================${NC}\n"
 }
+
+# بررسی و تنظیم محیط مجازی (غیرفعال در نسخه 3.0)
 _check_and_set_venv(){
     # This function will not be using in v3.0
     # deb/ubuntu users: might need a 'apt install python3.8-venv'
@@ -46,55 +101,49 @@ _check_and_set_venv(){
     fi
     . ${VIRTUAL_ENV}/bin/activate
 }
-function display_logo2() {
-echo -e "\033[1;92m$logo2\033[0m"
+
+# ================ توابع مدیریت SSL ================
+# ایجاد SSL با Certbot
+certbot_create_ssl () {
+  certbot certonly --config ./certbot.ini --email "$EMAIL" --work-dir $cb_work_dir --config-dir $cb_config_dir --domain "$SERVERURL"
 }
-# amirmbn art
-logo2=$(cat << "EOF"
 
-amirmbn.com
-   
-EOF
-)
-function display_logo() {
-echo -e "\033[1;96m$logo\033[0m"
+# تمدید SSL با Certbot
+certbot_renew_ssl () {
+  certbot renew --work-dir $cb_work_dir --config-dir $cb_config_dir
 }
-# amirmbn art
-logo=$(cat << "EOF"
 
-amirmbn.com
+# ================ توابع مدیریت وضعیت ================
+# بررسی وضعیت اجرایی پنل WireGuard
+check_wgd_status(){
+  if test -f "$PID_FILE"; then
+    if ps aux | grep -v grep | grep $(cat ./gunicorn.pid) > /dev/null; then
+      return 0  # در حال اجرا
+    else
+      return 1  # متوقف شده
+    fi
+  else
+    if ps aux | grep -v grep | grep '[p]ython3 '$app_name > /dev/null; then
+      return 0  # در حال اجرا
+    else
+      return 1  # متوقف شده
+    fi
+  fi
+}
 
-EOF
-)
+# ================ توابع نصب و بروزرسانی ================
+# نصب پنل WireGuard
 install_wgd() {
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[93m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-LIGHT_GREEN='\033[1;32m'
-BOLD='\033[1m'
-RESET='\033[0m'
-
-    print_box() {
-        local text="$1"
-        local color="$2"
-        local width=$((${#text} + 2))
-        local dashes=$(printf "─%.0s" $(seq 1 $width))
-
-        printf "${color}╭${dashes}╮${RESET}\n"
-        printf "${color}│ ${text} │${RESET}\n"
-        printf "${color}╰${dashes}╯${RESET}\n"
-    }
-
     display_logo
 
+    # بررسی نسخه پایتون
     version_pass=$(python3 -c 'import sys; print("1") if (sys.version_info.major == 3 and sys.version_info.minor >= 7) else print("0");')
     if [ $version_pass == "0" ]; then
         print_box "Wireguard Panel requires Python 3.7 or above" "${RED}"
         exit 1
     fi
 
+    # ایجاد پوشه‌های مورد نیاز
     if [ ! -d "db" ]; then
         mkdir "db"
     fi
@@ -112,108 +161,7 @@ RESET='\033[0m'
     print_box "Enter ./wgd.sh start to start the dashboard!" "${YELLOW}"
 }
 
-check_wgd_status(){
-  if test -f "$PID_FILE"; then
-    if ps aux | grep -v grep | grep $(cat ./gunicorn.pid)  > /dev/null; then
-    return 0
-    else
-      return 1
-    fi
-  else
-    if ps aux | grep -v grep | grep '[p]ython3 '$app_name > /dev/null; then
-      return 0
-    else
-      return 1
-    fi
-  fi
-}
-
-certbot_create_ssl () {
-  certbot certonly --config ./certbot.ini --email "$EMAIL" --work-dir $cb_work_dir --config-dir $cb_config_dir --domain "$SERVERURL"
-}
-
-certbot_renew_ssl () {
-  certbot renew --work-dir $cb_work_dir --config-dir $cb_config_dir
-}
-
-print_box() {
-  local text="$1"
-  local color="$2"
-  local width=$((${#text} + 4))
-  local dashes=$(printf "%-${width}s" "-" | tr ' ' "~")
-  
-  printf "${color}╭${dashes}╮${NC}\n"
-  printf "${color}│  ${text}  │${NC}\n"
-  printf "${color}╰${dashes}╯${NC}\n"
-}
-
-gunicorn_start() {
-  GREEN='\033[92m'
-  YELLOW='\033[93m'
-  BLUE='\033[96m'
-  NC='\033[0m'
-
-  print_box "Starting Wireguard Panel with Gunicorn in the background." "$YELLOW"
-  
-  if [ ! -d "log" ]; then
-    mkdir "log"
-  fi
-
-  d=$(date '+%Y%m%d%H%M%S')
-
-  if [[ $USER == root ]]; then
-    export PATH=$PATH:/usr/local/bin:$HOME/.local/bin
-  fi
-
-  gunicorn --access-logfile log/access_"$d".log \
-  --error-logfile log/error_"$d".log 'dashboard:run_dashboard()'
-
-  print_box "Log files are under log/" "$YELLOW"
-}
-
-gunicorn_stop () {
-  kill $(cat ./gunicorn.pid)
-}
-
-start_wgd () {
-    gunicorn_start
-}
-
-stop_wgd() {
-  if test -f "$PID_FILE"; then
-    gunicorn_stop
-  else
-    kill "$(ps aux | grep "[p]ython3 $app_name" | awk '{print $2}')"
-  fi
-}
-
-start_wgd_debug() {
-
-    YELLOW='\033[0;33m'
-    BLUE='\033[0;34m'
-    BOLD='\033[1m'
-	GREEN='\033[92m'
-    RESET='\033[0m'
-
-print_box() {
-  local text="$1"
-  local color="$2"
-  local width=$((${#text} + 4))
-  local dashes=$(printf "%-${width}s" "-" | tr ' ' "-")
-  
-  printf "${color}╔${dashes}╗${RESET}\n"
-  printf "${color}║  ${text}  ║${RESET}\n"
-  printf "${color}╚${dashes}╝${RESET}\n"
-}
-
-    dashes=$(printf "%-${logo_width}s" "─" | tr ' ' "─")
-
-    printf "%s\n" "$dashes"
-    print_box "Wireguard Panel in the foreground." "${GREEN}"
-    python3 "$app_name"
-    printf "%s\n" "$dashes"
-}
-
+# بروزرسانی پنل WireGuard
 update_wgd() {
   new_ver=$(python3 -c "import json; import urllib.request; data = urllib.request.urlopen('https://api.github.com/repos/amirmbn/WireGuard-Dashboard.git').read(); output = json.loads(data);print(output['tag_name'])")
   printf "%s\n" "$dashes"
@@ -242,23 +190,58 @@ update_wgd() {
   fi
 }
 
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-BOLD='\033[1m'
-GREEN='\033[92m'
-NC='\033[0m'
-
-print_box() {
-  local text="$1"
-  local color="$2"
-  local width=$((${#text} + 4))
-  local dashes=$(printf "%-${width}s" "-" | tr ' ' "-")
+# ================ توابع مدیریت اجرا ================
+# شروع Gunicorn
+gunicorn_start() {
+  print_box "Starting Wireguard Panel with Gunicorn in the background." "$YELLOW"
   
-  printf "${color}╔${dashes}╗${NC}\n"
-  printf "${color}║  ${text}  ║${NC}\n"
-  printf "${color}╚${dashes}╝${NC}\n"
+  if [ ! -d "log" ]; then
+    mkdir "log"
+  fi
+
+  d=$(date '+%Y%m%d%H%M%S')
+
+  if [[ $USER == root ]]; then
+    export PATH=$PATH:/usr/local/bin:$HOME/.local/bin
+  fi
+
+  gunicorn --access-logfile log/access_"$d".log \
+  --error-logfile log/error_"$d".log 'dashboard:run_dashboard()'
+
+  print_box "Log files are under log/" "$YELLOW"
 }
 
+# توقف Gunicorn
+gunicorn_stop() {
+  kill $(cat ./gunicorn.pid)
+}
+
+# شروع پنل WireGuard
+start_wgd() {
+  gunicorn_start
+}
+
+# توقف پنل WireGuard
+stop_wgd() {
+  if test -f "$PID_FILE"; then
+    gunicorn_stop
+  else
+    kill "$(ps aux | grep "[p]ython3 $app_name" | awk '{print $2}')"
+  fi
+}
+
+# شروع پنل WireGuard در حالت دیباگ
+start_wgd_debug() {
+  dashes=$(printf "%-${logo_width}s" "─" | tr ' ' "─")
+
+  printf "%s\n" "$dashes"
+  print_box "Wireguard Panel in the foreground." "${GREEN}"
+  python3 "$app_name"
+  printf "%s\n" "$dashes"
+}
+
+# ================ بدنه اصلی اسکریپت ================
+# بررسی پارامترهای ورودی و اجرای عملیات متناسب
 if [ "$#" != 1 ]; then
   help
 else
