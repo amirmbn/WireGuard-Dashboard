@@ -152,7 +152,7 @@ update_wgd() {
 
 gunicorn_start() {
   print_box "Starting Wireguard Panel with Gunicorn in the background." "$LIGHT_GREEN"
-  
+
   if [ ! -d "log" ]; then
     mkdir "log"
   fi
