@@ -132,7 +132,6 @@ install_wgd() {
     python3 -m pip install -U -r requirements.txt > /dev/null 2>&1
 
     print_box "Wireguard Panel installed successfully!" "${LIGHT_GREEN}"
-    print_box "Enter ./wgd.sh start to start the dashboard!" "${YELLOW}"
 }
 
 update_wgd() {
@@ -164,7 +163,7 @@ update_wgd() {
 }
 
 gunicorn_start() {
-  print_box "Starting Wireguard Panel with Gunicorn in the background." "$YELLOW"
+  print_box "Starting Wireguard Panel with Gunicorn in the background." "$LIGHT_GREEN"
   
   if [ ! -d "log" ]; then
     mkdir "log"
@@ -217,7 +216,7 @@ else
       printf "%s\n" "$dashes"
     else
       printf "%s\n" "$dashes"
-      print_box "Starting Wireguard Panel with Gunicorn in the background." "$BLUE"
+      print_box "Starting Wireguard Panel with Gunicorn in the background." "$GREEN"
       start_wgd
     fi
   elif [ "$1" = "stop" ]; then
@@ -257,7 +256,7 @@ else
       printf "${GREEN}| Wireguard Panel is already running.                          ${NC}|\n"
     else
       printf "%s\n" "$dashes"
-      print_box "Starting Wireguard Panel with Gunicorn in the background." "$BLUE"
+      print_box "Starting Wireguard Panel with Gunicorn in the background." "$GREEN"
       start_wgd_debug
     fi
   else
