@@ -29,9 +29,9 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 </div><br>
 
 --------------
-<div align="right">
+<div align="left">
   <details>
-    <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
+    <summary><strong>Manual Installation</strong></summary>
 <div align="right">
 <br>
  
