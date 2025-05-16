@@ -126,7 +126,6 @@ sudo chmod -R 755 /etc/wireguard
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
 
-
   </details>
 </div>
 
