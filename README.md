@@ -180,7 +180,7 @@ mkdir /etc/wireguard
 <br>
 
 ## Preview
-
+<div align="right">عکس های زیر مربوط به نسخه 3.0.7 است و امکان دارد تغییرات با نسخه آپدیت شده داسته باشد</div>
 ![Login](./images/login.png)
 ![Dashboard](./images/dashboard.png)
 ![Configuration](./images/configuration.png)
