@@ -147,6 +147,11 @@ sudo chmod -R 755 /etc/wireguard
   <details>
     <summary><strong>Uninstall WireGuard Panel</strong></summary>
    <br>
+<div align="right">
+
+ 
+ - برای حذف کامل وایرگارد و پنل فارسی کد زیر را در سرور اوبونتو خود وارد کنید
+</div>
 <div align="left">
  
 ```
