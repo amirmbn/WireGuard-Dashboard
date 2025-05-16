@@ -24,13 +24,7 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) یا مراجعه کنید
 - اگر از سرورهای دیجیتال اوشن استفاده میکنید، نصب دستی پنل وایرگارد را دنبال کنید.
-- اگر به مشکل internal error در زمان لود پنل خوردید، سرور را یک بار ریبوت کنید و سپس دستور زیر را بزنید
-<div align="left">
- 
-```
-cd src
-./wgd.sh restart
-```
+- اگر به مشکل internal error در زمان لود پنل خوردید، سرور را یک بار ریبوت کنید.
 <br>
 
 --------------
