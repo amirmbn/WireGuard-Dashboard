@@ -246,7 +246,12 @@ a { text-decoration:none;}
     color: #17a2b8;
 }
 
-.login-container{display: block;margin-top: 22vh;max-width: 100% !important;text-align: center;}
+.login-container{
+    display: block;
+    margin-top: 20rem;
+    max-width: 100% !important;
+    text-align: center;
+}
 
 .switch{
     font-size: 2rem;
