@@ -577,7 +577,7 @@ pre.index-alert{
     margin: 0 auto;
     padding: 60px 32px;
     border-radius: 2rem;
-    background: rgba(68,68,68,0.2);
+    background: rgba(200,200,200,0.2);
 }
 
 .login-box .form-control {
