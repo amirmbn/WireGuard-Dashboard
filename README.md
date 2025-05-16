@@ -1,85 +1,79 @@
 # WireGuard Dashboard
+مانیتورینگ WireGuard راحت نیست، باید وارد سرور شوید و wg show را تایپ کنید<br>
 
-<div align="right">
-مانیتورینگ WireGuard راحت نیست، باید وارد سرور شوید و دستور wg show را اجرا کنید.
+به همین دلیل من این پلتفرم را برای مشاهده تمام تنظیمات و مدیریت آنها به روشی ساده تر ایجاد کردم
 
-به همین دلیل این پلتفرم را برای مشاهده تمام تنظیمات و مدیریت آنها به روشی ساده‌تر ایجاد کردم.
-</div>
-
-### سیستم عامل‌های قابل استفاده
-- اوبونتو 20 ~ 22
-- دبیان 11
-- **توصیه شده: اوبونتو 22**
-
+سیستم عامل های قابل استفاده: اوبونتو 20 ~ 22 / دبیان 11 ( توصیه شده: اوبونتو 22 )
+<br>
 <br>
 
-## نصب خودکار
+## Install Automatic
 
 <div align="right">
-کد زیر را در سرور اوبونتو خود وارد کنید:
-</div>
 
-```bash
+
+ - کد زیر را در سرور اوبونتو خود Past کنید
+<div align="left">
+ 
+```
 sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh && sudo chmod +x setup_wireguard.sh && sudo ./setup_wireguard.sh
 ```
-
 <div align="right">
 
-- به پنل خود با آدرس `http://Your_Server_IP:1000` وارد شوید. نام کاربری `admin` و رمز عبور `1234` است.
-- درصورت استفاده از تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید.
-- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید.
-- اگر از سرورهای دیجیتال اوشن استفاده می‌کنید، روش نصب دستی پنل وایرگارد را دنبال کنید.
-</div>
-
+- به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
+- درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
+- اگر از سرورهای دیجیتال اوشن استفاده میکنید، نصب دستی پنل وایرگارد را دنبال کنید.
 <br>
 
----
+--------------
 <div align="right">
-<details>
-<summary><strong>نصب دستی پنل وایرگارد</strong></summary>
+  <details>
+    <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
 
 <div align="right">
-
-### 1. سرور را به‌روز کنید و وایرگارد را نصب کنید
-</div>
-
-```bash
+<br>
+ 
+ - سرور را اپدیت کنید و وایرگارد را نصب کنید
+<div align="left">
+ 
+```
 apt update -y
 apt install wireguard -y
 ```
-
 <div align="right">
-
-### 2. کلید خصوصی بسازید و آن را یادداشت کنید
-</div>
-
-```bash
+ 
+ - با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید
+ 
+ 
+<div align="left">
+ 
+```
 wg genkey | sudo tee /etc/wireguard/server_private.key
 ```
-
 <div align="right">
 
-### 3. دریافت اینترفیس پیش‌فرض
-عبارت بعد از dev نام اینترفیس شما خواهد بود (مثلاً eth0)
-</div>
 
-```bash
+- دریافت اینترفیس default، عبارت بعد از dev میشه اسم اینترفیس شما (مثل eth0)
+<div align="left">
+ 
+```
 ip route list default
 ```
-
 <div align="right">
 
-### 4. ایجاد فایل پیکربندی وایرگارد
-</div>
 
-```bash
+- با دستور زیر وارد مسیر کانفیگ وایرگارد بشوید
+<div align="left">
+ 
+```
 nano /etc/wireguard/wg0.conf
 ```
-
 <div align="right">
-متن زیر را در فایل کپی کنید:
-</div>
 
+- داخلش متن زیر را کپی کنید
+<div align="left">
+  
 ```
 [Interface]
 Address = 172.20.0.1/24
@@ -99,23 +93,16 @@ ListenPort = 40600
 PrivateKey = YOUR_GENERATED_PRIVATE_KEY
 SaveConfig = true
 ```
-
 <div align="right">
 
-**نکات مهم:**
-- پورت وایرگارد در اینجا 40600 است، می‌توانید پورت دیگری انتخاب کنید.
-- برای سرورهای دیجیتال اوشن، از آدرس IP خصوصی دیگری استفاده نمایید.
-- کلید خصوصی که ساخته‌اید را به جای `YOUR_GENERATED_PRIVATE_KEY` قرار دهید.
-- نام اینترفیس به صورت پیش‌فرض `eth0` قرار داده شده، اگر اینترفیس شما متفاوت است، دستورات بالا را ویرایش کنید.
-- برای ساختن اینترفیس‌های بیشتر با پورت‌های مختلف، از همین روش استفاده کنید و فقط نام، پورت و IP را تغییر دهید.
-</div>
-
-<div align="right">
-
-### 5. نصب پنل مدیریت وایرگارد
-</div>
-
-```bash
+- پورت وایرگارد در اینجا 40600 است، میتوانید پورت دیگری انتخاب کنید
+- دقت کنید برای سرور های دیجیتال اوشن،  از پرایوت ایپی دیگری استفاده نمایید
+- پرایوت کی که ساخته بودید را به جای YOUR_GENERATED_PRIVATE_KEY قرار دهید
+- در اینجا نام اینترفیس را به صورت پیش فرض eth0 قرار دادیم، اگر اینترفیس شما متفاوت است دستور بالا را ادیت کنید
+- برای ساختن اینترفیس های بیشتر و با پورت های مختلف با همین روش بالا انجام بدید و فقط نام و پورت و ایپی رو عوض کنید
+<div align="left">
+ 
+```
 apt update
 apt install git
 git clone https://github.com/amirmbn/WireGuard-Dashboard.git
@@ -133,41 +120,45 @@ sudo chmod -R 755 /etc/wireguard
 ./wgd.sh start
 (crontab -l 2>/dev/null; echo "@reboot cd src && ./wgd.sh restart") | crontab -
 ```
-
 <div align="right">
 
-- به پنل خود با آدرس `http://Your_Server_IP:1000` وارد شوید. نام کاربری `admin` و رمز عبور `1234` است.
-- درصورت استفاده از تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید.
-- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید.
+- به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
+- درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
+<div>
+  </details>
 </div>
 
-</details>
-
----
-
+--------------
+<br>
 <div align="right">
 
-## حذف کامل وایرگارد و پنل فارسی
-</div>
 
-```bash
+### حذف کامل وایرگارد و پنل فارسی
+<div align="left">
+ 
+```
 cd
 rm -rf src
 rm -rf /etc/wireguard
 sudo apt remove wireguard -y
 ```
-
 <div align="right">
-اگر بعد از حذف، قصد نصب مجدد پنل را دارید، کد زیر را قبل از نصب وارد کنید:
-</div>
-
-```bash
+ 
+ - اگر بعد از حذف، قصد نصب مجدد پنل را دارید کد ریز را قبل از نصب وارد کنید
+ 
+ 
+<div align="left">
+ 
+```
 mkdir /etc/wireguard
 ```
 
-## پیش‌نمایش
+## Preview
 
 ![Login](./images/login.png)
 ![Dashboard](./images/dashboard.png)
 ![Configuration](./images/configuration.png)
 ![Setting](./images/setting.png)
+
+</div>
