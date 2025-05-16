@@ -32,8 +32,8 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 <div align="left">
   <details>
     <summary><strong>Manual Installation</strong></summary>
+   <br>
 <div align="right">
-<br>
  
  - سرور را اپدیت کنید و وایرگارد را نصب کنید
 </div>
