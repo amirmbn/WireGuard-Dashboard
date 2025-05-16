@@ -125,7 +125,7 @@ sudo chmod -R 755 /etc/wireguard
 - به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
-
+<div>
   </details>
 </div>
 
