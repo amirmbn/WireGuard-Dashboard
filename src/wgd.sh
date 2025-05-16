@@ -211,13 +211,13 @@ else
     if check_wgd_status; then
       printf "%s\n" "$dashes"
       stop_wgd
-      print_box "Wireguard Panel is stopped." "$GREEN"
+      print_box "Wireguard Panel is stopped." "$YELLOW"
       printf "%s\n" "$dashes"
     else
       printf "%s\n" "$dashes"
-      print_box "Wireguard Panel is stopped." "$GREEN"
+      print_box "Wireguard Panel is stopped." "$YELLOW"
       printf "%s\n" "$dashes"
-      printf "${GREEN}| Wireguard Panel is not running.                              ${NC}|\n"
+      printf "${YELLOW}| Wireguard Panel is not running.                              ${NC}|\n"
       printf "%s\n" "$dashes"
     fi
   elif [ "$1" = "update" ]; then
@@ -230,7 +230,7 @@ else
     if check_wgd_status; then
       printf "%s\n" "$dashes"
       stop_wgd
-      print_box "Wireguard Panel is stopped." "$GREEN"                   
+      print_box "Wireguard Panel is stopped." "$YELLOW"                   
       sleep 4
       start_wgd
     else
