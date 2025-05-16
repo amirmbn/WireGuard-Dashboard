@@ -48,3 +48,5 @@ sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
 
 ./wgd.sh start
+
+(crontab -l 2>/dev/null; echo "@reboot cd src && ./wgd.sh restart") | crontab -
