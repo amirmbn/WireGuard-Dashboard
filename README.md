@@ -19,60 +19,69 @@
 ```
 sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh && sudo chmod +x setup_wireguard.sh && sudo ./setup_wireguard.sh
 ```
+</div>
 <div align="right">
 
 - به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
 - اگر از سرورهای دیجیتال اوشن استفاده میکنید، نصب دستی پنل وایرگارد را دنبال کنید.
-<br>
+</div><br>
 
 --------------
 <div align="right">
   <details>
     <summary><strong>نصب دستی پنل وایرگارد</strong></summary>
-
 <div align="right">
 <br>
  
  - سرور را اپدیت کنید و وایرگارد را نصب کنید
+</div>
 <div align="left">
  
 ```
 apt update -y
 apt install wireguard -y
 ```
+</div>
 <div align="right">
  
  - با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید
  
  
+</div>
 <div align="left">
  
 ```
 wg genkey | sudo tee /etc/wireguard/server_private.key
 ```
+</div>
 <div align="right">
 
 
 - دریافت اینترفیس default، عبارت بعد از dev میشه اسم اینترفیس شما (مثل eth0)
+</div>
 <div align="left">
  
 ```
 ip route list default
 ```
+</div>
 <div align="right">
 
 
 - با دستور زیر وارد مسیر کانفیگ وایرگارد بشوید
+</div>
 <div align="left">
  
 ```
 nano /etc/wireguard/wg0.conf
 ```
+</div>
 <div align="right">
 
 - داخلش متن زیر را کپی کنید
+</div>
 <div align="left">
   
 ```
@@ -94,6 +103,7 @@ ListenPort = 40600
 PrivateKey = YOUR_GENERATED_PRIVATE_KEY
 SaveConfig = true
 ```
+</div>
 <div align="right">
 
 - پورت وایرگارد در اینجا 40600 است، میتوانید پورت دیگری انتخاب کنید
@@ -101,6 +111,7 @@ SaveConfig = true
 - پرایوت کی که ساخته بودید را به جای YOUR_GENERATED_PRIVATE_KEY قرار دهید
 - در اینجا نام اینترفیس را به صورت پیش فرض eth0 قرار دادیم، اگر اینترفیس شما متفاوت است دستور بالا را ادیت کنید
 - برای ساختن اینترفیس های بیشتر و با پورت های مختلف با همین روش بالا انجام بدید و فقط نام و پورت و ایپی رو عوض کنید
+</div>
 <div align="left">
  
 ```
@@ -121,6 +132,7 @@ sudo chmod -R 755 /etc/wireguard
 ./wgd.sh start
 (crontab -l 2>/dev/null; echo "@reboot cd src && ./wgd.sh restart") | crontab -
 ```
+</div>
 <div align="right">
 
 - به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
@@ -136,6 +148,7 @@ sudo chmod -R 755 /etc/wireguard
 
 
 ### حذف کامل وایرگارد و پنل فارسی
+</div>
 <div align="left">
  
 ```
@@ -144,11 +157,13 @@ rm -rf src
 rm -rf /etc/wireguard
 sudo apt remove wireguard -y
 ```
+</div>
 <div align="right">
  
  - اگر بعد از حذف، قصد نصب مجدد پنل را دارید کد ریز را قبل از نصب وارد کنید
  
  
+</div>
 <div align="left">
  
 ```
