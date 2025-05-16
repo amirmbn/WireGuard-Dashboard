@@ -29,6 +29,7 @@ body {
     font-family: "IRANSans", sans-serif;
     text-decoration: rtl;
     text-align: right;
+    background: radial-gradient(circle, rgba(30, 47, 97, 0.9) 20%, rgba(14, 5, 48, 0.9) 100%) !important;
 }
 
 a { text-decoration:none;}
