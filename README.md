@@ -144,11 +144,11 @@ sudo chmod -R 755 /etc/wireguard
 
 --------------
 <br>
-<div align="right">
 
-
-### حذف کامل وایرگارد و پنل فارسی
-</div>
+<div align="left">
+  <details>
+    <summary><strong>Uninstall WireGuard Panel</strong></summary>
+   <br>
 <div align="left">
  
 ```
@@ -170,6 +170,10 @@ sudo apt remove wireguard -y
 mkdir /etc/wireguard
 ```
 
+  </details>
+</div>
+
+--------------
 ## Preview
 
 ![Login](./images/login.png)
