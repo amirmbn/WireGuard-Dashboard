@@ -204,7 +204,7 @@ else
       printf "%s\n" "$dashes"
     else
       printf "%s\n" "$dashes"
-      print_box "Starting Wireguard Panel with Gunicorn in the background." "$GREEN"
+      print_box "Starting Wireguard Panel with Gunicorn in the background." "$LIGHT_GREEN"
       start_wgd
     fi
   elif [ "$1" = "stop" ]; then
@@ -244,7 +244,7 @@ else
       printf "${GREEN}| Wireguard Panel is already running.                          ${NC}|\n"
     else
       printf "%s\n" "$dashes"
-      print_box "Starting Wireguard Panel with Gunicorn in the background." "$GREEN"
+      print_box "Starting Wireguard Panel with Gunicorn in the background." "$LIGHT_GREEN"
       start_wgd_debug
     fi
   else
