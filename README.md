@@ -172,6 +172,7 @@ mkdir /etc/wireguard
 </div>
 
 --------------
+<br>
 ## Preview
 
 ![Login](./images/login.png)
