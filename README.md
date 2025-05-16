@@ -143,8 +143,6 @@ sudo chmod -R 755 /etc/wireguard
 </div>
 
 --------------
-<br>
-
 <div align="left">
   <details>
     <summary><strong>Uninstall WireGuard Panel</strong></summary>
