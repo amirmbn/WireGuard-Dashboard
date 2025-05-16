@@ -9,7 +9,9 @@
 
 ## Install Automatic
 
-<div align="right"> - کد زیر را در سرور اوبونتو خود Past کنید</div>
+<div align="right">
+ - کد زیر را در سرور اوبونتو خود Past کنید
+</div>
 
 <div align="left">
  
