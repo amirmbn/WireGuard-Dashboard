@@ -1,5 +1,5 @@
 # WireGuard Dashboard
-Version 3.0.7 <div style="font-size: 12px;">(15.05.2025)</div>div><br><br>
+Version 3.0.7 (15.05.2025)<br><br>
 
 مانیتورینگ WireGuard راحت نیست، باید وارد سرور شوید و wg show را تایپ کنید
 
