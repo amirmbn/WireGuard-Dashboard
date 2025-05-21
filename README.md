@@ -24,7 +24,7 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
 </div>
 <div align="right">
 
-- با استفاده از نام کاربری admin و رمز عبور 1234 از طریق پورت 1000 (Server-IP:1000) وارد پنل شوید.
+- با استفاده از نام کاربری admin و رمز عبور 1234 و پورت 1000 ( Server-IP:1000 ) وارد پنل شوید.
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
 - اگر از سرورهای دیجیتال اوشن استفاده میکنید، نصب دستی پنل وایرگارد را دنبال کنید.
