@@ -1,5 +1,5 @@
 # WireGuard Dashboard
-Version 3.0.7 (15.05.2025)<br><br>
+Latest Version 3.0.7 (15.05.2025)<br><br>
 
 مانیتورینگ WireGuard راحت نیست، باید وارد سرور شوید و wg show را تایپ کنید
 
