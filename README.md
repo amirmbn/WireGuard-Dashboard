@@ -13,7 +13,7 @@ Latest Version: 3.0.7 (15.05.2025)<br><br>
 
 <div align="right">
  
- - کد زیر را در سرور اوبونتو خود Past کنید
+ - کد زیر را کپی و در سرور مجازی خود Past کنید
 </div>
 
 <div align="left">
