@@ -179,6 +179,20 @@ mkdir /etc/wireguard
 </div>
 
 --------------
+<div align="left">
+  <details>
+    <summary><strong>Backup and Restore</strong></summary>
+   <br>
+<div align="right">
+
+ 
+ - بخاطر در خواست زیاد دوستان، میخوام در این قسمت روش بک آپ گرفتن و ریستور کردن آن را قرار بدم
+</div>
+
+  </details>
+</div>
+
+--------------
 <br>
 
 ## Preview
