@@ -186,8 +186,8 @@ mkdir /etc/wireguard
 <div align="right">
 
 - برای بک آپ گرفتن شما نیاز دارید 3 تا فایل از آدرس های زیر کپی و به سرور جدید منتقل کنید
-- پوشه etc/wireguard فایل شماره اول server_private.key فایل شماره دوم wg0.conf
-- پوشه root/src/db/ فایل شماره سوم wgdashboard.db
+- پوشه etc/wireguard فایل اول server_private.key فایل دوم wg0.conf
+- پوشه root/src/db/ فایل سوم wgdashboard.db
 <br>
 
 - سرور را آپدیت و وایرگارد را نصب کنید
