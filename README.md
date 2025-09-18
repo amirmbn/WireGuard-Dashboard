@@ -205,6 +205,17 @@ apt install wireguard -y
 ip route list default
 ```
 </div>
+<div align="right">
+
+
+- اگر اینترفیس سرور جدید شما با سرور قبلی متفاوت است نیازه که فایل wg0.conf رو ادیت و اینترفیس سرور جدید رو جایگزین سرور قبلی کنید، با کد زیر میتونی فایل wg0.conf رو ادیت کنی
+</div>
+<div align="left">
+ 
+```
+nano /etc/wireguard/wg0.conf
+```
+</div>
 <div align="left">
  
 ```
