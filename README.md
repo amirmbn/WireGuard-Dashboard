@@ -221,6 +221,11 @@ ip route list default
 nano /etc/wireguard/wg0.conf
 ```
 </div>
+<div align="right">
+
+
+- کد زیر را در سرور وارد کنید تا فرایند نصب و راه اندازی کامل شود
+</div>
 <div align="left">
  
 ```
