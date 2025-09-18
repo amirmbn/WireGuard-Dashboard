@@ -13,7 +13,7 @@ Latest Version: 3.0.7 (15.05.2025)<br><br>
 
 <div align="right">
  
- - کد زیر را کپی و در سرور مجازی خود Past کنید
+- کد زیر را کپی و در سرور مجازی خود Past کنید
 </div>
 
 <div align="left">
@@ -37,7 +37,7 @@ sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/set
    <br>
 <div align="right">
  
- - سرور را اپدیت کنید و وایرگارد را نصب کنید
+- سرور را آپدیت و وایرگارد را نصب کنید
 </div>
 <div align="left">
  
@@ -48,7 +48,7 @@ apt install wireguard -y
 </div>
 <div align="right">
  
- - با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید
+- با دستور زیر پرایوت کی بسازید و در یک جا یادداشتش کنید
  
  
 </div>
@@ -190,7 +190,7 @@ mkdir /etc/wireguard
 - پوشه root/src/db/ فایل شماره سوم wgdashboard.db
 <br>
 
-- سرور را اپدیت کنید و وایرگارد را نصب کنید
+- سرور را آپدیت و وایرگارد را نصب کنید
 </div>
 <div align="left">
  
