@@ -184,11 +184,54 @@ mkdir /etc/wireguard
     <summary><strong>Backup and Restore</strong></summary>
    <br>
 <div align="right">
-
  
- - بخاطر در خواست زیاد دوستان، میخوام در این قسمت روش بک آپ گرفتن و ریستور کردن آن را قرار بدم
+ - سرور را اپدیت کنید و وایرگارد را نصب کنید
 </div>
+<div align="left">
+ 
+```
+apt update -y
+apt install wireguard -y
+```
+</div>
+<div align="right">
 
+
+- دریافت اینترفیس default، عبارت بعد از dev میشه اسم اینترفیس شما (مثل eth0)
+</div>
+<div align="left">
+ 
+```
+ip route list default
+```
+</div>
+<div align="left">
+ 
+```
+apt update
+apt install git
+git clone https://github.com/amirmbn/WireGuard-Dashboard.git
+cd WireGuard-Dashboard
+mv src /root/
+cd
+rm -rf WireGuard-Dashboard
+apt-get -y install python3-pip
+apt install gunicorn -y
+cd src
+sudo chmod u+x wgd.sh
+pip install -r requirements.txt
+sudo ./wgd.sh install
+sudo chmod -R 755 /etc/wireguard
+./wgd.sh start
+(crontab -l 2>/dev/null; echo "@reboot cd src && ./wgd.sh restart") | crontab -
+```
+</div>
+<div align="right">
+
+- به پنل خودتون با http://Your_Server_IP:1000 وارد شوید. نام کاربری admin و رمزعبور 1234 است
+- درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
+- برای تنظیمات تانل سرورهای ایران و خارج به [این لینک](https://github.com/amirmbn/UDP2RAW) مراجعه کنید
+<div>
   </details>
 </div>
 
