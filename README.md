@@ -189,6 +189,7 @@ mkdir /etc/wireguard
 - پوشه etc/wireguard فایل شماره اول server_private.key فایل شماره دوم wg0.conf
 - پوشه root/src/db/ فایل شماره سوم wgdashboard.db
 <br>
+
 - سرور را اپدیت کنید و وایرگارد را نصب کنید
 </div>
 <div align="left">
