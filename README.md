@@ -185,7 +185,7 @@ mkdir /etc/wireguard
    <br>
 <div align="right">
 
-- برای بک آپ گرفتن شما نیاز دارید 3 تا فایل از آدرس های زیر کپی و به سرور جدید منتقل کنید
+- برای بک آپ گرفتن شما نیاز دارید 3 تا فایل از آدرس های زیر کپی و به root سرور جدید منتقل کنید
 - پوشه etc/wireguard فایل اول server_private.key فایل دوم wg0.conf
 - پوشه root/src/db/ فایل سوم wgdashboard.db
 <br>
@@ -197,6 +197,7 @@ mkdir /etc/wireguard
 ```
 apt update -y
 apt install wireguard -y
+sudo mv /root/wg0.conf /root/server_private.key /etc/wireguard/
 ```
 </div>
 <div align="right">
@@ -243,6 +244,7 @@ sudo chmod u+x wgd.sh
 pip install -r requirements.txt
 sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
+sudo mv /root/wgdashboard.db root/src/db/wgdashboard.db
 ./wgd.sh start
 (crontab -l 2>/dev/null; echo "@reboot cd src && ./wgd.sh restart") | crontab -
 ```
