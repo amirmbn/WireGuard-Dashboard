@@ -185,7 +185,7 @@ mkdir /etc/wireguard
    <br>
 <div align="right">
 
-- برای بک آپ گرفتن شما نیاز دارید 3 تا فایل از آدرس های زیر کپی و به root سرور جدید منتقل کنید
+- برای بک آپ گرفتن شما نیاز دارید 3 تا فایل از آدرس های زیر Copy و در root سرور جدید Past کنید
 - پوشه etc/wireguard فایل اول server_private.key فایل دوم wg0.conf
 - پوشه root/src/db/ فایل سوم wgdashboard.db
 <br>
