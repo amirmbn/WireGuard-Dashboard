@@ -257,7 +257,6 @@ sudo mv /root/wgdashboard.db root/src/db/wgdashboard.db
 </div>
 
 --------------
-<br>
 
 ## 💰 Support This Project with Crypto
 [![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
@@ -274,6 +273,7 @@ Ethereum `0x79Bb867649277272C65ae047083A36ea91DFeE5B`
 Tron `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
 
 Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+
 <br>
 
 ## Preview
