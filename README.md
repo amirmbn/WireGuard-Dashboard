@@ -276,11 +276,7 @@ Thank you for your support!
 
 ## Preview
 
-<div align="right">عکس های زیر مربوط به نسخه 3.0.6 است و امکان دارد تغییراتی با نسخه نصب شده شما داشته باشد</div>
-
 ![Login](./images/login.png)
 ![Dashboard](./images/dashboard.png)
 ![Configuration](./images/configuration.png)
 ![Setting](./images/setting.png)
-
-</div>
