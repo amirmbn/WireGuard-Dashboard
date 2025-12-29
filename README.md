@@ -264,13 +264,28 @@ sudo mv /root/wgdashboard.db root/src/db/wgdashboard.db
 [![Donate TRX](https://img.shields.io/badge/Donate-TRX-red)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
 [![Donate USDT](https://img.shields.io/badge/Donate-USDT-green)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
 
-- Bitcoin `bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au`
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <button style="background:#f7931a;color:white;border:none;padding:5px 10px;">BTC</button>
+    <span>bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au</span>
+  </div>
 
-- Ethereum `0x79Bb867649277272C65ae047083A36ea91DFeE5B`
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <button style="background:#627eea;color:white;border:none;padding:5px 10px;">ETH</button>
+    <span>0x79Bb867649277272C65ae047083A36ea91DFeE5B</span>
+  </div>
 
-- Tron `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <button style="background:#f00;color:white;border:none;padding:5px 10px;">TRX</button>
+    <span>TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6</span>
+  </div>
 
-- Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+  <div style="display: flex; align-items: center; gap: 5px;">
+    <button style="background:#2ecc71;color:white;border:none;padding:5px 10px;">USDT</button>
+    <span>TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6</span>
+  </div>
+</div>
+
 
 Thank you for your support!
 
