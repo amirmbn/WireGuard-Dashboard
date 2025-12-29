@@ -273,7 +273,7 @@ sudo mv /root/wgdashboard.db root/src/db/wgdashboard.db
 - Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
 
 Thank you for your support!
-
+##
 ## Preview
 
 ![Login](./images/3.0.7/login.png)
