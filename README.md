@@ -259,6 +259,23 @@ sudo mv /root/wgdashboard.db root/src/db/wgdashboard.db
 --------------
 <br>
 
+## 💰 Support This Project with Crypto
+[![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
+[![Donate ETH](https://img.shields.io/badge/Donate-ETH-purple)](https://etherscan.io/address/0x79Bb867649277272C65ae047083A36ea91DFeE5B)
+[![Donate TRX](https://img.shields.io/badge/Donate-TRX-red)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
+[![Donate USDT](https://img.shields.io/badge/Donate-USDT-green)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
+
+<br>
+
+Bitcoin `bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au`
+
+Ethereum `0x79Bb867649277272C65ae047083A36ea91DFeE5B`
+
+Tron `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+
+Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+<br>
+
 ## Preview
 
 <div align="right">عکس های زیر مربوط به نسخه 3.0.6 است و امکان دارد تغییراتی با نسخه نصب شده شما داشته باشد</div>
