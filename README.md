@@ -276,7 +276,7 @@ Thank you for your support!
 
 ## Preview
 
-![Login](./images/login.png)
-![Dashboard](./images/dashboard.png)
-![Configuration](./images/configuration.png)
-![Setting](./images/setting.png)
+![Login](./images/3.0.7/login.png)
+![Dashboard](./images/3.0.7/dashboard.png)
+![Configuration](./images/3.0.7/configuration.png)
+![Setting](./images/3.0.7/setting.png)
