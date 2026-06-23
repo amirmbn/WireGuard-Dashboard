@@ -132,6 +132,38 @@
                     </form>
                 </div>
             </div>
+        <!-- ===== کارت بکاپ و ریستور ===== -->
+        <div class="card mb-3 mt-3">
+            <h6 class="card-header">بکاپ و ریستور :</h6>
+            <div class="card-body">
+                <p class="text-muted" style="font-size: 0.9rem">
+                    بکاپ شامل دیتابیس کاربران، تنظیمات پنل و تمام فایل‌های کانفیگ WireGuard می‌باشد.
+                </p>
+                <div class="row g-3 align-items-start">
+                    <!-- دانلود بکاپ -->
+                    <div class="col-sm-6">
+                        <div class="border rounded p-3 h-100">
+                            <h6 class="mb-2">📥 دریافت بکاپ</h6>
+                            <p class="text-muted" style="font-size:0.82rem">دانلود فایل ZIP شامل تمام اطلاعات پنل</p>
+                            <a href="/backup" class="btn btn-success btn-sm w-100">دانلود بکاپ</a>
+                        </div>
+                    </div>
+                    <!-- آپلود و ریستور -->
+                    <div class="col-sm-6">
+                        <div class="border rounded p-3 h-100">
+                            <h6 class="mb-2">📤 ریستور از بکاپ</h6>
+                            <p class="text-muted" style="font-size:0.82rem">فایل ZIP بکاپ را انتخاب کنید</p>
+                            <div class="mb-2">
+                                <input type="file" class="form-control form-control-sm" id="restore_file" accept=".zip">
+                            </div>
+                            <button class="btn btn-warning btn-sm w-100" id="restore_btn">ریستور</button>
+                            <div id="restore_result" class="mt-2" style="display:none; font-size:0.85rem"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ===== پایان کارت بکاپ و ریستور ===== -->
         </div>
     </main>
     <!-- Modal -->
@@ -199,6 +231,59 @@
         $.post('/update_wg_conf_path', $('.update_wg_conf_path').serialize())
 
     });
+
+    // ===== ریستور بکاپ =====
+    $("#restore_btn").click(function () {
+        var fileInput = document.getElementById("restore_file");
+        var resultDiv = $("#restore_result");
+
+        if (!fileInput.files || fileInput.files.length === 0) {
+            resultDiv.show().removeClass("text-success text-danger").addClass("text-danger")
+                .html("⚠️ لطفاً یک فایل ZIP انتخاب کنید.");
+            return;
+        }
+
+        var file = fileInput.files[0];
+        if (!file.name.endsWith('.zip')) {
+            resultDiv.show().removeClass("text-success text-danger").addClass("text-danger")
+                .html("⚠️ فرمت فایل باید ZIP باشد.");
+            return;
+        }
+
+        var confirmed = confirm("آیا مطمئن هستید؟\nاطلاعات فعلی با فایل بکاپ جایگزین خواهند شد.");
+        if (!confirmed) return;
+
+        $("#restore_btn").attr("disabled", true).text("در حال ریستور...");
+        resultDiv.hide();
+
+        var formData = new FormData();
+        formData.append("file", file);
+
+        $.ajax({
+            url: "/restore",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (resp) {
+                if (resp.status) {
+                    resultDiv.show().removeClass("text-danger").addClass("text-success")
+                        .html("✅ " + resp.message + "<br><small>" + resp.restored.join(" | ") + "</small>");
+                } else {
+                    resultDiv.show().removeClass("text-success").addClass("text-danger")
+                        .html("❌ " + resp.message);
+                }
+            },
+            error: function () {
+                resultDiv.show().removeClass("text-success").addClass("text-danger")
+                    .html("❌ خطا در ارتباط با سرور");
+            },
+            complete: function () {
+                $("#restore_btn").removeAttr("disabled").text("ریستور");
+            }
+        });
+    });
+    // ===== پایان ریستور =====
 
 </script>
 </html>
