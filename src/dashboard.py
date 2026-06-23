@@ -1880,9 +1880,23 @@ def restore():
         if not restored:
             return jsonify({'status': False, 'message': 'هیچ فایلی بازیابی نشد'})
 
+        # ریستارت اتوماتیک پنل بعد از ریستور موفق
+        def delayed_restart():
+            import time
+            time.sleep(2)
+            # اول systemd رو امتحان می‌کنه، بعد wgd.sh
+            ret = subprocess.call(['systemctl', 'restart', 'wg-dashboard'],
+                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if ret != 0:
+                wgd_sh = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wgd.sh')
+                subprocess.call(['bash', wgd_sh, 'restart'],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        Thread(target=delayed_restart, daemon=True).start()
+
         return jsonify({
             'status': True,
-            'message': 'بازیابی با موفقیت انجام شد. پنل را ری‌استارت کنید.',
+            'message': 'بازیابی با موفقیت انجام شد. پنل در حال ری‌استارت است...',
             'restored': restored
         })
 
