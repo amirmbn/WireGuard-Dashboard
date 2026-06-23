@@ -269,6 +269,15 @@
                 if (resp.status) {
                     resultDiv.show().removeClass("text-danger").addClass("text-success")
                         .html("✅ " + resp.message + "<br><small>" + resp.restored.join(" | ") + "</small>");
+                    var countdown = 5;
+                    var timer = setInterval(function () {
+                        resultDiv.html("✅ " + resp.message + "<br><small>" + resp.restored.join(" | ") + "</small><br><strong>انتقال به صفحه اصلی در " + countdown + " ثانیه...</strong>");
+                        if (countdown === 0) {
+                            clearInterval(timer);
+                            window.location.replace("/");
+                        }
+                        countdown--;
+                    }, 1000);
                 } else {
                     resultDiv.show().removeClass("text-success").addClass("text-danger")
                         .html("❌ " + resp.message);
