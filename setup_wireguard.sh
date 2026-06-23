@@ -38,11 +38,13 @@ mv src /root/
 cd
 rm -rf WireGuard-Dashboard
 
-apt-get -y install python3-pip
+apt-get -y install python3-pip python3-venv
 apt install gunicorn -y
 
 cd src
 sudo chmod u+x wgd.sh
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
