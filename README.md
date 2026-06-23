@@ -1,5 +1,5 @@
 # WireGuard Dashboard
-Latest Version: 3.0.7 (15.05.2025)<br><br>
+Latest Version: 3.0.8 (23.06.2026)<br><br>
 
 مانیتورینگ WireGuard راحت نیست،
 
