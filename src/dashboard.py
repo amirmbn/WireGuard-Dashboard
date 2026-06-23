@@ -1813,11 +1813,85 @@ def backup():
         for file in files_to_zip:
             myzip.write(file)
 
-    response = send_file(zip_file_name, as_attachment=True)
+    response = send_file(zip_file_name, as_attachment=True, download_name='wgdashboard_backup_' + now.strftime("%Y-%m-%d_%H%M%S") + '.zip')
 
     os.remove(zip_file_name)
 
     return response
+
+
+@app.route('/restore', methods=['POST'])
+def restore():
+    """
+    Restore backup: upload a previously created backup zip file.
+    Restores wgdashboard.db, wg-dashboard.ini and all .conf wireguard configs.
+    """
+    if 'file' not in request.files:
+        return jsonify({'status': False, 'message': 'فایلی انتخاب نشده است'})
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'status': False, 'message': 'فایلی انتخاب نشده است'})
+
+    if not file.filename.endswith('.zip'):
+        return jsonify({'status': False, 'message': 'فرمت فایل باید ZIP باشد'})
+
+    import tempfile, shutil
+
+    tmp_dir = tempfile.mkdtemp(prefix='wgd_restore_')
+    try:
+        tmp_zip = os.path.join(tmp_dir, 'backup.zip')
+        file.save(tmp_zip)
+
+        with zipfile.ZipFile(tmp_zip, 'r') as zf:
+            names = zf.namelist()
+
+            # اعتبارسنجی: حداقل یکی از فایل‌های اصلی باید وجود داشته باشد
+            has_db   = any(n.endswith('wgdashboard.db') for n in names)
+            has_ini  = any(n.endswith('wg-dashboard.ini') for n in names)
+            has_conf = any(n.endswith('.conf') for n in names)
+
+            if not (has_db or has_ini or has_conf):
+                return jsonify({'status': False, 'message': 'فایل بکاپ معتبر نیست'})
+
+            zf.extractall(tmp_dir)
+
+        restored = []
+
+        # بازیابی دیتابیس
+        for root, dirs, files_list in os.walk(tmp_dir):
+            for fname in files_list:
+                src = os.path.join(root, fname)
+
+                if fname == 'wgdashboard.db':
+                    os.makedirs(os.path.dirname(DB_FILE_PATH), exist_ok=True)
+                    shutil.copy2(src, DB_FILE_PATH)
+                    restored.append('دیتابیس')
+
+                elif fname == 'wg-dashboard.ini':
+                    shutil.copy2(src, DASHBOARD_CONF)
+                    restored.append('تنظیمات پنل')
+
+                elif fname.endswith('.conf') and fname != 'backup.zip':
+                    dest = os.path.join(WG_CONF_PATH, fname)
+                    shutil.copy2(src, dest)
+                    restored.append(fname)
+
+        if not restored:
+            return jsonify({'status': False, 'message': 'هیچ فایلی بازیابی نشد'})
+
+        return jsonify({
+            'status': True,
+            'message': 'بازیابی با موفقیت انجام شد. پنل را ری‌استارت کنید.',
+            'restored': restored
+        })
+
+    except zipfile.BadZipFile:
+        return jsonify({'status': False, 'message': 'فایل ZIP خراب است'})
+    except Exception as e:
+        return jsonify({'status': False, 'message': f'خطا: {str(e)}'})
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
 """
 Dashboard Initialization
