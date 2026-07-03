@@ -1509,12 +1509,6 @@ def init_dashboard():
     if not os.path.isfile(DASHBOARD_CONF):
         open(DASHBOARD_CONF, "w+").close()
     config = get_dashboard_conf()
-    
-    if "Account" not in config:
-        config['Account'] = {}
-        config['Account']['username'] = 'admin'
-        config['Account']['password'] = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
-    
     if "Server" not in config:
         config['Server'] = {}
     if 'wg_conf_path' not in config['Server']:
