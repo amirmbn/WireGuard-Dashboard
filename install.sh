@@ -57,26 +57,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 cat > wg-dashboard.ini <<EOL
-[Server]
-wg_conf_path = /etc/wireguard
-app_ip = 0.0.0.0
-app_port = $APP_PORT
-auth_req = true
-version = v3.0.8
-dashboard_refresh_interval = 60000
-dashboard_sort = status
-
 [Account]
 username = $USERNAME
 password = $(echo -n "$PASSWORD" | sha256sum | awk '{print $1}')
 
-[Peers]
-peer_global_dns = 1.1.1.1
-peer_endpoint_allowed_ip = 0.0.0.0/0
-peer_display_mode = grid
-remote_endpoint = 
-peer_mtu = 1420
-peer_keep_alive = 21
+[Server]
+app_port = $APP_PORT
 EOL
 
 sudo ./wgd.sh install
