@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# دریافت اطلاعات از کاربر
 read -p "Enter desired username (default: admin): " USERNAME_INPUT
 USERNAME=${USERNAME_INPUT:-admin}
 
@@ -11,7 +9,6 @@ PASSWORD=${PASSWORD_INPUT:-1234}
 read -p "Enter desired port (default: 1000): " PORT_INPUT
 APP_PORT=${PORT_INPUT:-1000}
 
-# شروع فرآیند نصب
 apt update -y
 apt install wireguard -y
 
@@ -59,12 +56,29 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# تنظیم فایل INI با اطلاعات دریافتی
 cat > wg-dashboard.ini <<EOL
 [Server]
 username = $USERNAME
 password = $(echo -n "$PASSWORD" | sha256sum | awk '{print $1}')
 app_port = $APP_PORT
+wg_conf_path = /etc/wireguard
+app_ip = 0.0.0.0
+auth_req = true
+version = v3.0.8
+dashboard_refresh_interval = 60000
+dashboard_sort = status
+
+[Account]
+username = $USERNAME
+password = $(echo -n "$PASSWORD" | sha256sum | awk '{print $1}')
+
+[Peers]
+peer_global_dns = 1.1.1.1
+peer_endpoint_allowed_ip = 0.0.0.0/0
+peer_display_mode = grid
+remote_endpoint = 
+peer_mtu = 1420
+peer_keep_alive = 21
 EOL
 
 sudo ./wgd.sh install
@@ -74,7 +88,12 @@ sudo chmod -R 755 /etc/wireguard
 
 (crontab -l 2>/dev/null; echo "@reboot cd /root/src && ./wgd.sh restart") | crontab -
 
-echo "--- Installation Complete ---"
-echo "Access the dashboard at: http://$(curl -s -4 icanhazip.com):$APP_PORT"
+SERVER_IPV4=$(curl -s -4 icanhazip.com)
+echo "Installation Complete."
+echo "---------------------------"
+echo "Wireguard Panel Information"
+echo "---------------------------"
+echo ""
+echo "Access the dashboard at: http://$SERVER_IPV4:$APP_PORT"
 echo "Username: $USERNAME"
 echo "Password: $PASSWORD"
