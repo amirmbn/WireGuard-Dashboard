@@ -22,7 +22,7 @@ Added backup and restore button<br><br>
 <div align="left">
  
 ```
-sudo wget https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh && sudo chmod +x setup_wireguard.sh && sudo ./setup_wireguard.sh
+bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh)
 ```
 </div>
 <div align="right">
