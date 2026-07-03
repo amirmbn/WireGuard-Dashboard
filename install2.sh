@@ -58,11 +58,9 @@ pip install -r requirements.txt
 
 cat > wg-dashboard.ini <<EOL
 [Server]
-username = $USERNAME
-password = $(echo -n "$PASSWORD" | sha256sum | awk '{print $1}')
-app_port = $APP_PORT
 wg_conf_path = /etc/wireguard
 app_ip = 0.0.0.0
+app_port = $APP_PORT
 auth_req = true
 version = v3.0.8
 dashboard_refresh_interval = 60000
