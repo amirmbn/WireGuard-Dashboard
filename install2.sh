@@ -75,6 +75,6 @@ sudo chmod -R 755 /etc/wireguard
 (crontab -l 2>/dev/null; echo "@reboot cd /root/src && ./wgd.sh restart") | crontab -
 
 echo "--- Installation Complete ---"
-echo "Access the dashboard at: http://$(curl -s ifconfig.me):$APP_PORT"
+echo "Access the dashboard at: http://$(curl -s -4 icanhazip.com):$APP_PORT"
 echo "Username: $USERNAME"
 echo "Password: $PASSWORD"
