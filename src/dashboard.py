@@ -24,17 +24,13 @@ from flask import Flask, request, render_template, redirect, url_for, session, j
 from flask_qrcode import QRcode
 from icmplib import ping, traceroute
 
-# Import other python files
 from util import regex_match, check_DNS, check_Allowed_IPs, check_remote_endpoint, \
     check_IP_with_range, clean_IP_with_range
 
-# Dashboard Version
 DASHBOARD_VERSION = 'v3.0.8'
 
-# WireGuard's configuration path
 WG_CONF_PATH = None
 
-# Dashboard Config Name
 configuration_path = os.getenv('CONFIGURATION_PATH', '.')
 DB_PATH = os.path.join(configuration_path, 'db')
 
@@ -44,21 +40,15 @@ if not os.path.isdir(DB_PATH):
 DB_FILE_PATH = os.path.join(configuration_path, 'db', 'wgdashboard.db')
 DASHBOARD_CONF = os.path.join(configuration_path, 'wg-dashboard.ini')
 
-# Upgrade Required
 UPDATE = None
 
-# Flask App Configuration
 app = Flask("WGDashboard")
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 5206928
 app.secret_key = secrets.token_urlsafe(16)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-# Enable QR Code Generator
 QRcode(app)
 
-# TODO: use class and object oriented programming
-
-######### format_bytes-func #########
 def format_bytes(bytes):
     if bytes < 1024:
         return f"{bytes} B"
@@ -69,7 +59,6 @@ def format_bytes(bytes):
     else:
         return f"{bytes / (1024 ** 3):.2f}GB"
 
-######### total-ram-func #########
 def get_total_ram():
     with open('/proc/meminfo') as meminfo_file:
         for line in meminfo_file:
@@ -77,7 +66,6 @@ def get_total_ram():
                 total_ram_kb = int(line.split()[1])
                 return total_ram_kb
                 
-######### used_ram-func #########
 def get_used_ram():
     with open('/proc/meminfo') as meminfo_file:
         meminfo = meminfo_file.read()
@@ -96,7 +84,6 @@ def get_used_ram():
     used_ram_kb = total_ram_kb - free_ram_kb - buffers_kb - cached_kb
     return used_ram_kb
 
-######### cpu_capacity-func ######### 
 def get_cpu_capacity():
     cpuinfo_path = '/proc/cpuinfo'
     if not os.path.exists(cpuinfo_path):
@@ -108,7 +95,6 @@ def get_cpu_capacity():
     processor_lines = [line for line in cpuinfo.split('\n') if line.startswith('processor')]
     return len(processor_lines)
 
-######### cpu_usage-func #########    
 def get_cpu_usage():
     with open('/proc/stat') as stat_file:
         lines = stat_file.readlines()
@@ -121,58 +107,27 @@ def get_cpu_usage():
             usage = 100.0 * (total - idle) / total
             return usage
 
-######### get_hard_info-func #########   
 def get_hard_info():
-    # Get the disk partitions
     partitions = psutil.disk_partitions()
 
     for partition in partitions:
-        # Get the disk usage statistics
         usage = psutil.disk_usage(partition.mountpoint)
-
-        #print(f"Device: {partition.device}")
-        #print(f"Mountpoint: {partition.mountpoint}")
-        #print(f"Total Size: {usage.total / (1024 ** 3):.2f} GB")
-        #print(f"Free Space: {usage.free / (1024 ** 3):.2f} GB")
-        #print(f"Used Space: {usage.used / (1024 ** 3):.2f} GB")
-        #print(f"Percentage Used: {usage.percent}%\n")
     
         return f"{format_bytes(usage.used)} / {format_bytes(usage.total)}"
 
 def connect_db():
-    """
-    Connect to the database
-    @return: sqlite3.Connection
-    """
     return sqlite3.connect(DB_FILE_PATH)
 
 def get_dashboard_conf():
-    """
-    Get dashboard configuration
-    @return: configparser.ConfigParser
-    """
     r_config = configparser.ConfigParser(strict=False)
     r_config.read(DASHBOARD_CONF)
     return r_config
 
 def set_dashboard_conf(config):
-    """
-    Write to configuration
-    @param config: Input configuration
-    """
     with open(DASHBOARD_CONF, "w", encoding='utf-8') as conf_object:
         config.write(conf_object)
 
-# Get all keys from a configuration
 def get_conf_peer_key(config_name):
-    """
-    Get the peers keys of wireguard interface.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return list of peers keys or text if configuration not running
-    @rtype: list, str
-    """
-
     try:
         peers_keys = subprocess.check_output(f"wg show {config_name} peers",
                                              shell=True, stderr=subprocess.STDOUT)
@@ -182,16 +137,7 @@ def get_conf_peer_key(config_name):
         return config_name + " در حال اجرا نیست. آن را فعال کنید."
 
 def get_conf_running_peer_number(config_name):
-    """
-    Get number of running peers on wireguard interface.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Number of running peers, or test if configuration not running
-    @rtype: int, str
-    """
-
     running = 0
-    # Get latest handshakes
     try:
         data_usage = subprocess.check_output(f"wg show {config_name} latest-handshakes",
                                              shell=True, stderr=subprocess.STDOUT)
@@ -209,14 +155,6 @@ def get_conf_running_peer_number(config_name):
     return running
 
 def read_conf_file_interface(config_name):
-    """
-    Get interface settings.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Dictionary with interface settings
-    @rtype: dict
-    """
-
     conf_location = WG_CONF_PATH + "/" + config_name + ".conf"
     with open(conf_location, 'r', encoding='utf-8') as file_object:
         file = file_object.read().split("\n")
@@ -231,14 +169,6 @@ def read_conf_file_interface(config_name):
     return data
 
 def read_conf_file(config_name):
-    """
-    Get configurations from file of wireguard interface.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Dictionary with interface and peers settings
-    @rtype: dict
-    """
-
     conf_location = WG_CONF_PATH + "/" + config_name + ".conf"
     f = open(conf_location, 'r')
     file = f.read().split("\n")
@@ -272,15 +202,9 @@ def read_conf_file(config_name):
                         conf_peer_data["Peers"][peer][tmp[0]] = tmp[1]
 
     f.close()
-    # Read Configuration File End
     return conf_peer_data
 
 def get_latest_handshake(config_name):
-    """
-    Get the latest handshake from all peers of a configuration
-    @param config_name: Configuration name
-    @return: str
-    """
     try:
         data_usage = subprocess.check_output(f"wg show {config_name} latest-handshakes",
                                              shell=True, stderr=subprocess.STDOUT).decode("UTF-8")
@@ -313,17 +237,6 @@ def get_latest_handshake(config_name):
     return "done"
 
 def update_transfer(config_name, peer, total_sent, total_receive, cumu_receive, cumu_sent, end_active, status):
-    """
-    Update transfer information for a specific peer in a configuration
-    @param config_name: Configuration name
-    @param peer: Peer ID
-    @param total_sent: Total sent data for the peer
-    @param total_receive: Total received data for the peer
-    @param cumu_receive: Cumulative received data for the peer
-    @param cumu_sent: Cumulative sent data for the peer
-    @param end_active: Boolean indicating if the peer is still active
-    @param status: Status of the peer
-    """
     query = f"""
         UPDATE {config_name}
         SET total_receive = ?,
@@ -347,11 +260,6 @@ def update_transfer(config_name, peer, total_sent, total_receive, cumu_receive, 
     ))
 
 def get_transfer(config_name):
-    """
-    Get transfer from all peers of a configuration
-    @param config_name: Configuration name
-    @return: str
-    """
     try:
         data_usage = subprocess.check_output(f"wg show {config_name} transfer", shell=True, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
@@ -402,12 +310,6 @@ def get_transfer(config_name):
     return "completed"
 
 def get_endpoint(config_name):
-    """
-    Get endpoint from all peers of a configuration
-    @param config_name: Configuration name
-    @return: str
-    """
-    # Get endpoint
     try:
         data_usage = subprocess.check_output(f"wg show {config_name} endpoints",
                                              shell=True, stderr=subprocess.STDOUT)
@@ -421,23 +323,11 @@ def get_endpoint(config_name):
         count += 2
 
 def get_allowed_ip(conf_peer_data, config_name):
-    """
-    Get allowed ips from all peers of a configuration
-    @param conf_peer_data: Configuration peer data
-    @param config_name: Configuration name
-    @return: None
-    """
-    # Get allowed ip
     for i in conf_peer_data["Peers"]:
         g.cur.execute("UPDATE " + config_name + " SET allowed_ip = '%s' WHERE id = '%s'"
                       % (i.get('AllowedIPs', '(None)'), i["PublicKey"]))
 
 def get_all_peers_data(config_name):
-    """
-    Look for new peers from WireGuard
-    @param config_name: Configuration name
-    @return: None
-    """
     conf_peer_data = read_conf_file(config_name)
     config = get_dashboard_conf()
     failed_index = []
@@ -499,18 +389,7 @@ def get_all_peers_data(config_name):
     get_endpoint(config_name)
     get_allowed_ip(conf_peer_data, config_name)
 
-
 def get_peers(config_name, search="", sort_t="status"):
-    """
-    Get all peers.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @param search: Search string
-    @type search: str
-    @param sort_t: Sorting tag
-    @type sort_t: str
-    @return: list
-    """
     tic = time.perf_counter()
     col = g.cur.execute("PRAGMA table_info(" + config_name + ")").fetchall()
     col = [a[1] for a in col]
@@ -549,14 +428,6 @@ def get_peers(config_name, search="", sort_t="status"):
     return list(map(cast_data, result))
 
 def get_conf_pub_key(config_name):
-    """
-    Get public key for configuration.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return public key or empty string
-    @rtype: str
-    """
-
     try:
         conf = configparser.ConfigParser(strict=False)
         conf.read(WG_CONF_PATH + "/" + config_name + ".conf")
@@ -568,14 +439,6 @@ def get_conf_pub_key(config_name):
         return ""
 
 def get_conf_listen_port(config_name):
-    """
-    Get listen port number.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return number of port or empty string
-    @rtype: str
-    """
-
     conf = configparser.ConfigParser(strict=False)
     conf.read(WG_CONF_PATH + "/" + config_name + ".conf")
     port = ""
@@ -590,11 +453,6 @@ def get_conf_listen_port(config_name):
     return port
 
 def get_conf_total_data(config_name):
-    """
-    Get configuration's total amount of data
-    @param config_name: Configuration name
-    @return: list
-    """
     data = g.cur.execute("SELECT total_sent, total_receive, cumu_sent, cumu_receive FROM " + config_name)
     upload_total = 0
     download_total = 0
@@ -609,31 +467,15 @@ def get_conf_total_data(config_name):
     return [total, upload_total, download_total]
 
 def get_conf_status(config_name):
-    """
-    Check if the configuration is running or not
-    @param config_name:
-    @return: Return a string indicate the running status
-    """
     ifconfig = dict(ifcfg.interfaces().items())
     return "running" if config_name in ifconfig.keys() else "stopped"
 
 def get_config_names():
-    """
-    Get the names of all WireGuard configurations.
-    @return: List of configuration names
-    @rtype: list[str]
-    """
     config_files = glob(os.path.join(WG_CONF_PATH, '*.conf'))
     config_names = [Path(file).stem for file in config_files]
     return config_names
 
 def get_conf_list():
-    """Get all WireGuard interfaces with status.
-
-    @return: Return a list of dicts with interfaces and their statuses
-    @rtype: list
-    """
-
     configs = []
     config_names = get_config_names()
 
@@ -660,14 +502,6 @@ def get_conf_list():
     return configs
 
 def gen_public_key(private_key):
-    """Generate the public key.
-
-    @param private_key: Private key
-    @type private_key: str
-    @return: Return dict with public key or error message
-    @rtype: dict
-    """
-
     with open('private_key.txt', 'w', encoding='utf-8') as file_object:
         file_object.write(private_key)
     try:
@@ -682,18 +516,6 @@ def gen_public_key(private_key):
         return {"status": 'failed', "msg": "تعداد کلید یا قالب آن صحیح نیست.", "data": ""}
 
 def f_check_key_match(private_key, public_key, config_name):
-    """
-    Check if private key and public key match
-    @param private_key: Private key
-    @type private_key: str
-    @param public_key: Public key
-    @type public_key: str
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return dictionary with status
-    @rtype: dict
-    """
-
     result = gen_public_key(private_key)
     if result['status'] == 'failed':
         return result
@@ -706,13 +528,6 @@ def f_check_key_match(private_key, public_key, config_name):
             return {'status': 'success'}
 
 def check_repeat_allowed_ip(public_key, ip, config_name):
-    """
-    Check if there are repeated IPs
-    @param public_key: Public key of the peer
-    @param ip: IP of the peer
-    @param config_name: configuration name
-    @return: a JSON object
-    """
     peer = g.cur.execute("SELECT COUNT(*) FROM " + config_name + " WHERE id = ?", (public_key,)).fetchone()
     if peer[0] != 1:
         return {'status': 'failed', 'msg': 'کاربر وجود ندارد.'}
@@ -726,11 +541,6 @@ def check_repeat_allowed_ip(public_key, ip, config_name):
             return {'status': 'success'}
 
 def f_available_ips(config_name):
-    """
-    Get a list of available IPs
-    @param config_name: Configuration Name
-    @return: list
-    """
     config_interface = read_conf_file_interface(config_name)
     if "Address" in config_interface:
         existed = []
@@ -756,27 +566,14 @@ def f_available_ips(config_name):
     else:
         return []
 
-"""
-Flask Functions
-"""
-
 @app.teardown_request
 def close_DB(exception):
-    """
-    Commit to the database for every request
-    @param exception: Exception
-    @return: None
-    """
     if hasattr(g, 'db'):
         g.db.commit()
         g.db.close()
 
 @app.before_request
 def auth_req():
-    """
-    Action before every request
-    @return: Redirect
-    """
     if getattr(g, 'db', None) is None:
         g.db = connect_db()
         g.cur = g.db.cursor()
@@ -788,20 +585,20 @@ def auth_req():
     
     total_ram_kb = get_total_ram()
     if total_ram_kb >= 1024**2:
-        total_ram = total_ram_kb / (1024**2)  # Convert to gigabytes
+        total_ram = total_ram_kb / (1024**2)
         t_unit = "GB"
     else:
-        total_ram = total_ram_kb / 1024  # Convert to megabytes
+        total_ram = total_ram_kb / 1024
         t_unit = "MB"
     session['total_ram'] =  f"{total_ram:.2f}{t_unit}"
  
  
     used_ram_kb = get_used_ram()
     if used_ram_kb >= 1024**2:
-        used_ram = used_ram_kb / (1024**2)  # Convert to gigabytes
+        used_ram = used_ram_kb / (1024**2)
         u_unit = "GB"
     else:
-        used_ram = used_ram_kb / 1024  # Convert to megabytes
+        used_ram = used_ram_kb / 1024
         u_unit = "MB"
     session['used_ram'] = f"{used_ram:.2f}{u_unit}"
     
@@ -840,61 +637,43 @@ def auth_req():
     conf.clear()
     return None
 
-"""
-Sign In / Sign Out
-"""
-
 @app.route('/signin', methods=['GET'])
 def signin():
-    """
-    Sign in request
-    @return: template
-    """
-
     message = ""
     if "message" in session:
         message = session['message']
         session.pop("message")
     return render_template('signin.html', message=message, version=DASHBOARD_VERSION)
 
-# Sign Out
 @app.route('/signout', methods=['GET'])
 def signout():
-    """
-    Sign out request
-    @return: redirect back to sign in
-    """
     if "username" in session:
         session.pop("username")
     return redirect(url_for('signin'))
 
 @app.route('/auth', methods=['POST'])
 def auth():
-    """
-    Authentication request
-    @return: json object indicating verifying
-    """
     data = request.get_json()
     config = get_dashboard_conf()
     password = hashlib.sha256(data['password'].encode())
+    
+    if password.hexdigest() == config["Server"]["password"] \
+            and data['username'] == config["Server"]["username"]:
+        session['username'] = data['username']
+        config.clear()
+        return jsonify({"status": True, "msg": ""})
+    
     if password.hexdigest() == config["Account"]["password"] \
             and data['username'] == config["Account"]["username"]:
         session['username'] = data['username']
         config.clear()
         return jsonify({"status": True, "msg": ""})
+    
     config.clear()
     return jsonify({"status": False, "msg": "نام کاربری یا کلمه عبور اشتباه است."})
 
-"""
-Index Page
-"""
-
 @app.route('/', methods=['GET'])
 def index():
-    """
-    Index page related
-    @return: Template
-    """
     msg = ""
     if "switch_msg" in session:
         msg = session["switch_msg"]
@@ -902,13 +681,8 @@ def index():
 
     return render_template('index.html', conf=get_conf_list(), msg=msg)
 
-# Setting Page
 @app.route('/settings', methods=['GET'])
 def settings():
-    """
-    Settings page related
-    @return: Template
-    """
     message = ""
     status = ""
     config = get_dashboard_conf()
@@ -929,11 +703,6 @@ def settings():
 
 @app.route('/update_acct', methods=['POST'])
 def update_acct():
-    """
-    Change dashboard username
-    @return: Redirect
-    """
-
     if len(request.form['username']) == 0:
         session['message'] = "نام کاربری نمی تواند خالی باشد."
         session['message_status'] = "danger"
@@ -953,14 +722,8 @@ def update_acct():
         config.clear()
         return redirect(url_for("settings"))
 
-# Update peer default setting
 @app.route('/update_peer_default_config', methods=['POST'])
 def update_peer_default_config():
-    """
-    Update new peers default setting
-    @return: None
-    """
-
     config = get_dashboard_conf()
     if len(request.form['peer_endpoint_allowed_ip']) == 0 or \
             len(request.form['peer_global_DNS']) == 0 or \
@@ -969,7 +732,6 @@ def update_peer_default_config():
         session['message_status'] = "danger"
         config.clear()
         return redirect(url_for("settings"))
-    # Check DNS Format
     dns_addresses = request.form['peer_global_DNS']
     if not check_DNS(dns_addresses):
         session['message'] = "فرمت DNS تنظیمات نادرست است."
@@ -978,7 +740,6 @@ def update_peer_default_config():
         return redirect(url_for("settings"))
     dns_addresses = dns_addresses.replace(" ", "").split(',')
     dns_addresses = ",".join(dns_addresses)
-    # Check Endpoint Allowed IPs
     ip = request.form['peer_endpoint_allowed_ip']
     if not check_Allowed_IPs(ip):
         session['message'] = "فرمت Endpoint Allowed IPs نادرست است." \
@@ -986,19 +747,16 @@ def update_peer_default_config():
         session['message_status'] = "danger"
         config.clear()
         return redirect(url_for("settings"))
-    # Check MTU Format
     if not len(request.form['peer_mtu']) > 0 or not request.form['peer_mtu'].isdigit():
         session['message'] = "فرمت MTU نادرست است."
         session['message_status'] = "danger"
         config.clear()
         return redirect(url_for("settings"))
-    # Check keepalive Format
     if not len(request.form['peer_keep_alive']) > 0 or not request.form['peer_keep_alive'].isdigit():
         session['message'] = "فرمت Persistent keepalive نادرست است."
         session['message_status'] = "danger"
         config.clear()
         return redirect(url_for("settings"))
-    # Check peer remote endpoint
     if not check_remote_endpoint(request.form['peer_remote_endpoint']):
         session['message'] = "فرمت Peer Remote Endpoint نادرست است. " \
                              "آدرس IP یا دامنه معتبر (بدون http:// یا https://)."
@@ -1022,14 +780,8 @@ def update_peer_default_config():
         config.clear()
         return redirect(url_for("settings"))
 
-# Update dashboard password
 @app.route('/update_pwd', methods=['POST'])
 def update_pwd():
-    """
-    Update dashboard password
-    @return: Redirect
-    """
-
     config = get_dashboard_conf()
     if hashlib.sha256(request.form['currentpass'].encode()).hexdigest() == config.get("Account", "password"):
         if hashlib.sha256(request.form['newpass'].encode()).hexdigest() == hashlib.sha256(
@@ -1059,11 +811,6 @@ def update_pwd():
 
 @app.route('/update_app_ip_port', methods=['POST'])
 def update_app_ip_port():
-    """
-    Update dashboard ip and port
-    @return: None
-    """
-
     config = get_dashboard_conf()
     config.set("Server", "app_ip", request.form['app_ip'])
     config.set("Server", "app_port", request.form['app_port'])
@@ -1072,14 +819,8 @@ def update_app_ip_port():
     subprocess.Popen('bash wgd.sh restart', shell=True)
     return ""
 
-# Update WireGuard configuration file path
 @app.route('/update_wg_conf_path', methods=['POST'])
 def update_wg_conf_path():
-    """
-    Update configuration path
-    @return: None
-    """
-
     config = get_dashboard_conf()
     config.set("Server", "wg_conf_path", request.form['wg_conf_path'])
     set_dashboard_conf(config)
@@ -1090,11 +831,6 @@ def update_wg_conf_path():
 
 @app.route('/update_dashboard_sort', methods=['POST'])
 def update_dashbaord_sort():
-    """
-    Update configuration sorting
-    @return: Boolean
-    """
-
     config = get_dashboard_conf()
     data = request.get_json()
     sort_tag = ['name', 'status', 'allowed_ip']
@@ -1106,15 +842,8 @@ def update_dashbaord_sort():
     config.clear()
     return "true"
 
-# Update configuration refresh interval
 @app.route('/update_dashboard_refresh_interval', methods=['POST'])
 def update_dashboard_refresh_interval():
-    """
-    Change the refresh time.
-    @return: Return text with result
-    @rtype: str
-    """
-
     preset_interval = ["5000", "10000", "30000", "60000"]
     if request.form["interval"] in preset_interval:
         config = get_dashboard_conf()
@@ -1125,16 +854,8 @@ def update_dashboard_refresh_interval():
     else:
         return "false"
 
-# Configuration Page
 @app.route('/configuration/<config_name>', methods=['GET'])
 def configuration(config_name):
-    """
-    Show wireguard interface view.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Template
-    """
-
     config = get_dashboard_conf()
     conf_data = {
         "name": config_name,
@@ -1163,16 +884,8 @@ def configuration(config_name):
                            mtu=peer_mtu,
                            keep_alive=peer_keep_alive)
 
-# Get configuration details
 @app.route('/get_config/<config_name>', methods=['GET'])
 def get_conf(config_name):
-    """
-    Get configuration setting of wireguard interface.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: TODO
-    """
-
     config_interface = read_conf_file_interface(config_name)
     search = request.args.get('search')
     if len(search) == 0:
@@ -1207,16 +920,8 @@ def get_conf(config_name):
     config.clear()
     return jsonify(conf_data)
 
-# Turn on / off a configuration
 @app.route('/switch/<config_name>', methods=['GET'])
 def switch(config_name):
-    """
-    On/off the wireguard interface.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: redirects
-    """
-
     status = get_conf_status(config_name)
     if status == "running":
         try:
@@ -1236,11 +941,6 @@ def switch(config_name):
 
 @app.route('/add_peer_bulk/<config_name>', methods=['POST'])
 def add_peer_bulk(config_name):
-    """
-    Add peers by bulk
-    @param config_name: Configuration Name
-    @return: String
-    """
     data = request.get_json()
     keys = data['keys']
     endpoint_allowed_ip = data['endpoint_allowed_ip']
@@ -1323,11 +1023,6 @@ def add_peer_bulk(config_name):
 
 @app.route('/add_peer/<config_name>', methods=['POST'])
 def add_peer(config_name):
-    """
-    Add Peers
-    @param config_name: configuration name
-    @return: string
-    """
     data = request.get_json()
     public_key = data['public_key']
     allowed_ips = data['allowed_ips']
@@ -1386,14 +1081,6 @@ def add_peer(config_name):
 
 @app.route('/remove_peer/<config_name>', methods=['POST'])
 def remove_peer(config_name):
-    """
-    Remove peer.
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return result of action or recommendations
-    @rtype: str
-    """
-
     if get_conf_status(config_name) == "stopped":
         return "Your need to turn on " + config_name + " first."
 
@@ -1425,14 +1112,6 @@ def remove_peer(config_name):
 
 @app.route('/save_peer_setting/<config_name>', methods=['POST'])
 def save_peer_setting(config_name):
-    """
-    Save peer configuration.
-
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return status of action and text with recommendations
-    """
-
     data = request.get_json()
     id = data['id']
     name = data['name']
@@ -1514,17 +1193,8 @@ def save_peer_setting(config_name):
     else:
         return jsonify({"status": "failed", "msg": "این کاربر وجود ندارد."})
 
-# Get peer settings
 @app.route('/get_peer_data/<config_name>', methods=['POST'])
 def get_peer_name(config_name):
-    """
-    Get peer settings.
-
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return settings of peer
-    """
-
     data = request.get_json()
     peer_id = data['id']
     result = g.cur.execute(
@@ -1538,21 +1208,12 @@ def get_peer_name(config_name):
             result[0][9] else None}
     return jsonify(data)
 
-# Return available IPs
 @app.route('/available_ips/<config_name>', methods=['GET'])
 def available_ips(config_name):
     return jsonify(f_available_ips(config_name))
 
-# Check if both key match
 @app.route('/check_key_match/<config_name>', methods=['POST'])
 def check_key_match(config_name):
-    """
-    Check key matches
-    @param config_name: Name of WG interface
-    @type config_name: str
-    @return: Return dictionary with status
-    """
-
     data = request.get_json()
     private_key = data['private_key']
     public_key = data['public_key']
@@ -1560,11 +1221,6 @@ def check_key_match(config_name):
 
 @app.route("/qrcode/<config_name>", methods=['GET'])
 def generate_qrcode(config_name):
-    """
-    Generate QRCode
-    @param config_name: Configuration Name
-    @return: Template containing QRcode img
-    """
     peer_id = request.args.get('id')
     get_peer = g.cur.execute(
         "SELECT private_key, allowed_ip, DNS, mtu, endpoint_allowed_ip, keepalive, preshared_key FROM "
@@ -1596,11 +1252,6 @@ def generate_qrcode(config_name):
 
 @app.route('/download_all/<config_name>', methods=['GET'])
 def download_all(config_name):
-    """
-    Download all configuration
-    @param config_name: Configuration Name
-    @return: JSON Object
-    """
     get_peer = g.cur.execute(
         "SELECT private_key, allowed_ip, DNS, mtu, endpoint_allowed_ip, keepalive, preshared_key, name FROM "
         + config_name + " WHERE private_key != ''").fetchall()
@@ -1622,7 +1273,6 @@ def download_all(config_name):
             filename = "Untitled_Peer"
         else:
             filename = peer[7]
-            # Clean filename
             illegal_filename = [".", ",", "/", "?", "<", ">", "\\", ":", "*", '|' '\"', "com1", "com2", "com3",
                                 "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4",
                                 "lpt5", "lpt6", "lpt7", "lpt8", "lpt9", "con", "nul", "prn"]
@@ -1643,14 +1293,8 @@ def download_all(config_name):
         data.append({"filename": f"{filename}.conf", "content": return_data})
     return jsonify({"status": True, "peers": data, "filename": f"{config_name}.zip"})
 
-# Download configuration file
 @app.route('/download/<config_name>', methods=['GET'])
 def download(config_name):
-    """
-    Download one configuration
-    @param config_name: Configuration name
-    @return: JSON object
-    """
     peer_id = request.args.get('id')
     get_peer = g.cur.execute(
         "SELECT private_key, allowed_ip, DNS, mtu, endpoint_allowed_ip, keepalive, preshared_key, name FROM "
@@ -1674,7 +1318,6 @@ def download(config_name):
                 filename = "Untitled_Peer"
             else:
                 filename = peer[7]
-                # Clean filename
                 illegal_filename = [".", ",", "/", "?", "<", ">", "\\", ":", "*", '|' '\"', "com1", "com2", "com3",
                                     "com4", "com5", "com6", "com7", "com8", "com9", "lpt1", "lpt2", "lpt3", "lpt4",
                                     "lpt5", "lpt6", "lpt7", "lpt8", "lpt9", "con", "nul", "prn"]
@@ -1698,15 +1341,6 @@ def download(config_name):
 
 @app.route('/switch_display_mode/<mode>', methods=['GET'])
 def switch_display_mode(mode):
-    """
-    Change display view style.
-
-    @param mode: Mode name
-    @type mode: str
-    @return: Return text with result
-    @rtype: str
-    """
-
     if mode in ['list', 'grid']:
         config = get_dashboard_conf()
         config.set("Peers", "peer_display_mode", mode)
@@ -1715,20 +1349,8 @@ def switch_display_mode(mode):
         return "true"
     return "false"
 
-"""
-Dashboard Tools Related
-"""
-
-# Get all IP for ping
 @app.route('/get_ping_ip', methods=['POST'])
 def get_ping_ip():
-    # TODO: convert return to json object
-
-    """
-    Get ips for network testing.
-    @return: HTML containing a list of IPs
-    """
-
     config = request.form['config']
     peers = g.cur.execute("SELECT id, name, allowed_ip, endpoint FROM " + config).fetchall()
     html = ""
@@ -1745,15 +1367,8 @@ def get_ping_ip():
         html += "</optgroup>"
     return html
 
-# Ping IP
 @app.route('/ping_ip', methods=['POST'])
 def ping_ip():
-    """
-    Execute ping command.
-    @return: Return text with result
-    @rtype: str
-    """
-
     try:
         result = ping('' + request.form['ip'] + '', count=int(request.form['count']), privileged=True, source=None)
         returnjson = {
@@ -1772,16 +1387,8 @@ def ping_ip():
     except Exception:
         return "Error"
 
-# Traceroute IP
 @app.route('/traceroute_ip', methods=['POST'])
 def traceroute_ip():
-    """
-    Execute ping traceroute command.
-
-    @return: Return text with result
-    @rtype: str
-    """
-
     try:
         result = traceroute('' + request.form['ip'] + '', first_hop=1, max_hops=30, count=1, fast=True)
         returnjson = []
@@ -1819,13 +1426,8 @@ def backup():
 
     return response
 
-
 @app.route('/restore', methods=['POST'])
 def restore():
-    """
-    Restore backup: upload a previously created backup zip file.
-    Restores wgdashboard.db, wg-dashboard.ini and all .conf wireguard configs.
-    """
     if 'file' not in request.files:
         return jsonify({'status': False, 'message': 'فایلی انتخاب نشده است'})
 
@@ -1846,7 +1448,6 @@ def restore():
         with zipfile.ZipFile(tmp_zip, 'r') as zf:
             names = zf.namelist()
 
-            # اعتبارسنجی: حداقل یکی از فایل‌های اصلی باید وجود داشته باشد
             has_db   = any(n.endswith('wgdashboard.db') for n in names)
             has_ini  = any(n.endswith('wg-dashboard.ini') for n in names)
             has_conf = any(n.endswith('.conf') for n in names)
@@ -1858,7 +1459,6 @@ def restore():
 
         restored = []
 
-        # بازیابی دیتابیس
         for root, dirs, files_list in os.walk(tmp_dir):
             for fname in files_list:
                 src = os.path.join(root, fname)
@@ -1880,11 +1480,9 @@ def restore():
         if not restored:
             return jsonify({'status': False, 'message': 'هیچ فایلی بازیابی نشد'})
 
-        # ریستارت اتوماتیک پنل بعد از ریستور موفق
         def delayed_restart():
             import time
             time.sleep(2)
-            # اول systemd رو امتحان می‌کنه، بعد wgd.sh
             ret = subprocess.call(['systemctl', 'restart', 'wg-dashboard'],
                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             if ret != 0:
@@ -1907,27 +1505,16 @@ def restore():
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
-"""
-Dashboard Initialization
-"""
-
 def init_dashboard():
-    """
-    Create dashboard default configuration.
-    """
-
-    # Set Default INI File
     if not os.path.isfile(DASHBOARD_CONF):
         open(DASHBOARD_CONF, "w+").close()
     config = get_dashboard_conf()
-    # Default dashboard account setting
+    
     if "Account" not in config:
         config['Account'] = {}
-    if "username" not in config['Account']:
         config['Account']['username'] = 'admin'
-    if "password" not in config['Account']:
         config['Account']['password'] = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
-    # Default dashboard server setting
+    
     if "Server" not in config:
         config['Server'] = {}
     if 'wg_conf_path' not in config['Server']:
@@ -1944,7 +1531,6 @@ def init_dashboard():
         config['Server']['dashboard_refresh_interval'] = '60000'
     if 'dashboard_sort' not in config['Server']:
         config['Server']['dashboard_sort'] = 'status'
-    # Default dashboard peers setting
     if "Peers" not in config:
         config['Peers'] = {}
     if 'peer_global_DNS' not in config['Peers']:
@@ -1963,12 +1549,6 @@ def init_dashboard():
     config.clear()
 
 def check_update():
-    """
-    Dashboard check update
-
-    @return: Return text with result
-    @rtype: str
-    """
     config = get_dashboard_conf()
     try:
         data = urllib.request.urlopen("https://api.github.com/repos/amirmbn/WireGuard-Dashboard.git").read()
@@ -1982,15 +1562,11 @@ def check_update():
             else:
                 result = "true"
         else:
-            result = "false"  # No non-prerelease releases found
+            result = "false"
 
         return result
     except urllib.error.HTTPError:
         return "false"
-
-"""
-Configure DashBoard before start web-server
-"""
 
 def run_dashboard():
     init_dashboard()
@@ -1998,18 +1574,12 @@ def run_dashboard():
     UPDATE = check_update()
     config = configparser.ConfigParser(strict=False)
     config.read('wg-dashboard.ini')
-    # global app_ip
     app_ip = config.get("Server", "app_ip")
-    # global app_port
     app_port = config.get("Server", "app_port")
     global WG_CONF_PATH
     WG_CONF_PATH = config.get("Server", "wg_conf_path")
     config.clear()
     return app
-
-"""
-Get host and port for web-server
-"""
 
 def get_host_bind():
     init_dashboard()
@@ -2040,9 +1610,7 @@ if __name__ == "__main__":
     UPDATE = check_update()
     config = configparser.ConfigParser(strict=False)
     config.read('wg-dashboard.ini')
-    # global app_ip
     app_ip = config.get("Server", "app_ip")
-    # global app_port
     app_port = config.get("Server", "app_port")
     WG_CONF_PATH = config.get("Server", "wg_conf_path")
     config.clear()
