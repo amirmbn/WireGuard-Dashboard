@@ -1,11 +1,10 @@
 #!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
 read -p "Enter desired username (default: admin): " USERNAME_INPUT
 USERNAME=${USERNAME_INPUT:-admin}
-
 read -sp "Enter desired password (default: 1234): " PASSWORD_INPUT
 echo
 PASSWORD=${PASSWORD_INPUT:-1234}
-
 read -p "Enter desired port (default: 1000): " PORT_INPUT
 APP_PORT=${PORT_INPUT:-1000}
 
