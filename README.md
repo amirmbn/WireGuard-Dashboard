@@ -15,8 +15,8 @@ Added backup and restore button<br><br>
 ## Automatic Installation
 
 <div align="right">
- 
-- کد زیر را کپی و در سرور مجازی خود Past کنید
+
+- دستور زیر را کپی و در سرور مجازی خود Past کنید
 </div>
 
 <div align="left">
