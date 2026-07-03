@@ -22,7 +22,7 @@ Added backup and restore button<br><br>
 <div align="left">
  
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/setup_wireguard.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/install.sh)
 ```
 </div>
 <div align="right">
