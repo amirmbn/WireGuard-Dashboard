@@ -705,8 +705,6 @@ button.close span {
         margin-bottom: 6rem;
     }
 }
-
-/* یک ردیف افقی برای اطلاعات کانفیگ (مثل ردیف آمار بالای جدول کاربران) */
 .conf-stats-row {
     display: flex;
     flex-wrap: wrap;
@@ -716,6 +714,7 @@ button.close span {
     border-radius: 10px;
     padding: 1rem .5rem;
     background-color: #fff;
+    margin: 0 auto;
 }
 .conf-stat-item {
     flex: 1 1 0;
