@@ -721,7 +721,6 @@ button.close span {
     flex: 1 1 0;
     min-width: 110px;
     text-align: center;
-    padding: .25rem .5rem;
     border-left: 1px solid #eee;
 }
 .conf-stat-item:last-child {
