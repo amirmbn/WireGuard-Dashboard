@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-12 display_mode_mobile">
+                            <div class="col-lg-2 col-md-12 display_mode_mobile" style="display:none">
                                 <div class="form-group">
                                     <label><small class="text-muted d-block ms-1 mb-1">حالت نمایشی</small></label><br>
                                     <div class="btn-group display-btn-group" role="group" style="width: 100%">
@@ -121,7 +121,21 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="row peer_list"></div>
+                    <div class="table-responsive peer-table-wrapper">
+                        <table class="table align-middle peer-table">
+                            <thead>
+                                <tr>
+                                    <th>کاربر</th>
+                                    <th>وضعیت</th>
+                                    <th>مصرف ترافیک</th>
+                                    <th>باقی‌مانده</th>
+                                    <th>انقضا</th>
+                                    <th class="text-center">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="peer_list"></tbody>
+                        </table>
+                    </div>
                     <small id="peer_loading_time" class="text-muted"></small>
                 </main>
             </div>
