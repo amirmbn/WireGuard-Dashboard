@@ -125,7 +125,7 @@ a { text-decoration:none;}
     height: 10px;
     border-radius: 50px;
     display: inline-block;
-    margin-right: 6px;
+    margin: 0 6px;
 }
 .dot-running{
     background-color: #28a745!important;
