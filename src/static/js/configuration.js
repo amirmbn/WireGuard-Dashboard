@@ -949,31 +949,6 @@ $body.on("click", ".refresh", function () {
     window.configurations.loadPeers($('#search_peer_textbox').val());
 });
 
-$body.on("click", ".display_mode", function () {
-    $(".display-btn-group button").removeClass("active");
-    $(this).addClass("active");
-    let display_mode = $(this).data("display-mode");
-    $.ajax({
-        method: "GET",
-        url: "/switch_display_mode/" + $(this).data("display-mode"),
-        success: function (res) {
-            if (res === "true") {
-                if (display_mode === "list") {
-                    Array($(".peer_list").children()).forEach(function (child) {
-                        $(child).removeClass().addClass("col-12");
-                    });
-                window.configurations.showToast("نمایش بصورت لیست.");
-                } else {
-                    Array($(".peer_list").children()).forEach(function (child) {
-                        $(child).removeClass().addClass("col-sm-6 col-lg-4");
-                    });
-               window.configurations.showToast("نمایش بصورت جدول.");
-                }
-            }
-        }
-    });
-});
-
 let $setting_btn_menu = $(".setting_btn_menu");
 $setting_btn_menu.css("top", ($setting_btn_menu.height() + 54) * (-1));
 let $setting_btn = $(".setting_btn");
