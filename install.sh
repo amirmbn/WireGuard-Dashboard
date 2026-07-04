@@ -20,7 +20,7 @@ CONFIG_FILE="/etc/wireguard/wg0.conf"
 
 cat > "$CONFIG_FILE" <<EOL
 [Interface]
-Address = 172.20.0.1/24
+Address = 10.20.30.1/24
 PostUp = iptables -I INPUT -p udp --dport 1080 -j ACCEPT
 PostUp = iptables -I FORWARD -i $DEFAULT_INTERFACE -o wg0 -j ACCEPT
 PostUp = iptables -I FORWARD -i wg0 -j ACCEPT
