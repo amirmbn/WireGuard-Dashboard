@@ -281,5 +281,5 @@ Thank you for your support!
 
 ![Login](./images/3.0.7/login.png)
 ![Dashboard](./images/3.0.7/dashboard.png)
-![Configuration](./images/3.0.7/configuration.png)
+![Configuration](./images/v3.0.8/configuration.png)
 ![Setting](./images/v3.0.8/setting.webp)
