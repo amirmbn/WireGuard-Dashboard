@@ -97,51 +97,78 @@
     function configurationPeers(response) {
         let result = "";
         if (response.peer_data.length === 0) {
-            document.querySelector(".peer_list").innerHTML = `<div class="col-12" style="text-align: center; margin-top: 1.5rem"><h3 class="text-muted">هیچ کاربری وجود ندارد</h3></div>`;
+            document.querySelector(".peer_list").innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 1.5rem 0"><h3 class="text-muted" style="margin:0">هیچ کاربری وجود ندارد</h3></td></tr>`;
         } else {
-            let display_mode = response.peer_display_mode === "list" ? "col-12" : "col-sm-6 col-lg-4";
             response.peer_data.forEach(function (peer) {
-                let total_r = 0;
-                let total_s = 0;
-                total_r += peer.cumu_receive;
-                total_s += peer.cumu_sent;
-                let spliter = '<div class="w-100"></div>';
-                let peer_name =
-                    '<div class="col-sm display" style="display: flex; align-items: center; margin-bottom: 0.2rem">' +
-                        '<h6 style="text-transform: uppercase; margin: 0; margin-left: auto !important;"><span class="dot dot-'+peer.status+'" style="margin-right: 0px !important;" data-toggle="tooltip" data-placement="left" title="کاربر متصل است!"></span></h6>' +
-                        '<h5 style="margin: 0 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+ (peer.name === "" ? "Untitled" : peer.name) +'</h5>' +
-                    '</div>';
-                let peer_transfer = '<div class="col-12 peer_data_group" style="margin-bottom: 0.5rem; padding-right:10px"><p class="text-primary" style="text-transform: uppercase; margin-bottom: 0; margin-left:5px; float:left"><small><i class="bi bi-arrow-down-right"></i> '+ roundN(peer.total_receive + total_r, 4) +'GB</small></p> <p class="text-success" style="text-transform: uppercase; margin-bottom: 0; float:left; margin-left:15px;"><small><i class="bi bi-arrow-up-right"></i> '+ roundN(peer.total_sent + total_s, 4) +'GB</small></p> </div>';
-                let peer_key = '<div class="col-12"><small class="text-muted" style="display: flex"><strong>کلید خصوصی :</strong><strong style="margin-left: auto!important; opacity: 0; transition: 0.2s ease-in-out" class="text-primary">جهت کپی کلیک کنید</strong></small> <h6 style="float:left; text-align:left" class="col-12"><samp class="ml-auto key public_key_mobile" style=" ">'+peer.id+'</samp></h6></div>';
-                let peer_allowed_ip = '<div class="col-12"><small class="text-muted"><strong>آی پی وایرگارد کاربر :</strong></small><h6 style="float:left; text-align:left; text-transform: uppercase;" class="col-12">'+peer.allowed_ip+'</h6></div>';
-                let peer_latest_handshake = '<div class="col-12"> <small class="text-muted"><strong>آخرین اتصال :</strong></small> <h6 style="float:left; text-align:left; text-transform: uppercase;" class="col-12">'+peer.latest_handshake+'</h6> </div>';
-                let peer_endpoint = '<div class="col-12"><small class="text-muted"><strong>آی پی کاربر  :</strong></small><h6 style="float:left; text-align:left; text-transform: uppercase;" class="col-12">'+peer.endpoint+'</h6></div>';
-                let peer_enable = '<div class="col-sm text-right"><small class="text-muted"><strong>وضعیت :</strong></small><h6 style="float:left;text-transform: uppercase;">' + (peer.end_active ? 'فعال' : 'غیرفعال') + '</h6></div>';                
-                let peer_control = '<div class="col-12"><hr><div class="button-group" style="display:flex"><button type="button" class="btn btn-outline-primary btn-setting-peer btn-control" id="'+peer.id+'" data-toggle="modal"><i class="bi bi-gear-fill" data-toggle="tooltip" data-placement="bottom" title="تنظیمات کاربر"></i></button> <button type="button" class="btn btn-outline-danger btn-delete-peer btn-control" id="'+peer.id+'" data-toggle="modal"><i class="bi bi-x-circle-fill" data-toggle="tooltip" data-placement="bottom" title="حذف کاربر"></i></button>';
-                if (peer.private_key !== ""){
-                    peer_control += '<div class="share_peer_btn_group" style="margin-right: auto !important; display: inline"><button type="button" class="btn btn-outline-success btn-qrcode-peer btn-control" data-imgsrc="/qrcode/'+response.name+'?id='+encodeURIComponent(peer.id)+'"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 19px;" fill="#28a745"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM13 13h2v2h-2zM15 15h2v2h-2zM13 17h2v2h-2zM17 17h2v2h-2zM19 19h2v2h-2zM15 19h2v2h-2zM17 13h2v2h-2zM19 15h2v2h-2z"/></svg></button><a href="/download/'+response.name+'?id='+encodeURIComponent(peer.id)+'" class="btn btn-outline-info btn-download-peer btn-control"><i class="bi bi-download" data-toggle="tooltip" data-placement="bottom" title="دانلود کاربر"></i></a></div>';
+                let used_receive = roundN(peer.total_receive + peer.cumu_receive, 4);
+                let used_sent = roundN(peer.total_sent + peer.cumu_sent, 4);
+                let used_total = roundN(used_receive + used_sent, 4);
+                let bandwidth_gb = peer.bandwidth ? roundN(peer.bandwidth / (1024 * 1024 * 1024), 4) : 0;
+                let unlimited = !bandwidth_gb || bandwidth_gb <= 0;
+                let percent = unlimited ? 0 : Math.min(100, (used_total / bandwidth_gb) * 100);
+                let remaining_gb = unlimited ? null : roundN(bandwidth_gb - used_total, 4);
+                let bar_color = percent >= 90 ? "#dc3545" : (percent >= 70 ? "#ffc107" : "#6f42c1");
+
+                let display_name = peer.name === "" ? "Untitled" : peer.name;
+
+                let expiry_html = "بی‌نهایت";
+                if (peer.ends_at) {
+                    let d = new Date(peer.ends_at);
+                    try {
+                        expiry_html = new persianDate(d).format("YYYY/MM/DD HH:mm");
+                    } catch (e) {
+                        expiry_html = d.toLocaleString();
+                    }
+                    if (Date.now() > d.getTime()) {
+                        expiry_html = '<span class="text-danger">' + expiry_html + '</span>';
+                    }
                 }
 
+                let traffic_html =
+                    '<div class="traffic-cell">' +
+                        '<div class="traffic-numbers">' +
+                            '<span class="text-primary"><i class="bi bi-arrow-down-right"></i> ' + used_receive + ' GB</span>' +
+                            '<span class="text-success"><i class="bi bi-arrow-up-right"></i> ' + used_sent + ' GB</span>' +
+                        '</div>' +
+                        '<div class="traffic-progress">' +
+                            '<div class="traffic-progress-fill" style="width:' + (unlimited ? 100 : percent) + '%; background-color:' + (unlimited ? '#adb5bd' : bar_color) + '"></div>' +
+                        '</div>' +
+                        '<div class="traffic-total text-muted">' + used_total + ' GB' + (unlimited ? ' / بی‌نهایت' : ' / ' + bandwidth_gb + ' GB') + '</div>' +
+                    '</div>';
+
+                let remaining_html = unlimited
+                    ? '<span class="text-muted">بی‌نهایت</span>'
+                    : (remaining_gb > 0
+                        ? '<span class="text-success">' + remaining_gb + ' GB</span>'
+                        : '<span class="text-danger">۰ GB</span>');
+
+                let peer_control = '<div class="button-group" style="display:flex; justify-content:center">' +
+                    '<button type="button" class="btn btn-outline-primary btn-setting-peer btn-control" id="' + peer.id + '" data-toggle="modal"><i class="bi bi-gear-fill" data-toggle="tooltip" data-placement="bottom" title="تنظیمات کاربر"></i></button> ' +
+                    '<button type="button" class="btn btn-outline-danger btn-delete-peer btn-control" id="' + peer.id + '" data-toggle="modal"><i class="bi bi-x-circle-fill" data-toggle="tooltip" data-placement="bottom" title="حذف کاربر"></i></button>';
+                if (peer.private_key !== "") {
+                    peer_control += '<button type="button" class="btn btn-outline-success btn-qrcode-peer btn-control" data-imgsrc="/qrcode/' + response.name + '?id=' + encodeURIComponent(peer.id) + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 16px;" fill="#28a745"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zM13 3v8h8V3h-8zm6 6h-4V5h4v4zM13 13h2v2h-2zM15 15h2v2h-2zM13 17h2v2h-2zM17 17h2v2h-2zM19 19h2v2h-2zM15 19h2v2h-2zM17 13h2v2h-2zM19 15h2v2h-2z"/></svg></button>' +
+                        '<a href="/download/' + response.name + '?id=' + encodeURIComponent(peer.id) + '" class="btn btn-outline-info btn-download-peer btn-control"><i class="bi bi-download" data-toggle="tooltip" data-placement="bottom" title="دانلود کاربر"></i></a>';
+                }
                 peer_control += '</div>';
-                let html = '<div class="' + display_mode + '" data-id="' + peer.id + '">' +
-                    '<div class="card mb-3 card-' + peer.status + '">' +
-                    '<div class="card-body">' +
-                    '<div class="row">' +
-                    peer_name +
-                    spliter +
-                    peer_transfer +
-                    peer_key +
-                    peer_allowed_ip +
-                    peer_latest_handshake +
-                    spliter +
-                    peer_endpoint +
-                    peer_enable +
-                    spliter +
-                    peer_control +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div></div>';
+
+                let html = '<tr class="peer-row" data-id="' + peer.id + '">' +
+                    '<td>' +
+                        '<div class="peer-name-cell">' +
+                            '<span class="fw-bold">' + display_name + '</span>' +
+                            '<samp class="text-muted peer-ip">' + peer.allowed_ip + '</samp>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' +
+                        '<span class="dot dot-' + peer.status + '" data-toggle="tooltip" data-placement="top" title="' + (peer.status === 'running' ? 'آنلاین' : 'آفلاین') + '"></span>' +
+                        '<span class="' + (peer.status === 'running' ? 'text-success' : 'text-muted') + ' online-text">' + (peer.status === 'running' ? 'آنلاین' : 'آفلاین') + '</span>' +
+                        '<br>' +
+                        '<span class="badge ' + (peer.end_active ? 'badge-active' : 'badge-inactive') + '">' + (peer.end_active ? 'فعال' : 'غیرفعال') + '</span>' +
+                    '</td>' +
+                    '<td>' + traffic_html + '</td>' +
+                    '<td>' + remaining_html + '</td>' +
+                    '<td>' + expiry_html + '</td>' +
+                    '<td>' + peer_control + '</td>' +
+                    '</tr>';
                 result += html;
             });
             document.querySelector(".peer_list").innerHTML = result;
