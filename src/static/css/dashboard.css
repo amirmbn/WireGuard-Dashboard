@@ -751,3 +751,99 @@ button.close span {
         flex: 1 1 100%;
     }
 }
+@media (max-width: 480px) {
+    .conf-stat-item {
+        flex: 1 1 100%;
+    }
+}
+
+/* ===================== Peer table -> mobile cards ===================== */
+@media (max-width: 768px) {
+    .peer-table-wrapper {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        overflow: visible;
+    }
+    .peer-table {
+        min-width: 0;
+        width: 100%;
+    }
+    .peer-table thead {
+        display: none;
+    }
+    .peer-table tbody td {
+        padding: 0;
+        border-bottom: none;
+        display: block;
+    }
+    .peer-table tbody tr.peer-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "name    name"
+            "traffic traffic"
+            "status  remaining"
+            "expiry  expiry"
+            "actions actions";
+        gap: .6rem .75rem;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        padding: .9rem 1rem;
+        margin-bottom: .75rem;
+    }
+    .peer-table tr.peer-row td:nth-child(1) {
+        grid-area: name;
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: .6rem;
+    }
+    .peer-table tr.peer-row td:nth-child(1) .peer-name-cell .fw-bold {
+        font-size: 1.02rem;
+    }
+    .peer-table tr.peer-row td:nth-child(2) {
+        grid-area: status;
+    }
+    .peer-table tr.peer-row td:nth-child(3) {
+        grid-area: traffic;
+    }
+    .peer-table tr.peer-row td:nth-child(3) .traffic-cell {
+        min-width: 0;
+    }
+    .peer-table tr.peer-row td:nth-child(4) {
+        grid-area: remaining;
+        text-align: left;
+        align-self: center;
+    }
+    .peer-table tr.peer-row td:nth-child(4)::before {
+        content: "باقی‌مانده: ";
+        color: #6c757d;
+        font-size: .72rem;
+        font-weight: 600;
+    }
+    .peer-table tr.peer-row td:nth-child(5) {
+        grid-area: expiry;
+        font-size: .85rem;
+        border-top: 1px solid #f2f2f2;
+        padding-top: .6rem;
+    }
+    .peer-table tr.peer-row td:nth-child(5)::before {
+        content: "انقضا: ";
+        color: #6c757d;
+        font-size: .72rem;
+        font-weight: 600;
+    }
+    .peer-table tr.peer-row td:nth-child(6) {
+        grid-area: actions;
+    }
+    .peer-table tr.peer-row .button-group {
+        justify-content: space-between !important;
+        gap: .4rem;
+        margin-top: .2rem;
+    }
+    .peer-table tr.peer-row .button-group .btn-control {
+        flex: 1;
+    }
+}
