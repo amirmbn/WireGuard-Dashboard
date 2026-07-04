@@ -21,19 +21,19 @@ CONFIG_FILE="/etc/wireguard/wg0.conf"
 cat > "$CONFIG_FILE" <<EOL
 [Interface]
 Address = 172.20.0.1/24
-PostUp = iptables -I INPUT -p udp --dport 40600 -j ACCEPT
+PostUp = iptables -I INPUT -p udp --dport 1080 -j ACCEPT
 PostUp = iptables -I FORWARD -i $DEFAULT_INTERFACE -o wg0 -j ACCEPT
 PostUp = iptables -I FORWARD -i wg0 -j ACCEPT
 PostUp = iptables -t nat -A POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
 PostUp = ip6tables -I FORWARD -i wg0 -j ACCEPT
 PostUp = ip6tables -t nat -A POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
-PostDown = iptables -D INPUT -p udp --dport 40600 -j ACCEPT
+PostDown = iptables -D INPUT -p udp --dport 1080 -j ACCEPT
 PostDown = iptables -D FORWARD -i $DEFAULT_INTERFACE -o wg0 -j ACCEPT
 PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
 PostDown = iptables -t nat -D POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
 PostDown = ip6tables -D FORWARD -i wg0 -j ACCEPT
 PostDown = ip6tables -t nat -D POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
-ListenPort = 40600
+ListenPort = 1080
 PrivateKey = $PRIVATE_KEY
 SaveConfig = true
 EOL
