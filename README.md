@@ -1,5 +1,5 @@
 # WireGuard Dashboard
-Latest Version: 3.0.8 (23.06.2026)<br>
+Latest Version: 3.0.8 (04.07.2026)<br>
 Added backup and restore button<br><br>
 
 مانیتورینگ WireGuard راحت نیست،
