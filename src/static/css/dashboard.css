@@ -736,3 +736,114 @@ button.close span {
         margin-bottom: 1rem;
     }
 }
+
+/**
+ * Peer table (client list) - table style layout
+ */
+.peer-table-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    border: 1px solid #eee;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.peer-table {
+    margin-bottom: 0;
+    min-width: 720px;
+}
+
+.peer-table thead th {
+    background-color: #fafafa;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: .82rem;
+    border-bottom: 1px solid #eee;
+    padding: .85rem 1rem;
+    white-space: nowrap;
+}
+
+.peer-table tbody td {
+    padding: .85rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.peer-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.peer-table tbody tr.peer-row:hover {
+    background-color: #fafbfc;
+}
+
+.peer-name-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.peer-name-cell .peer-ip {
+    font-size: .75rem;
+    margin-top: 2px;
+}
+
+.online-text {
+    font-size: .82rem;
+    margin-left: 4px;
+}
+
+.badge-active, .badge-inactive {
+    display: inline-block;
+    margin-top: 4px;
+    padding: .15rem .5rem;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 600;
+}
+
+.badge-active {
+    background-color: #e6f7ec;
+    color: #28a745;
+}
+
+.badge-inactive {
+    background-color: #fdecec;
+    color: #dc3545;
+}
+
+.traffic-cell {
+    min-width: 200px;
+}
+
+.traffic-numbers {
+    display: flex;
+    gap: 12px;
+    font-size: .78rem;
+    margin-bottom: 4px;
+}
+
+.traffic-progress {
+    width: 100%;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #eee;
+    overflow: hidden;
+}
+
+.traffic-progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width .3s ease-in-out;
+}
+
+.traffic-total {
+    font-size: .72rem;
+    margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+    .peer-table-wrapper {
+        margin-bottom: 6rem;
+    }
+}
