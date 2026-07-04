@@ -728,8 +728,8 @@ button.close span {
     border-left: none;
 }
 .conf-stat-item h6 {
-    margin: .25rem 0 0 0 !important;
-    font-size: .95rem;
+    margin: .8rem 0 0 0 !important;
+    font-size: 1rem;
 }
 .conf-stat-item-key {
     flex: 2 1 0;
