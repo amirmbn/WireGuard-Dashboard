@@ -1934,7 +1934,7 @@ def init_dashboard():
     if 'version' not in config['Server'] or config['Server']['version'] != DASHBOARD_VERSION:
         config['Server']['version'] = DASHBOARD_VERSION
     if 'dashboard_refresh_interval' not in config['Server']:
-        config['Server']['dashboard_refresh_interval'] = '60000'
+        config['Server']['dashboard_refresh_interval'] = '10000'
     if 'dashboard_sort' not in config['Server']:
         config['Server']['dashboard_sort'] = 'status'
     # Default dashboard peers setting
@@ -1949,9 +1949,9 @@ def init_dashboard():
     if 'remote_endpoint' not in config['Peers']:
         config['Peers']['remote_endpoint'] = ifcfg.default_interface()['inet']
     if 'peer_MTU' not in config['Peers']:
-        config['Peers']['peer_MTU'] = "1420"
+        config['Peers']['peer_MTU'] = "1280"
     if 'peer_keep_alive' not in config['Peers']:
-        config['Peers']['peer_keep_alive'] = "21"
+        config['Peers']['peer_keep_alive'] = "25"
     set_dashboard_conf(config)
     config.clear()
 
