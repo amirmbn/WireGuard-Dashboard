@@ -30,43 +30,30 @@
                             <hr>
                             <br style="clear: both;">
                             <div class="container mb-5">
-                                <div class="row" style="text-align: right;">
-                                    <div class="col-sm-6 mt-2">
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>وضعیت :</strong></small>
-                                            <h6 style="text-transform: uppercase; direction: ltr;" id="conf_status" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>کل مقدار دیتای مصرفی :</strong></small>
-                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_usage" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>مقدار دریافت شده :</strong></small>
-                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_received" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>مقدار ارسال شده :</strong></small>
-                                            <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_sent" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
-                                        </div>
+                                <div class="row conf-stats-row text-center" style="text-align: right;">
+                                    <div class="conf-stat-item">
+                                        <small class="text-muted d-block"><strong>وضعیت</strong></small>
+                                        <h6 style="text-transform: uppercase; direction: ltr;" id="conf_status" class="info_loading d-inline-block my-2 text-dark"></h6>
                                     </div>
-                                    <div class="col-sm-6 mt-2">
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>کاربران متصل :</strong></small>
-                                            <h6 style="text-transform: uppercase;" id="conf_connected_peers" class="info_loading d-inline-block ms-2 my-3 text-dark"></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>پورت وایرگارد :</strong></small>
-                                            <h6 style="text-transform: uppercase;" class="info_loading d-inline-block ms-2 my-3 text-dark"><samp id="conf_listen_port"></samp></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>آدرس :</strong></small>
-                                            <h6 style="text-transform: uppercase;" class="info_loading d-inline-block ms-2 my-3 text-dark"><samp id="conf_address"></samp></h6>
-                                        </div>
-                                        <div class="col-lg border-gray border-bottom">
-                                            <small class="text-muted"><strong>کلید عمومی :</strong></small>
-                                            <h6 class="info_loading d-inline-block ms-2 my-3 text-dark"><samp class="key public_key_mobile" id="conf_public_key"></samp></h6>
-                                        </div>
+                                    <div class="conf-stat-item">
+                                        <small class="text-muted d-block"><strong>کاربران متصل</strong></small>
+                                        <h6 style="text-transform: uppercase;" id="conf_connected_peers" class="info_loading d-inline-block my-2 text-dark"></h6>
                                     </div>
+                                    <div class="conf-stat-item">
+                                        <small class="text-muted d-block"><strong>کل مقدار دیتای مصرفی</strong></small>
+                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_usage" class="info_loading d-inline-block my-2 text-dark"></h6>
+                                    </div>
+                                    <div class="conf-stat-item">
+                                        <small class="text-muted d-block"><strong>مقدار دریافت شده</strong></small>
+                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_received" class="info_loading d-inline-block my-2 text-dark"></h6>
+                                    </div>
+                                    <div class="conf-stat-item">
+                                        <small class="text-muted d-block"><strong>مقدار ارسال شده</strong></small>
+                                        <h6 style="text-transform: uppercase; direction: ltr" id="conf_total_data_sent" class="info_loading d-inline-block my-2 text-dark"></h6>
+                                    </div>
+                                    <samp id="conf_listen_port" style="display:none"></samp>
+                                    <samp id="conf_address" style="display:none"></samp>
+                                    <samp class="key public_key_mobile" id="conf_public_key" style="display:none"></samp>
                                 </div>
                             </div>
                         </div>
