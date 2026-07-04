@@ -79,7 +79,7 @@
         document.querySelector(`button[data-refresh-interval="${response.dashboard_refresh_interval}"]`).classList.add("active");
         document.querySelectorAll(".display-btn-group button").forEach(ele => ele.classList.remove("active"));
         document.querySelector(`button[data-display-mode="${response.peer_display_mode}"]`).classList.add("active");
-        document.querySelector("#conf_status").innerHTML = `${response.status}<span class="dot dot-${response.status}"></span>`;
+        document.querySelector("#conf_status").innerHTML = `<span class="dot dot-${response.status}"></span>${response.status}`;
         document.querySelector("#conf_connected_peers").innerHTML = response.running_peer;
         document.querySelector("#conf_total_data_usage").innerHTML = `${response.total_data_usage[0]} GB`;
         document.querySelector("#conf_total_data_received").innerHTML = `${response.total_data_usage[2]} GB`;
