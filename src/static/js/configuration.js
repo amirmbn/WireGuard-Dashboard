@@ -1,16 +1,5 @@
-/**
- * configuration.js - Copyright(C) 2021 Donald Zou
- * Under Apache-2.0 License
- * some minor parts are edited by azumi. please forgive me if it is not good
- */
-
 (function () {
-    /* global peers */
-    /* global conf_name */
-
-    /**
-     * Definitions
-     */
+        
     let configuration_interval;
     let configuration_timeout = 0;
     let $progress_bar = $(".progress-bar");
@@ -27,12 +16,7 @@
     $("[data-toggle='tooltip']").tooltip();
     $("[data-toggle='popover']").popover();
 
-
-    /**
-     * To show alert on the configuration page
-     * @param response
-     */
-    function configurationAlert(response) {
+        function configurationAlert(response) {
         if (response.listen_port === "" && response.status === "stopped") {
             let configAlert = document.createElement("div");
             configAlert.classList.add("alert");
@@ -51,11 +35,7 @@
         }
     }
 
-    /**
-     * Parse all responded information onto the configuration header
-     * @param response
-     */
-    function configurationHeader(response) {
+        function configurationHeader(response) {
         let $conf_status_btn = document.getElementById("conf_status_btn");
         if (response.checked === "checked") {
             $conf_status_btn.innerHTML = `<a href="#" id="${response.name}" ${response.checked} class="switch">
@@ -79,7 +59,7 @@
         document.querySelector(`button[data-refresh-interval="${response.dashboard_refresh_interval}"]`).classList.add("active");
         document.querySelectorAll(".display-btn-group button").forEach(ele => ele.classList.remove("active"));
         document.querySelector(`button[data-display-mode="${response.peer_display_mode}"]`).classList.add("active");
-        document.querySelector("#conf_status").innerHTML = `${response.status}<span class="dot dot-${response.status}"></span>`;
+        document.querySelector("#conf_status").innerHTML = `<span class="dot dot-${response.status}"></span>${response.status}`;
         document.querySelector("#conf_connected_peers").innerHTML = response.running_peer;
         document.querySelector("#conf_total_data_usage").innerHTML = `${response.total_data_usage[0]} GB`;
         document.querySelector("#conf_total_data_received").innerHTML = `${response.total_data_usage[2]} GB`;
@@ -90,11 +70,7 @@
         document.querySelectorAll(".info h6").forEach(ele => ele.classList.remove("info_loading"));
     }
 
-    /**
-     * Parse all responded information onto the peers list
-     * @param response
-     */
-    function configurationPeers(response) {
+        function configurationPeers(response) {
         let result = "";
         if (response.peer_data.length === 0) {
             document.querySelector(".peer_list").innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 1.5rem 0"><h3 class="text-muted" style="margin:0">هیچ کاربری وجود ندارد</h3></td></tr>`;
@@ -180,10 +156,7 @@
         }
     }
 
-    /**
-     * Handle when adding peers by bulk
-     */
- function addPeersByBulk() {
+     function addPeersByBulk() {
     const $new_add_amount = $("#new_add_amount");
     const $add_peer = document.getElementById("add_peer");
     $add_peer.setAttribute("disabled", "disabled");
@@ -249,12 +222,7 @@
     }
 }
 
-    /**
-     * Delete one peer or by bulk
-     * @param config
-     * @param peer_ids
-     */
-    function deletePeers(config, peer_ids) {
+        function deletePeers(config, peer_ids) {
         $.ajax({
             method: "POST",
             url: "/remove_peer/" + config,
@@ -294,10 +262,7 @@
         });
     }
 
-    /**
-     * Handle when the server is not responding
-     */
-    function noResponding() {
+        function noResponding() {
         document.querySelectorAll(".no-response").forEach(ele => ele.classList.add("active"));
         setTimeout(function () {
             document.querySelectorAll(".no-response").forEach(ele => ele.classList.add("show"));
@@ -306,10 +271,7 @@
         }, 10);
     }
 
-    /**
-     * Remove no responding
-     */
-    function removeNoResponding() {
+        function removeNoResponding() {
         document.querySelectorAll(".no-response").forEach(ele => ele.classList.remove("show"));
         document.querySelector("#right_body").classList.remove("no-responding");
         document.querySelector(".navbar").classList.remove("no-responding");
@@ -318,26 +280,17 @@
         }, 1010);
     }
 
-    /**
-     * Set configuration refresh Interval
-     */
-    function setConfigurationInterval() {
+        function setConfigurationInterval() {
         configuration_interval = setInterval(function () {
             loadPeers($('#search_peer_textbox').val());
         }, configuration_timeout);
     }
 
-    /**
-     * Remove configuration refresh interval
-     */
-    function removeConfigurationInterval() {
+        function removeConfigurationInterval() {
         clearInterval(configuration_interval);
     }
 
-    /**
-     * Start Progress Bar
-     */
-    function startProgressBar() {
+        function startProgressBar() {
         $progress_bar.css("width", "0%")
             .css("opacity", "100")
             .css("background", "rgb(255,69,69)")
@@ -349,39 +302,23 @@
         }, 300);
     }
 
-    /**
-     * Still Loading Progress Bar
-     */
-    function stillLoadingProgressBar() {
+        function stillLoadingProgressBar() {
         $progress_bar.css("transition", "3s ease-in-out").css("width", "75%");
     }
 
-    /**
-     * End Progress Bar
-     */
-    function endProgressBar() {
+        function endProgressBar() {
         $progress_bar.css("transition", "0.3s ease-in-out").css("width", "100%");
         setTimeout(function () {
             $progress_bar.css("opacity", "0");
         }, 250);
     }
 
-    /**
-     * Round Transfer number into 4 digits
-     * @param value
-     * @param digits
-     * @returns {number}
-     */
-    function roundN(value, digits) {
+        function roundN(value, digits) {
         let tenToN = 10 ** digits;
         return (Math.round(value * tenToN)) / tenToN;
     }
 
-    /**
-     * Load Peers from server to configuration page
-     * @param searchString
-     */
-    let d1 = new Date();
+        let d1 = new Date();
     let time = 0;
     let count = 0;
 
@@ -413,10 +350,7 @@
         });
     }
 
-    /**
-     * Generate Private and Public key for a new peer
-     */
-    function generate_key() {
+        function generate_key() {
         let keys = window.wireguard.generateKeypair();
         document.querySelector("#private_key").value = keys.privateKey;
         document.querySelector("#public_key").value = keys.publicKey;
@@ -425,21 +359,12 @@
         document.querySelector("#enable_preshare_key").value = keys.presharedKey;
     }
 
-    /**
-     * Show toast
-     * @param msg
-     */
-    function showToast(msg) {
+        function showToast(msg) {
         $('#alertToast').toast('show');
         $('#alertToast .toast-body').html(msg);
     }
 
-    /**
-     * Update peer's refresh interval
-     * @param res
-     * @param interval
-     */
-    function updateRefreshInterval(res, interval) {
+        function updateRefreshInterval(res, interval) {
         if (res === "true") {
             configuration_timeout = interval;
             removeConfigurationInterval();
@@ -452,12 +377,7 @@
         }
     }
 
-    /**
-     * Clean IP
-     * @param val
-     * @returns {string}
-     */
-    function cleanIp(val) {
+        function cleanIp(val) {
         let clean_ip = val.split(',');
         for (let i = 0; i < clean_ip.length; i++) {
             clean_ip[i] = clean_ip[i].trim(' ');
@@ -465,11 +385,7 @@
         return clean_ip.filter(Boolean).join(",");
     }
 
-    /**
-     * Trigger IP badge and item
-     * @param ip
-     */
-    function trigger_ip(ip) {
+        function trigger_ip(ip) {
         let $ip_ele = document.querySelector(`.available-ip-item[data-ip='${ip}']`);
         if ($ip_ele) {
             if ($ip_ele.classList.contains("active")) {
@@ -482,11 +398,7 @@
         }
     }
 
-    /**
-     * Download single configuration file
-     * @param conf
-     */
-    function download_one_config(conf) {
+        function download_one_config(conf) {
         let link = document.createElement('a');
         link.download = conf.filename;
         let blob = new Blob([conf.content], {type: 'text/conf'});
@@ -494,11 +406,7 @@
         link.click();
     }
 
-    /**
-     * Toggle delete by bulk IP
-     * @param element
-     */
-    function toggleBulkIP(element) {
+        function toggleBulkIP(element) {
         let $selected_peer_list = $("#selected_peer_list");
         let id = element.data("id");
         let name = element.data("name") === "" ? "Untitled Peer" : element.data("name");
@@ -511,11 +419,7 @@
         }
     }
 
-    /**
-     * Copy public keys to clipboard
-     * @param element
-     */
-    function copyToClipboard(element) {
+        function copyToClipboard(element) {
         let $temp = $("<input>");
         $body.append($temp);
         $temp.val($(element).text()).trigger("select");
@@ -523,10 +427,7 @@
         $temp.remove();
     }
 
-    /**
-     * Get all available IP for this configuration
-     */
-function getAvailableIps() {
+    function getAvailableIps() {
   $.ajax({
     url: `/available_ips/${$add_peer.getAttribute("conf_id")}`,
     method: "GET",
@@ -566,7 +467,6 @@ function getAvailableIps() {
         settingModal: () => {
             return settingModal;
         },
-
         loadPeers: (searchString) => {
             loadPeers(searchString);
         },
@@ -576,8 +476,6 @@ function getAvailableIps() {
         deletePeers: (config, peers_ids) => {
             deletePeers(config, peers_ids);
         },
-
-
         getAvailableIps: () => {
             getAvailableIps();
         },
@@ -621,22 +519,10 @@ let $body = $("body");
 let available_ips = [];
 let $add_peer = document.getElementById("save_peer");
 
-/**
- * ==========
- * Add peers
- * ==========
- */
-
-/**
- * Toggle add peers modal when add button clicked
- */
 document.querySelector(".add_btn").addEventListener("click", () => {
     window.configurations.addModal().toggle();
 });
 
-/**
- * When configuration switch got click
- */
 document.querySelector(".info").addEventListener("click", (event) => {
     let selector = document.querySelector(".switch");
     if (selector.contains(event.target)) {
@@ -646,9 +532,6 @@ document.querySelector(".info").addEventListener("click", (event) => {
     }
 });
 
-/**
- * Generate Public key when private got change
- */
 document.querySelector("#private_key").addEventListener("change", (event) => {
     let publicKey = document.querySelector("#public_key");
     if (event.target.value.length === 44) {
@@ -660,9 +543,6 @@ document.querySelector("#private_key").addEventListener("change", (event) => {
     }
 });
 
-/**
- * Handle when add modal is show and hide
- */
 $('#add_modal').on('show.bs.modal', function () {
     window.configurations.generateKeyPair();
     window.configurations.getAvailableIps();
@@ -670,18 +550,12 @@ $('#add_modal').on('show.bs.modal', function () {
     $("#allowed_ips_indicator").html('');
 });
 
-/**
- * Handle when user clicked the regenerate button
- */
 $("#re_generate_key").on("click", function () {
     $("#public_key").attr("disabled", "disabled");
     $("#re_generate_key i").addClass("rotating");
     window.configurations.generateKeyPair();
 });
 
-/**
- * Handle when user is editing in allowed ips textbox
- */
 $("#allowed_ips").on("keyup", function () {
     let s = window.configurations.cleanIp($(this).val());
     s = s.split(",");
@@ -694,16 +568,10 @@ $("#allowed_ips").on("keyup", function () {
     }
 });
 
-/**
- * Change peer name when user typing in peer name textbox
- */
 $("#peer_name_textbox").on("keyup", function () {
     $(".peer_name").html($(this).val());
 });
 
-/**
- * When Add Peer button got clicked
- */
 $add_peer.addEventListener("click", function () {
     let $bulk_add = $("#bulk_add");
     if ($bulk_add.prop("checked")) {
@@ -776,14 +644,9 @@ $add_peer.addEventListener("click", function () {
     }
 });
 
-/**
- *  Handle when user is typing the amount of peers they want to add, and will check if the amount is less than 1 or
- *  is larger than the amount of available ips
- */
 $("#new_add_amount").on("keyup", function () {
     let $bulk_amount_validation = $("#bulk_amount_validation");
-    // $(this).removeClass("is-valid").addClass("is-invalid");
-    if ($(this).val().length > 0) {
+        if ($(this).val().length > 0) {
         if (isNaN($(this).val())) {
             $(this).removeClass("is-valid").addClass("is-invalid");
             $bulk_amount_validation.html("Please enter a valid integer");
@@ -801,9 +664,6 @@ $("#new_add_amount").on("keyup", function () {
     }
 });
 
-/**
- * Handle when user toggled add peers by bulk
- */
 $("#bulk_add").on("change", function () {
     let hide = $(".non-bulk").find("input");
     let amount = $("#new_add_amount");
@@ -822,16 +682,6 @@ $("#bulk_add").on("change", function () {
     }
 });
 
-
-/**
- * =======================
- * Available IP Related
- * =======================
- */
-
-/**
- * Handle when available ip modal show and hide
- */
 $("#available_ip_modal").on("show.bs.modal", () => {
     document.querySelector('#add_modal').classList.add("ip_modal_open");
 }).on("hidden.bs.modal", () => {
@@ -844,24 +694,15 @@ $("#available_ip_modal").on("show.bs.modal", () => {
     ips.forEach((ele) => window.configurations.triggerIp(ele));
 });
 
-/**
- * When IP Badge got click
- */
 $body.on("click", ".available-ip-badge", function () {
     $(".available-ip-item[data-ip='" + $(this).data("ip") + "']").removeClass("active");
     $(this).remove();
 });
 
-/**
- * When available ip item got click
- */
 $body.on("click", ".available-ip-item", function () {
     window.configurations.triggerIp($(this).data("ip"));
 });
 
-/**
- * When search IP button got clicked
- */
 $("#search_available_ip").on("click", function () {
     window.configurations.ipModal().toggle();
     let $allowed_ips = document.querySelector("#allowed_ips");
@@ -874,9 +715,6 @@ $("#search_available_ip").on("click", function () {
     }
 }).tooltip();
 
-/**
- * When confirm IP is clicked
- */
 $("#confirm_ip").on("click", () => {
     window.configurations.ipModal().toggle();
     let ips = [];
@@ -888,15 +726,6 @@ $("#confirm_ip").on("click", () => {
     ips.forEach((ele) => window.configurations.triggerIp(ele));
 });
 
-/**
- * =======
- * QR Code
- * =======
- */
-
-/**
- * When the QR-code button got clicked on each peer
- */
 $body.on("click", ".btn-qrcode-peer", function () {
     let src = $(this).data('imgsrc');
     $.ajax({
@@ -908,24 +737,12 @@ $body.on("click", ".btn-qrcode-peer", function () {
     });
 });
 
-/**
- * ===========
- * Delete Peer
- * ===========
- */
-
-/**
- * When the delete button got clicked on each peer
- */
 $body.on("click", ".btn-delete-peer", function () {
     let peer_id = $(this).attr("id");
     $("#delete_peer").attr("peer_id", peer_id);
     window.configurations.deleteModal().toggle();
 });
 
-/**
- * When the confirm delete button clicked
- */
 $("#delete_peer").on("click", function () {
     $(this).attr("disabled", "disabled");
     $(this).html("Deleting...");
@@ -935,15 +752,6 @@ $("#delete_peer").on("click", function () {
     window.configurations.deletePeers(config, peer_ids);
 });
 
-/**
- * =============
- * Peer Settings
- * =============
- */
-
-/**
- * Handle when setting button got clicked for each peer
- */
 $body.on("click", ".btn-setting-peer", function () {
   window.configurations.startProgressBar();
   let peer_id = $(this).attr("id");
@@ -994,16 +802,10 @@ $body.on("click", ".btn-setting-peer", function () {
   }
 });
 
-/**
- * Handle when setting modal is closing
- */
 $('#setting_modal').on('hidden.bs.modal', function () {
     $("#setting_peer_alert").addClass("d-none");
 });
 
-/**
- * Handle when private key text box in setting modal got changed
- */
 $("#peer_private_key_textbox").on("change", function () {
     let $save_peer_setting = $("#save_peer_setting");
     if ($(this).val().length > 0) {
@@ -1025,9 +827,6 @@ $("#peer_private_key_textbox").on("change", function () {
     }
 });
 
-/**
- * When save peer setting button got clicked
- */
 $("#save_peer_setting").on("click", function () {
     $(this).attr("disabled", "disabled");
     $(this).html("Saving...");
@@ -1086,9 +885,6 @@ $("#save_peer_setting").on("click", function () {
     }
 });
 
-/**
- * Toggle show or hide for the private key textbox in the setting modal
- */
 $(".peer_private_key_textbox_switch").on("click", function () {
     let $peer_private_key_textbox = $("#peer_private_key_textbox");
     let mode = (($peer_private_key_textbox.attr('type') === 'password') ? "text" : "password");
@@ -1097,18 +893,7 @@ $(".peer_private_key_textbox_switch").on("click", function () {
     $(".peer_private_key_textbox_switch i").removeClass().addClass(icon);
 });
 
-/**
- * ===========
- * Search Peer
- * ===========
- */
-
-let typingTimer;  // Timeout object
-let doneTypingInterval = 200; // Timeout interval
-
-/**
- * Handle when the user keyup and keydown on the search textbox
- */
+let typingTimer;  let doneTypingInterval = 200; 
 $('#search_peer_textbox').on('keyup', function () {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
@@ -1118,13 +903,6 @@ $('#search_peer_textbox').on('keyup', function () {
     clearTimeout(typingTimer);
 });
 
-/**
- * Manage Peers
- */
-
-/**
- * Handle when sort peers changed
- */
 $body.on("change", "#sort_by_dropdown", function () {
     $.ajax({
         method: "POST",
@@ -1137,9 +915,6 @@ $body.on("change", "#sort_by_dropdown", function () {
     });
 });
 
-/**
- * Handle copy public key
- */
 $body.on("mouseenter", ".key", function () {
     let label = $(this).parent().siblings().children()[1];
     label.style.opacity = "100";
@@ -1155,9 +930,6 @@ $body.on("mouseenter", ".key", function () {
     label.innerHTML = "کپی شد!";
 });
 
-/**
- * Handle when interval button got clicked
- */
 $body.on("click", ".update_interval", function () {
     $(".interval-btn-group button").removeClass("active");
     let _new = $(this);
@@ -1173,16 +945,10 @@ $body.on("click", ".update_interval", function () {
     });
 });
 
-/**
- * Handle when refresh button got clicked
- */
 $body.on("click", ".refresh", function () {
     window.configurations.loadPeers($('#search_peer_textbox').val());
 });
 
-/**
- * Handle when display mode button got clicked
- */
 $body.on("click", ".display_mode", function () {
     $(".display-btn-group button").removeClass("active");
     $(this).addClass("active");
@@ -1208,19 +974,10 @@ $body.on("click", ".display_mode", function () {
     });
 });
 
-
-/**
- * =================
- * Configuration Menu
- * =================
- */
 let $setting_btn_menu = $(".setting_btn_menu");
 $setting_btn_menu.css("top", ($setting_btn_menu.height() + 54) * (-1));
 let $setting_btn = $(".setting_btn");
 
-/**
- * When the menu button got clicked
- */
 $setting_btn.on("click", function () {
     if ($setting_btn_menu.hasClass("show")) {
         $setting_btn_menu.removeClass("showing");
@@ -1235,9 +992,6 @@ $setting_btn.on("click", function () {
     }
 });
 
-/**
- * Whenever the user clicked, if it is outside the menu and the menu is opened, hide the menu
- */
 $("html").on("click", function (r) {
     if (document.querySelector(".setting_btn") !== r.target) {
         if (!document.querySelector(".setting_btn").contains(r.target)) {
@@ -1251,16 +1005,6 @@ $("html").on("click", function (r) {
     }
 });
 
-
-/**
- * ====================
- * Delete Peers by Bulk
- * ====================
- */
-
-/**
- * When delete peers by bulk clicked
- */
 $("#delete_peers_by_bulk_btn").on("click", () => {
     let $delete_bulk_modal_list = $("#delete_bulk_modal .list-group");
     $delete_bulk_modal_list.html('');
@@ -1277,9 +1021,6 @@ $("#delete_peers_by_bulk_btn").on("click", () => {
     window.configurations.deleteBulkModal().toggle();
 });
 
-/**
- * When the item or tag of delete peers by bulk got clicked
- */
 $body.on("click", ".delete-bulk-peer-item", function () {
     window.configurations.toggleDeleteByBulkIP($(this));
 }).on("click", ".delete-peer-bulk-badge", function () {
@@ -1288,10 +1029,6 @@ $body.on("click", ".delete-bulk-peer-item", function () {
 
 let $selected_peer_list = document.getElementById("selected_peer_list");
 
-/**
- * The change observer to observe when user choose 1 or more peers to delete
- * @type {MutationObserver}
- */
 let changeObserver = new MutationObserver(function () {
     if ($selected_peer_list.hasChildNodes()) {
         $("#confirm_delete_bulk_peers").removeAttr("disabled");
@@ -1307,9 +1044,6 @@ changeObserver.observe($selected_peer_list, {
 
 let confirm_delete_bulk_peers_interval;
 
-/**
- * When the user clicked the delete button in the delete peers by bulk
- */
 $("#confirm_delete_bulk_peers").on("click", function () {
     let btn = $(this);
     if (confirm_delete_bulk_peers_interval !== undefined) {
@@ -1335,9 +1069,6 @@ $("#confirm_delete_bulk_peers").on("click", function () {
     }
 });
 
-/**
- * پاک کردن کاربران به انتخاب شما
- */
 $("#select_all_delete_bulk_peers").on("click", function () {
     $(".delete-bulk-peer-item").each(function () {
         if (!$(this).hasClass("active")) {
@@ -1346,9 +1077,6 @@ $("#select_all_delete_bulk_peers").on("click", function () {
     });
 });
 
-/**
- * When delete peers by bulk window is hidden
- */
 $(window.configurations.deleteBulkModal()._element).on("hidden.bs.modal", function () {
     $(".delete-bulk-peer-item").each(function () {
         if ($(this).hasClass("active")) {
@@ -1357,15 +1085,6 @@ $(window.configurations.deleteBulkModal()._element).on("hidden.bs.modal", functi
     });
 });
 
-/**
- * ==============
- * Download Peers
- * ==============
- */
-
-/**
- * When the download peers button got clicked
- */
 $body.on("click", ".btn-download-peer", function (e) {
     e.preventDefault();
     let link = $(this).attr("href");
@@ -1378,9 +1097,6 @@ $body.on("click", ".btn-download-peer", function (e) {
     });
 });
 
-/**
- * When the download all peers got clicked
- */
 $("#download_all_peers").on("click", function () {
     $.ajax({
         "url": $(this).data("url"),
