@@ -706,21 +706,20 @@ button.close span {
     }
 }
 .conf-stats-row {
-    display: flex;
+	display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 1rem .5rem;
     background-color: #fff;
     margin: 0 auto;
 }
 .conf-stat-item {
-    flex: 1 1 0;
-    min-width: 110px;
+	flex: 1 1 0;
     text-align: center;
-    border-left: 1px solid #eee;
+    box-shadow: 0 0 16px 6px #f0f0f0;
+    margin: 0 10px;
+    padding: 20px 0;
+    border-radius: 10px;
 }
 .conf-stat-item:last-child {
     border-left: none;
