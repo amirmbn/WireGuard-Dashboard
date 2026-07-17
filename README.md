@@ -279,7 +279,7 @@ Thank you for your support!
 ##
 ## Preview
 
-![Login](./images/3.0.7/login.png)
-![Dashboard](./images/3.0.7/dashboard.png)
-![Configuration](./images/v3.0.8/configuration.webp)
-![Setting](./images/v3.0.8/setting.webp)
+![Login](https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/images/3.0.7/login.png)
+![Dashboard](https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/images/3.0.7/dashboard.png)
+![Configuration](https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/images/v3.0.8/configuration.webp)
+![Setting](https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/images/v3.0.8/setting.webp)
