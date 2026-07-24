@@ -68,6 +68,10 @@ sudo chmod -R 755 /etc/wireguard
 
 ./wgd.sh start
 
+if command -v ufw >/dev/null 2>&1 && ufw status | grep -q "Status: active"; then
+    ufw allow "$APP_PORT"/tcp
+fi
+
 (crontab -l 2>/dev/null; echo "@reboot cd /root/src && ./wgd.sh restart") | crontab -
 
 SERVER_IPV4=$(curl -s -4 icanhazip.com)
