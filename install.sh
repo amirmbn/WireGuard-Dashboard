@@ -39,17 +39,16 @@ SaveConfig = true
 EOL
 
 apt update
-apt install git -y
-git clone https://github.com/amirmbn/WireGuard-Dashboard.git
-cd WireGuard-Dashboard
-mv src /root/
-cd
-rm -rf WireGuard-Dashboard
+apt install unzip -y
+curl -L -o /root/wd-source.zip https://github.com/amirmbn/WireGuard-Dashboard/releases/latest/download/wd-source.zip
+mkdir -p /root/src
+unzip -q /root/wd-source.zip -d /root/src
+rm -f /root/wd-source.zip
 
 apt-get -y install python3-pip python3-venv
 apt install gunicorn -y
 
-cd src
+cd /root/src
 sudo chmod u+x wgd.sh
 python3 -m venv venv
 source venv/bin/activate
