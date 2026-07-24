@@ -1,0 +1,81 @@
+<html lang="fa" dir="rtl">
+    {% with title="ورود به پنل"%}
+    {% include "header.html"%}
+    {% endwith %}
+    <style>
+        body{
+            background: radial-gradient(circle, rgba(30, 47, 97, 0.9) 20%, rgba(14, 5, 48, 0.9) 100%) !important;
+        }
+    </style>
+    <body>
+        <div class="container-fluid login-container-fluid">
+            <main role="main" class="container login-container">
+                <div class="login-box">
+                    <img src="../static/img/user.png" class="login-logo">
+                    <form class="internal-box" action="/auth" method="post">
+                        {% if message != "" %}
+                        <div class="alert alert-warning text-center" role="alert">لطفا ابتدا وارد شوید.</div>
+                        {% endif %}
+                        <div class="alert alert-danger d-none" role="alert"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control mb-2" id="username" name="username" placeholder="username" dir="ltr">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control mb-2" id="password" name="password" placeholder="password" dir="ltr">
+                        </div>
+                    <button type="submit" class="login-btn">ورود</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+        <small class="dashboard-version">Version: {{ version }}</small>
+    </body>
+{% include "footer.html" %}
+<script>
+    let loginButton = $('button[type="submit"]');
+    loginButton.on("click", function(e){
+        e.preventDefault();
+        let $password = $("#password");
+        let $username = $("#username");
+        let req = [$password, $username];
+        let check = true
+        for (let i = 0; i < req.length; i++){
+            if ($(req[i]).val().length === 0){
+                loginButton.html("ورود");
+                check = false;
+                $(req[i]).addClass("is-invalid");
+                break;
+            }
+        }
+        if (check){
+            $(this).html("در حال ورود...").attr("disabled", "disabled");
+            $.ajax({
+                url: "/auth",
+                method: "POST",
+                headers:{"Content-Type": "application/json"},
+                data: JSON.stringify({
+                    "username": $("#username").val(),
+                    "password": $("#password").val()
+                })
+            }).done(function(res){
+                if (res.status === true){
+                    const urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.get("redirect")){
+                        if (document.URL.substring(0, 5) == "http:"){
+                            window.location.replace(`http://${urlParams.get("redirect")}`)
+                        }else if (document.URL.substring(0, 5) == "https"){
+                            window.location.replace(`https://${urlParams.get("redirect")}`)
+                        }
+                    }else{
+                        window.location.replace("/");
+                    }
+                }else{
+                    $(".alert").html(res.msg).removeClass("d-none").fadeIn();
+                    loginButton.html("ورود").removeAttr("disabled");
+                    $("input[required]").addClass("is-invalid");
+                }
+            });
+        }
+    });
+</script>
+</html>
