@@ -76,6 +76,7 @@ fi
 
 SERVER_IPV4=$(curl -s -4 icanhazip.com)
 echo "Installation Complete."
+echo ""
 echo "---------------------------"
 echo "Wireguard Panel Information"
 echo "---------------------------"
