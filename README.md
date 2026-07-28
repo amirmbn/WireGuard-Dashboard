@@ -32,6 +32,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 - نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
 - درصورت تانل، داخل تنظیمات Peer Remote Endpoint را به IP ایران تغییر دهید
 - برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
+- شما میتونید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید که قابلیت تنظیم MTU و DNS رو هم داره
 </div><br>
 
 --------------
