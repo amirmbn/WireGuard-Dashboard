@@ -45,12 +45,14 @@ mkdir -p /root/src
 unzip -q /root/wd-source.zip -d /root/src
 rm -f /root/wd-source.zip
 
-apt-get -y install python3-pip
+apt-get -y install python3-pip python3-venv
 apt install gunicorn -y
 
 cd /root/src
 sudo chmod u+x wgd.sh
-pip install -r requirements.txt --break-system-packages
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
 cat > wg-dashboard.ini <<EOL
 [Account]
@@ -63,8 +65,6 @@ EOL
 
 sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
-
-pip install --upgrade ifcfg --break-system-packages
 
 ./wgd.sh start
 
