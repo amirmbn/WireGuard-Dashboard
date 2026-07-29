@@ -53,6 +53,7 @@ sudo chmod u+x wgd.sh
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+pip install --upgrade ifcfg
 
 cat > wg-dashboard.ini <<EOL
 [Account]
