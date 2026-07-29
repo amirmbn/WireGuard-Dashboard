@@ -53,7 +53,6 @@ sudo chmod u+x wgd.sh
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pip install --upgrade ifcfg
 
 cat > wg-dashboard.ini <<EOL
 [Account]
@@ -66,6 +65,10 @@ EOL
 
 sudo ./wgd.sh install
 sudo chmod -R 755 /etc/wireguard
+
+source venv/bin/activate
+pip install --upgrade ifcfg
+deactivate
 
 ./wgd.sh start
 
