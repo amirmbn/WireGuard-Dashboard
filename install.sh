@@ -69,7 +69,8 @@ sudo chmod -R 755 /etc/wireguard
 ./wgd.sh start
 
 if command -v ufw >/dev/null 2>&1 && ufw status | grep -q "Status: active"; then
-    ufw allow "$APP_PORT"/tcp
+    ufw allow "$APP_PORT"
+    ufw allow 1080
 fi
 
 (crontab -l 2>/dev/null; echo "@reboot cd /root/src && ./wgd.sh restart") | crontab -
