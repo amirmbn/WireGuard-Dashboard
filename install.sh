@@ -7,6 +7,8 @@ echo
 PASSWORD=${PASSWORD_INPUT:-1234}
 read -p "Enter desired port (default: 1000): " PORT_INPUT
 APP_PORT=${PORT_INPUT:-1000}
+read -p "Enter desired WireGuard interface name (default: int1): " IFACE_INPUT
+INTERFACE_NAME=${IFACE_INPUT:-int1}
 
 apt update -y
 apt install wireguard -y
@@ -16,22 +18,22 @@ echo "$PRIVATE_KEY" | sudo tee /etc/wireguard/server_private.key
 
 DEFAULT_INTERFACE=$(ip route list default | awk '{print $5}' | head -n 1)
 
-CONFIG_FILE="/etc/wireguard/wg0.conf"
+CONFIG_FILE="/etc/wireguard/${INTERFACE_NAME}.conf"
 
 cat > "$CONFIG_FILE" <<EOL
 [Interface]
 Address = 10.20.30.1/24
 PostUp = iptables -I INPUT -p udp --dport 1080 -j ACCEPT
-PostUp = iptables -I FORWARD -i $DEFAULT_INTERFACE -o wg0 -j ACCEPT
-PostUp = iptables -I FORWARD -i wg0 -j ACCEPT
+PostUp = iptables -I FORWARD -i $DEFAULT_INTERFACE -o $INTERFACE_NAME -j ACCEPT
+PostUp = iptables -I FORWARD -i $INTERFACE_NAME -j ACCEPT
 PostUp = iptables -t nat -A POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
-PostUp = ip6tables -I FORWARD -i wg0 -j ACCEPT
+PostUp = ip6tables -I FORWARD -i $INTERFACE_NAME -j ACCEPT
 PostUp = ip6tables -t nat -A POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
 PostDown = iptables -D INPUT -p udp --dport 1080 -j ACCEPT
-PostDown = iptables -D FORWARD -i $DEFAULT_INTERFACE -o wg0 -j ACCEPT
-PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
+PostDown = iptables -D FORWARD -i $DEFAULT_INTERFACE -o $INTERFACE_NAME -j ACCEPT
+PostDown = iptables -D FORWARD -i $INTERFACE_NAME -j ACCEPT
 PostDown = iptables -t nat -D POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
-PostDown = ip6tables -D FORWARD -i wg0 -j ACCEPT
+PostDown = ip6tables -D FORWARD -i $INTERFACE_NAME -j ACCEPT
 PostDown = ip6tables -t nat -D POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
 ListenPort = 1080
 PrivateKey = $PRIVATE_KEY
