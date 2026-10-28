@@ -37,7 +37,6 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 - می‌توانید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید؛ این ابزار امکان تنظیم MTU و DNS را هم دارد.
 </div><br>
 
---------------
 
 ## 💰 Support This Project with Crypto
 [![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
