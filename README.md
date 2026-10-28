@@ -2,7 +2,7 @@
 Latest Version: 3.0.8 (28.10.2026)<br>
 v4.0.0 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀<br><br>
 
-🚀 انتشار نسخه v4.0.0 — یک تحول عظیم در هسته و عملکرد!
+انتشار نسخه 4 — یک تحول عظیم در هسته و عملکرد!
 
 مانیتورینگ WireGuard راحت نیست،
 
