@@ -38,7 +38,7 @@ Enter desired WireGuard interface name (default: int1): backup
 Enter desired WireGuard UDP port (default: 1080): 2010
 ```
 - نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
-- درصورت تانل، داخل تنظیمات پنل بخش "آی‌پی یا دامنه سرور تانل" IP ایران را وارد کنید
+- درصورت تانل، داخل تنظیمات پنل بخش `آی‌پی یا دامنه سرور تانل` IP ایران را وارد کنید
 - برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
 - می‌توانید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید؛ این ابزار امکان تنظیم MTU و DNS را هم دارد.
 </div><br>
