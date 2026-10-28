@@ -29,6 +29,14 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 </div>
 <div align="right">
 
+اگر قصد دارید از یک سرور جدید برای ریستور بک‌آپ استفاده کنید، ابتدا دستور زیر را اجرا کنید. پس از اجرا، هنگام پاسخ به سؤالات، نام اینترفیس و پورت WireGuard را متفاوت از تنظیمات سرور قبلی وارد کنید.
+
+مثلاً در اینجا نام اینترفیس را `backup` و پورت را `2010` وارد کرده‌ایم:
+
+```text
+Enter desired WireGuard interface name (default: int1): backup
+Enter desired WireGuard UDP port (default: 1080): 2010
+```
 - نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
 - درصورت تانل، داخل تنظیمات پنل بخش "آی‌پی یا دامنه سرور تانل" IP ایران را وارد کنید
 - برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
