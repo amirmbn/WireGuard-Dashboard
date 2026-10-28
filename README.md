@@ -2,6 +2,7 @@
 Latest Version: 4.0.0 (28.10.2026)<br>
 v4.0.0 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀
 <br><br>
+
 انتشار نسخه 4 — یک تحول عظیم در هسته و عملکرد!
 
 مانیتورینگ WireGuard راحت نیست،
@@ -11,6 +12,7 @@ v4.0.0 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀
 امکان تهیه نسخه پشتیبان (Backup) و بازگردانی (Restore) به پنل اضافه شد. اکنون می‌توانید تنها با فشردن یک دکمه در بخش تنظیمات پنل، نسخه پشتیبان را دانلود کرده و به‌راحتی آن را روی سرور جدید آپلود و بازیابی کنید.
 
 سیستم عامل های قابل استفاده: اوبونتو 20+ / دبیان 11+
+
 <br><br>
 
 ## Automatic Installation
