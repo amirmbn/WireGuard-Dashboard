@@ -81,7 +81,6 @@ fi
 apt-get update -y
 apt-get install -y wireguard curl tar iptables traceroute iputils-ping openssl ca-certificates
 
-# نصب Node.js 22 LTS در صورت نبودن یا قدیمی بودن (کمتر از 18)
 NODE_OK=0
 if command -v node >/dev/null 2>&1; then
     NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
@@ -92,7 +91,6 @@ if [ "$NODE_OK" -eq 0 ]; then
     apt-get install -y nodejs
 fi
 
-# فعال‌سازی دائمی IPv4 و IPv6 Forwarding
 cat > /etc/sysctl.d/99-wg-panel.conf <<EOL
 net.ipv4.ip_forward=1
 net.ipv6.conf.all.forwarding=1
@@ -136,7 +134,6 @@ EOL
     systemctl enable --now "wg-quick@${INTERFACE_NAME}" || wg-quick up "$INTERFACE_NAME" || true
 fi
 
-# سورس: اگر کنار اسکریپت بود از همان، وگرنه دانلود wd-source.tar.gz از GitHub Releases
 SCRIPT_DIR=$(cd "$(dirname "$0")" 2>/dev/null && pwd || pwd)
 TMP_DIR=$(mktemp -d /tmp/wd-panel.XXXXXX)
 trap 'rm -rf "$TMP_DIR"' EXIT
@@ -163,7 +160,6 @@ fi
 
 mkdir -p "$PANEL_DIR/backend" "$PANEL_DIR/frontend"
 
-# بکاپ دیتابیس و تنظیمات در حالت آپگرید
 if [ "$IS_UPGRADE" -eq 1 ]; then
     systemctl stop wg-panel 2>/dev/null || true
     cp "$PANEL_DIR/backend/panel-config.json" "$TMP_DIR/panel-config.json"
@@ -178,14 +174,12 @@ cp "$SOURCE_DIR/backend/package.json" "$SOURCE_DIR/backend/server.js" "$PANEL_DI
 if [ "$IS_UPGRADE" -eq 1 ]; then
     cp "$TMP_DIR/panel-config.json" "$PANEL_DIR/backend/panel-config.json"
     [ -f "$TMP_DIR/peers-db.json" ] && cp "$TMP_DIR/peers-db.json" "$PANEL_DIR/backend/peers-db.json"
-    # به‌روزرسانی شماره نسخه در کانفیگ
     PANEL_DIR="$PANEL_DIR" VERSION="$VERSION" node -e '
         const fs=require("fs");const p=process.env.PANEL_DIR+"/backend/panel-config.json";
         const c=JSON.parse(fs.readFileSync(p,"utf8"));c.version=process.env.VERSION;
         fs.writeFileSync(p,JSON.stringify(c,null,2));'
 fi
 
-# بیلد فرانت‌اند React (devDependencies لازم است، پس NODE_ENV نباید production باشد)
 echo "Building React frontend (${VERSION})..."
 cd "$PANEL_DIR/frontend"
 if [ -f package-lock.json ]; then npm ci; else npm install; fi
@@ -202,8 +196,6 @@ if [ "$IS_UPGRADE" -eq 0 ]; then
     [ -z "$SERVER_IPV4" ] && SERVER_IPV4=$(hostname -I | awk '{print $1}')
     PASS_HASH=$(printf '%s' "$PASSWORD" | sha256sum | awk '{print $1}')
     JWT_SECRET=$(openssl rand -hex 32)
-
-    # ساخت JSON با node تا کاراکترهای خاص در username/tunnel باعث خراب شدن فایل نشوند
     P_VERSION="$VERSION" P_USER="$USERNAME" P_HASH="$PASS_HASH" P_PORT="$APP_PORT" \
     P_IFACE="$INTERFACE_NAME" P_WGPORT="$WG_PORT" P_IP="$SERVER_IPV4" P_TUNNEL="$TUNNEL_IP" \
     P_JWT="$JWT_SECRET" P_OUT="$PANEL_DIR/backend/panel-config.json" node -e '
