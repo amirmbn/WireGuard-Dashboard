@@ -58,4 +58,3 @@ Enter desired WireGuard UDP port (default: 1080): 2010
 
 - Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
 
-Thank you for your support!
