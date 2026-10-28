@@ -12,7 +12,6 @@ v4.0.0 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀<br
 
 سیستم عامل های قابل استفاده: اوبونتو 20+ / دبیان 11+
 <br>
-<br>
 
 ## Automatic Installation
 
