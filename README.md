@@ -54,4 +54,3 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 - Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
 
 Thank you for your support!
-##
