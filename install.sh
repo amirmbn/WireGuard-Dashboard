@@ -5,6 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 GITHUB_REPO="amirmbn/WireGuard-Dashboard"
 ARCHIVE_NAME="wd-source.tar.gz"
 PANEL_DIR="/opt/wg-panel"
+WG_ADDRESS="10.20.30.1/24"
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "Please run as root."
@@ -147,7 +148,7 @@ if [ "$IS_UPGRADE" -eq 0 ]; then
 
         cat > "$CONFIG_FILE" <<EOL
 [Interface]
-Address = 10.20.30.1/24
+Address = $WG_ADDRESS
 PostUp = iptables -I INPUT -p udp --dport $WG_PORT -j ACCEPT
 PostUp = iptables -I FORWARD -i $DEFAULT_INTERFACE -o $INTERFACE_NAME -j ACCEPT
 PostUp = iptables -I FORWARD -i $INTERFACE_NAME -j ACCEPT
