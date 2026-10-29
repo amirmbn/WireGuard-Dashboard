@@ -52,7 +52,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
  `Enter desired WireGuard interface name (default: int1): backup`<br>
  `Enter desired WireGuard UDP port (default: 1080): 2010`
  
-</div><br>
+</div>
 
 ## 💰 Support This Project with Crypto
 [![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
