@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jalaali from 'jalaali-js';
 
 const GITHUB_URL = 'https://github.com/amirmbn/WireGuard-Dashboard';
-const APP_VERSION = 'v4.0.0';
+const APP_VERSION = 'v4.0.1';
 
 // ============ آیکون‌های برداری سبک (SVG) ============
 const Icons = {
@@ -628,7 +628,7 @@ export default function App() {
             </div>
             <div>
               <div className="flex-center-gap-8">
-                <strong className="brand-title">پنل وایرگارد <span class="header-version">{version}</span></strong>
+                <strong className="brand-title">پنل وایرگارد <span className="header-version">{version}</span></strong>
               </div>
               <div className="text-hint">
                 {panelData.tunnelIp ? (
