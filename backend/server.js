@@ -21,10 +21,11 @@ const peersDbPath = path.join(__dirname, 'peers-db.json');
 const fastify = Fastify({ logger: false, bodyLimit: 10 * 1024 * 1024 });
 
 function loadConfig() {
+  const generatedPassword = crypto.randomBytes(12).toString('base64url');
   const defaults = {
     version: PANEL_VERSION,
     username: 'admin',
-    passwordHash: crypto.createHash('sha256').update('1234').digest('hex'),
+    passwordHash: crypto.createHash('sha256').update(generatedPassword).digest('hex'),
     appPort: 1000,
     interface: 'int1',
     wgPort: 1080,
@@ -37,6 +38,8 @@ function loadConfig() {
   };
   if (!fs.existsSync(configPath)) {
     fs.writeFileSync(configPath, JSON.stringify(defaults, null, 2));
+    console.log(`[WireGuard-Dashboard] Generated initial admin password: ${generatedPassword}`);
+    console.log('[WireGuard-Dashboard] Please log in and change this password immediately.');
     return defaults;
   }
   try {
