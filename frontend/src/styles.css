@@ -3,14 +3,14 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url("/fonts/IRANSansWeb(NoEn).woff2") format("woff2"),url("/fonts/IRANSansWeb(NoEn).woff") format("woff"),url("/fonts/IRANSansWeb(NoEn).ttf") format("truetype")
+    src: url("/fonts/IRANSansWeb(NoEn).woff2") format("woff2"),url("/fonts/IRANSansWeb(NoEn).woff") format("woff")
 }
 @font-face {
     font-family: IRANSansWeb;
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url("/fonts/IRANSansWeb(NoEn)_Bold.woff2") format("woff2"),url("/fonts/IRANSansWeb(NoEn)_Bold.woff") format("woff"),url("/fonts/IRANSansWeb(NoEn)_Bold.ttf") format("truetype")
+    src: url("/fonts/IRANSansWeb(NoEn)_Bold.woff2") format("woff2"),url("/fonts/IRANSansWeb(NoEn)_Bold.woff") format("woff")
 }
 :root {
     --bg-page: #f8fafc;
@@ -20,16 +20,13 @@
     --primary-soft: #eef4ff;
     --accent-red: #ef394e;
     --accent-red-soft: #fff0f2;
-    --success: #16a34a;
     --success-soft: #dcfce7;
     --text-main: #0f172a;
     --text-muted: #64748b;
     --border: #e2e8f0;
     --radius-lg: 16px;
     --radius-md: 12px;
-    --radius-sm: 8px;
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, .04);
-    --shadow-md: 0 10px 30px rgba(15, 23, 42, .06)
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, .04)
 }
 * {
     box-sizing: border-box;
