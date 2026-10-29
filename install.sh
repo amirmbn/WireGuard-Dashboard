@@ -2,16 +2,52 @@
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
-VERSION="v4.0.0"
 GITHUB_REPO="amirmbn/WireGuard-Dashboard"
 ARCHIVE_NAME="wd-source.tar.gz"
-DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${VERSION}/${ARCHIVE_NAME}"
 PANEL_DIR="/opt/wg-panel"
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "Please run as root."
     exit 1
 fi
+
+if ! command -v curl >/dev/null 2>&1; then
+    apt-get update -y
+    apt-get install -y curl ca-certificates
+fi
+
+resolve_latest_version() {
+    local url tag
+    url=$(curl -fsSL --retry 3 --max-time 20 -o /dev/null -w '%{url_effective}' \
+        "https://github.com/${GITHUB_REPO}/releases/latest" 2>/dev/null || true)
+    tag="${url##*/}"
+    if [[ "$tag" =~ ^v?[0-9]+(\.[0-9]+)+([-.][0-9A-Za-z.]+)?$ ]]; then
+        echo "$tag"
+        return 0
+    fi
+    tag=$(curl -fsSL --retry 3 --max-time 20 \
+        "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" 2>/dev/null \
+        | sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1 || true)
+    if [[ "$tag" =~ ^v?[0-9]+(\.[0-9]+)+([-.][0-9A-Za-z.]+)?$ ]]; then
+        echo "$tag"
+        return 0
+    fi
+    return 1
+}
+
+VERSION="${VERSION:-}"
+if [ -z "$VERSION" ]; then
+    VERSION=$(resolve_latest_version) || {
+        echo "Could not determine the latest release of ${GITHUB_REPO}."
+        echo "Check your connection to github.com, or set it manually: VERSION=vX.Y.Z bash install.sh"
+        exit 1
+    }
+fi
+if ! [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]]; then
+    echo "Invalid version: ${VERSION}"
+    exit 1
+fi
+DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${VERSION}/${ARCHIVE_NAME}"
 
 echo "================================================"
 echo "   WireGuard Lightweight Panel Installer ${VERSION} "
