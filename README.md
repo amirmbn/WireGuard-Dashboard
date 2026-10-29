@@ -28,8 +28,22 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 ```
 </div>
 <div align="right">
+ 
+- نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
+- درصورت تانل، داخل تنظیمات پنل بخش `آی‌پی یا دامنه سرور تانل` IP ایران را وارد کنید
+- برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
+- می‌توانید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید؛ این ابزار امکان تنظیم MTU و DNS را هم دارد.
+</div>
 
-⚠️ اگر قصد دارید از یک سرور جدید برای ریستور بک‌آپ استفاده کنید، ابتدا دستور را اجرا کنید،<br>هنگام پاسخ به سؤالات، نام اینترفیس و پورت کانفیگ را متفاوت از تنظیمات سرور قبلی وارد کنید.
+<div align="left">
+
+## Backup and Restore
+ 
+</div>
+
+<div align="right">
+
+اگر قصد دارید از یک سرور جدید برای ریستور بک‌آپ استفاده کنید، ابتدا دستور را اجرا کنید،<br>هنگام پاسخ به سؤالات، نام اینترفیس و پورت کانفیگ را متفاوت از تنظیمات سرور قبلی وارد کنید.
 
 مثلاً در اینجا نام اینترفیس را `backup` و پورت را `2010` وارد کرده‌ایم:
 </div>
@@ -38,15 +52,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
  `Enter desired WireGuard interface name (default: int1): backup`<br>
  `Enter desired WireGuard UDP port (default: 1080): 2010`
  
-</div>
-<div align="right">
- 
-- نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
-- درصورت تانل، داخل تنظیمات پنل بخش `آی‌پی یا دامنه سرور تانل` IP ایران را وارد کنید
-- برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
-- می‌توانید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید؛ این ابزار امکان تنظیم MTU و DNS را هم دارد.
 </div><br>
-
 
 ## 💰 Support This Project with Crypto
 [![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
