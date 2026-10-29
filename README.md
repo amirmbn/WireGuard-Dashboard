@@ -1,6 +1,6 @@
 # WireGuard Dashboard ![GitHub Downloads](https://img.shields.io/github/downloads/amirmbn/WireGuard-Dashboard/total)
-Latest Version: 4.0.0 (28.10.2026)<br>
-v4.0.0 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀
+Latest Version: 4.0.1 (10.29.2026)<br>
+v4 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀
 <br><br>
 
 انتشار نسخه 4 — یک تحول عظیم در هسته و عملکرد!
