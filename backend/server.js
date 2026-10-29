@@ -21,10 +21,9 @@ const peersDbPath = path.join(__dirname, 'peers-db.json');
 const fastify = Fastify({ logger: false, bodyLimit: 10 * 1024 * 1024 });
 
 function loadConfig() {
+
   const defaults = {
     version: PANEL_VERSION,
-    username: 'admin',
-    passwordHash: crypto.createHash('sha256').update('1234').digest('hex'),
     appPort: 1000,
     interface: 'int1',
     wgPort: 1080,
@@ -32,19 +31,26 @@ function loadConfig() {
     tunnelIp: '',
     dns: '1.1.1.1, 8.8.8.8',
     mtu: 1280,
-    keepalive: 25,
-    jwtSecret: crypto.randomBytes(32).toString('hex')
+    keepalive: 25
   };
-  if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, JSON.stringify(defaults, null, 2));
-    return defaults;
-  }
+
+  let raw;
   try {
-    const raw = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    return { ...defaults, ...raw, version: PANEL_VERSION };
-  } catch {
-    return defaults;
+    raw = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  } catch (e) {
+    throw new Error(`panel-config.json is missing or invalid (${e.code || e.message}). Run install.sh first.`);
   }
+
+  if (
+    !raw || typeof raw !== 'object' ||
+    typeof raw.username !== 'string' || !raw.username ||
+    typeof raw.passwordHash !== 'string' || !raw.passwordHash ||
+    typeof raw.jwtSecret !== 'string' || !raw.jwtSecret
+  ) {
+    throw new Error('panel-config.json is missing username/passwordHash/jwtSecret.');
+  }
+
+  return { ...defaults, ...raw, version: PANEL_VERSION };
 }
 
 function saveConfig(cfg) {
@@ -54,8 +60,6 @@ function saveConfig(cfg) {
   fs.renameSync(tmp, configPath);
 }
 
-// ساختار جدید دیتابیس: { interfaces: { int1: { pubKey: peerObj }, int2: { ... } } }
-// همراه با مهاجرت خودکار از ساختار تک‌اینترفیس قبلی
 function loadDb(defaultIface = 'int1') {
   if (!fs.existsSync(peersDbPath)) {
     const init = { interfaces: { [defaultIface]: {} } };
@@ -67,7 +71,7 @@ function loadDb(defaultIface = 'int1') {
     if (parsed && parsed.interfaces && typeof parsed.interfaces === 'object') {
       return parsed;
     }
-    // مهاجرت خودکار دیتابیس نسخه قبلی
+
     const migrated = { interfaces: { [defaultIface]: {} } };
     for (const [k, v] of Object.entries(parsed || {})) {
       if (v && typeof v === 'object' && v.ip) {
@@ -112,7 +116,6 @@ fastify.decorate('authenticate', async function (request, reply) {
   }
 });
 
-// ================= توابع کمکی شبکه و سیستم =================
 function isValidIfaceName(name) {
   return typeof name === 'string' && /^[a-zA-Z0-9_-]{1,15}$/.test(name);
 }
@@ -239,7 +242,6 @@ function getWgKernelPeers(iface) {
   return kernelMap;
 }
 
-// تولید پویا کانفیگ کاربر بر اساس آی‌پی تانل (در صورت وجود) یا آی‌پی سرور + پورت همان اینترفیس
 function buildDynamicClientConfig(iface, peer, cfg, ifaceInfo) {
   let privKey = peer.privateKey || '';
   if (!privKey && peer.clientConfig) {
@@ -258,12 +260,11 @@ function buildDynamicClientConfig(iface, peer, cfg, ifaceInfo) {
   const port = ifaceInfo.listenPort || cfg.wgPort || 1080;
   const rawHost = (cfg.tunnelIp && cfg.tunnelIp.trim()) ? cfg.tunnelIp.trim() : cfg.serverIp;
 
-  // اگر کاربر در فیلد تانل پورت هم وارد کرده بود (مثلاً 1.2.3.4:2090) همان را نگه دار، وگرنه پورت وایرگارد اینترفیس را بگذار
   let endpoint = `${rawHost}:${port}`;
   if (/^[^:]+:\d+$/.test(rawHost)) {
     endpoint = rawHost;
   } else if (rawHost.includes(':') && !rawHost.startsWith('[')) {
-    // IPv6
+
     endpoint = `[${rawHost}]:${port}`;
   }
 
@@ -283,7 +284,6 @@ AllowedIPs = 0.0.0.0/0, ::/0
 PersistentKeepalive = ${keepalive}`;
 }
 
-// خواندن وضعیت منابع سیستم (RAM / CPU / Disk) بدون هیچ پکیج اضافی
 let lastCpuIdle = 0;
 let lastCpuTotal = 0;
 function getSystemStats() {
@@ -339,7 +339,6 @@ function getSystemStats() {
 }
 getSystemStats();
 
-// همگام‌سازی تمام اینترفیس‌ها و اعمال محدودیت حجم و تاریخ انقضا
 function syncAllInterfaces() {
   config = loadConfig();
   const db = loadDb(config.interface);
@@ -356,7 +355,6 @@ function syncAllInterfaces() {
     const kernelPeers = isInterfaceUp(iface) ? getWgKernelPeers(iface) : {};
     let wgChanged = false;
 
-    // وارد کردن پیرهایی که از طریق ترمینال مستقیم در وایرگارد ساخته شده‌اند
     for (const [kPub, kInfo] of Object.entries(kernelPeers)) {
       if (!ifacePeers[kPub]) {
         ifacePeers[kPub] = {
@@ -427,16 +425,17 @@ setInterval(() => {
   try { syncAllInterfaces(); } catch {}
 }, 20000);
 
-// ================= مسیرهای API =================
-
-// وضعیت عمومی پنل (نسخه برای صفحه لاگین)
 fastify.get('/api/meta', async () => {
   return { version: PANEL_VERSION };
 });
 
-// ۱. ورود به پنل
 fastify.post('/api/login', async (request, reply) => {
-  config = loadConfig();
+  try {
+    config = loadConfig();
+  } catch (e) {
+    console.error(e.message);
+    return reply.code(500).send({ error: 'پیکربندی پنل نامعتبر است. لطفاً لاگ سرور را بررسی کنید.' });
+  }
   const { username, password } = request.body || {};
   const hashedInput = crypto.createHash('sha256').update(String(password || '')).digest('hex');
 
@@ -447,7 +446,6 @@ fastify.post('/api/login', async (request, reply) => {
   return reply.code(401).send({ error: 'نام کاربری یا رمز عبور اشتباه است.' });
 });
 
-// ۲. دریافت لیست اینترفیس‌ها، آمار سیستم و کاربران اینترفیس انتخابی
 fastify.get('/api/peers', { onRequest: [fastify.authenticate] }, async (request) => {
   const { db, ifaceList } = syncAllInterfaces();
   const requestedIface = request.query?.iface;
@@ -515,7 +513,6 @@ fastify.get('/api/peers', { onRequest: [fastify.authenticate] }, async (request)
   };
 });
 
-// ۳. ساخت اینترفیس جدید (مثلاً int2, int3 ...)
 fastify.post('/api/interfaces', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   const { name, address, listenPort } = request.body || {};
   const ifaceName = String(name || '').trim();
@@ -588,7 +585,6 @@ SaveConfig = true
       execSync(`wg-quick up ${ifaceName}`);
     }
 
-    // باز کردن خودکار پورت در UFW در صورت فعال بودن فایروال
     try {
       const ufwStatus = execSync('ufw status', { stdio: ['ignore', 'pipe', 'ignore'] }).toString();
       if (ufwStatus.includes('Status: active')) {
@@ -602,7 +598,6 @@ SaveConfig = true
   }
 });
 
-// ۴. حذف اینترفیس
 fastify.delete('/api/interfaces/:name', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   const ifaceName = request.params.name;
   if (!isValidIfaceName(ifaceName)) {
@@ -629,7 +624,6 @@ fastify.delete('/api/interfaces/:name', { onRequest: [fastify.authenticate] }, a
   }
 });
 
-// ۵. کنترل وضعیت اینترفیس (روشن/خاموش/ریستارت)
 fastify.post('/api/interface/action', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   const { action, iface } = request.body || {};
   const targetIface = iface && isValidIfaceName(iface) ? iface : config.interface;
@@ -653,7 +647,6 @@ fastify.post('/api/interface/action', { onRequest: [fastify.authenticate] }, asy
   }
 });
 
-// ۶. افزودن کاربر جدید روی اینترفیس انتخابی
 fastify.post('/api/peers', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   config = loadConfig();
   const { iface, name, quotaGB, expireAt } = request.body || {};
@@ -707,7 +700,6 @@ fastify.post('/api/peers', { onRequest: [fastify.authenticate] }, async (request
   }
 });
 
-// ۷. ویرایش کاربر
 fastify.put('/api/peers', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   config = loadConfig();
   const { iface, publicKey, name, quotaGB, expireAt, toggleEnable, resetTraffic } = request.body || {};
@@ -743,7 +735,6 @@ fastify.put('/api/peers', { onRequest: [fastify.authenticate] }, async (request,
     }
   }
 
-  // اگر کاربر به خاطر اتمام حجم/زمان قبلاً قطع شده بود و اکنون حجم یا زمان تمدید شد، خودکار وصل شود
   const totalUsed = (peer.accumulatedRx || 0) + (peer.accumulatedTx || 0);
   const quotaOk = peer.totalQuotaBytes === 0 || totalUsed < peer.totalQuotaBytes;
   const timeOk = !peer.expireAt || Date.now() < peer.expireAt;
@@ -778,7 +769,6 @@ fastify.put('/api/peers', { onRequest: [fastify.authenticate] }, async (request,
   return { success: true };
 });
 
-// ۸. حذف کاربر
 fastify.delete('/api/peers', { onRequest: [fastify.authenticate] }, async (request) => {
   const { iface, publicKey } = request.body || {};
   const targetIface = iface && isValidIfaceName(iface) ? iface : config.interface;
@@ -795,14 +785,12 @@ fastify.delete('/api/peers', { onRequest: [fastify.authenticate] }, async (reque
   return { success: true };
 });
 
-// ۹. تولید QR Code
 fastify.post('/api/qrcode', { onRequest: [fastify.authenticate] }, async (request) => {
   const { text } = request.body || {};
   const qr = await QRCode.toDataURL(String(text || ''), { margin: 2, width: 260 });
   return { qr };
 });
 
-// ۱۰. ابزارهای شبکه (Ping و Traceroute)
 fastify.post('/api/tools', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   const { tool, target } = request.body || {};
   if (!target || !/^[a-zA-Z0-9.:-]+$/.test(String(target).trim()) || String(target).trim().startsWith('-')) {
@@ -819,7 +807,6 @@ fastify.post('/api/tools', { onRequest: [fastify.authenticate] }, async (request
   });
 });
 
-// ۱۱. ذخیره تنظیمات پنل (شامل آی‌پی تانل، آی‌پی سرور، DNS، MTU و رمز عبور)
 fastify.put('/api/settings', { onRequest: [fastify.authenticate] }, async (request, reply) => {
   config = loadConfig();
   const { username, newPassword, dns, serverIp, tunnelIp, mtu, keepalive } = request.body || {};
@@ -828,7 +815,7 @@ fastify.put('/api/settings', { onRequest: [fastify.authenticate] }, async (reque
   if (dns && dns.trim()) config.dns = dns.trim();
   if (serverIp && serverIp.trim()) config.serverIp = serverIp.trim();
   if (tunnelIp !== undefined) {
-    // حذف احتمالی http:// یا https:// در صورتی که ادمین اشتباهاً با پروتکل وارد کرده باشد
+
     config.tunnelIp = String(tunnelIp).trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
   }
   if (mtu !== undefined && Number(mtu) >= 576 && Number(mtu) <= 9000) {
@@ -848,7 +835,6 @@ fastify.put('/api/settings', { onRequest: [fastify.authenticate] }, async (reque
   return { success: true, tunnelIp: config.tunnelIp, serverIp: config.serverIp };
 });
 
-// ۱۲. دریافت و بازگردانی فایل پشتیبان (Backup / Restore)
 fastify.get('/api/backup', { onRequest: [fastify.authenticate] }, async () => {
   const cfg = loadConfig();
   const db = loadDb(cfg.interface);
