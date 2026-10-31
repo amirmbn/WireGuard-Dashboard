@@ -27,7 +27,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/ma
 
 ### راه‌اندازی تانل
 
-- اگر از تانل استفاده می‌کنید، آدرس IP سرور ایران را در تنظیمات پنل و در بخش **Tunnel Server IP or Domain** وارد کنید.
+- اگر از تانل استفاده می‌کنید، آدرس IP سرور ایران را در تنظیمات پنل و در بخش **آی‌پی یا دامنه سرور تانل** وارد کنید.
 - برای راه‌اندازی تانل بین سرور ایران و خارج می‌توانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید.
 - همچنین می‌توانید از [Natix](https://github.com/amirmbn/Natix) برای تانل فوروارد استفاده کنید. این ابزار از تنظیم MTU و DNS نیز پشتیبانی می‌کند.
 
