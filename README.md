@@ -1,70 +1,55 @@
+<div align="right">
+
+[English](README.md) | [فارسی](README.fa.md)
+
+</div>
+
 # WireGuard Dashboard ![GitHub Downloads](https://img.shields.io/github/downloads/amirmbn/WireGuard-Dashboard/total)
-Latest Version: 4.0.1 (10.29.2026)<br>
-v4 — Major Core Rewrite: Blazing Fast Node.js & React Architecture 🚀
-<br><br>
 
-انتشار نسخه 4 — یک تحول عظیم در هسته و عملکرد!
+**Latest Version:** 4.0.1 (October 29, 2026)  
+**v4 — Major Core Rewrite:** Blazing-fast Node.js & React architecture 🚀
 
-مانیتورینگ WireGuard راحت نیست،
+WireGuard monitoring and management can be challenging. WireGuard Dashboard makes it easier to view and manage your WireGuard configurations from one place.
 
-به همین دلیل من این پلتفرم را برای مشاهده تمام تنظیمات و مدیریت آنها به روشی ساده تر ایجاد کردم
+Version 4 introduces a major core rewrite and adds **Backup & Restore** support. You can download a backup from the dashboard settings, then upload and restore it on a new server.
 
-امکان تهیه نسخه پشتیبان (Backup) و بازگردانی (Restore) به پنل اضافه شد. اکنون می‌توانید تنها با فشردن یک دکمه در بخش تنظیمات پنل، نسخه پشتیبان را دانلود کرده و به‌راحتی آن را روی سرور جدید آپلود و بازیابی کنید.
-
-سیستم عامل های قابل استفاده: اوبونتو 20+ / دبیان 11+
-<br><br>
+**Supported operating systems:** Ubuntu 20+ / Debian 11+
 
 ## Automatic Installation
 
-<div align="right">
+Run the following command on your server:
 
-- دستور زیر را کپی و در سرور مجازی خود Past کنید
-</div>
-
-<div align="left">
- 
-```
+```bash
 bash <(curl -Ls https://raw.githubusercontent.com/amirmbn/WireGuard-Dashboard/main/install.sh)
 ```
-</div>
-<div align="right">
- 
-- نام کاربری، رمز عبور و پورت در ابتدا بعد از اجرا اسکریپت بالا از شما پرسیده میشود.
-- درصورت تانل، داخل تنظیمات پنل بخش **آی‌پی یا دامنه سرور تانل** IP ایران را وارد کنید
-- برای راه اندازی تانل سرور ایران و خارج میتوانید از [UDP2RAW](https://github.com/amirmbn/UDP2RAW) استفاده کنید
-- می‌توانید از تانل فوروارد [Natix](https://github.com/amirmbn/Natix) هم استفاده کنید؛ این ابزار امکان تنظیم MTU و DNS را هم دارد.
-</div>
 
-<div align="left">
+During installation, you will be prompted to set the username, password, and port.
+
+### Tunnel setup
+
+- If you use a tunnel, enter the Iranian server's IP address in the dashboard settings under **Tunnel Server IP or Domain**.
+- To set up a tunnel between an Iranian server and an overseas server, you can use [UDP2RAW](https://github.com/amirmbn/UDP2RAW).
+- You can also use [Natix](https://github.com/amirmbn/Natix) for tunnel forwarding. It also supports MTU and DNS configuration.
 
 ## Backup and Restore
- 
-</div>
 
-<div align="right">
+To restore a backup on a new server, run the installation command first. When prompted, use a different interface name and WireGuard UDP port from those used on the original server.
 
-اگر قصد دارید از یک سرور جدید برای ریستور بک‌آپ استفاده کنید، ابتدا دستور را اجرا کنید،<br>هنگام پاسخ به سؤالات، نام اینترفیس و پورت کانفیگ را متفاوت از تنظیمات سرور قبلی وارد کنید.
+For example, enter `backup` as the interface name and `2010` as the UDP port:
 
-مثلاً در اینجا نام اینترفیس را `backup` و پورت را `2010` وارد کرده‌ایم:
-</div>
-<div align="left">
- 
- `Enter desired WireGuard interface name (default: int1): backup`<br>
- `Enter desired WireGuard UDP port (default: 1080): 2010`
- 
-</div><br>
+```text
+Enter desired WireGuard interface name (default: int1): backup
+Enter desired WireGuard UDP port (default: 1080): 2010
+```
 
 ## 💰 Support This Project with Crypto
+
 [![Donate BTC](https://img.shields.io/badge/Donate-BTC-orange)](https://www.blockchain.com/btc/address/bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au)
 [![Donate ETH](https://img.shields.io/badge/Donate-ETH-purple)](https://etherscan.io/address/0x79Bb867649277272C65ae047083A36ea91DFeE5B)
 [![Donate TRX](https://img.shields.io/badge/Donate-TRX-red)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
 [![Donate USDT](https://img.shields.io/badge/Donate-USDT-green)](https://tronscan.org/#/address/TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6)
 
-- Bitcoin `bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au`
-
-- Ethereum `0x79Bb867649277272C65ae047083A36ea91DFeE5B`
-
-- Tron `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
-
-- Tether (TRC20) `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
-
+- **Bitcoin (BTC):** `bc1qul4v4rudyl7lacekfp8yda5sc5575mh2tzv9au`
+- **Ethereum (ETH):** `0x79Bb867649277272C65ae047083A36ea91DFeE5B`
+- **Tron (TRX):** `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
+- **Tether (USDT — TRC20):** `TVdJjbJLMdSLzEZEsWuCutjo5RimaiATd6`
