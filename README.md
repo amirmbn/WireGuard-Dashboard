@@ -29,7 +29,7 @@ During installation, you will be prompted to set the username, password, and por
 
 - If you use a tunnel, enter the Iranian server's IP address in the dashboard settings under **Tunnel Server IP or Domain**.
 - To set up a tunnel between an Iranian server and an overseas server, you can use [UDP2RAW](https://github.com/amirmbn/UDP2RAW).
-- You can also use [Natix](https://github.com/amirmbn/Natix) for tunnel forwarding. It also supports MTU and DNS configuration.
+- You can also use [Natix](https://github.com/amirmbn/Natix) Premium tunnel.
 
 ## Backup and Restore
 
